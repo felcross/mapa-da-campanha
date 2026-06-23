@@ -1,0 +1,318 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap");
+
+:root {
+  --ink: #1c140b;
+  --leather: #3a2a18;
+  --leather-light: #5a4128;
+  --parchment: #e8dcc0;
+  --parchment-dim: #d8c9a3;
+  --gold: #b9893f;
+  --seal-red: #a83a2c;
+  --seal-red-bright: #c94d3c;
+
+  --font-display: "Cinzel", "Georgia", serif;
+  --font-body: "Source Sans 3", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--ink);
+  font-family: var(--font-body);
+  color: var(--parchment);
+}
+
+button {
+  font-family: inherit;
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ---------- Header ---------- */
+
+.app__header {
+  flex-shrink: 0;
+  padding: 14px 24px;
+  background: linear-gradient(180deg, var(--leather-light), var(--leather));
+  border-bottom: 3px solid var(--ink);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 5;
+}
+
+.app__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  letter-spacing: 0.04em;
+  color: var(--parchment);
+  margin: 0;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.app__hint {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--parchment-dim);
+  opacity: 0.85;
+}
+
+/* ---------- Map canvas ---------- */
+
+.map-canvas {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: radial-gradient(circle at 50% 30%, #2a1f13, var(--ink) 75%);
+}
+
+.map-wrapper,
+.map-content {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.map-content-inner {
+  position: relative;
+}
+
+.map-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ---------- Zoom controls ---------- */
+
+.map-controls {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.map-controls button {
+  width: 38px;
+  height: 38px;
+  border-radius: 6px;
+  border: 1px solid var(--gold);
+  background: var(--leather);
+  color: var(--parchment);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.map-controls button:hover {
+  background: var(--leather-light);
+}
+
+.map-controls button:active {
+  transform: scale(0.94);
+}
+
+.map-controls button:focus-visible {
+  outline: 2px solid var(--seal-red-bright);
+  outline-offset: 2px;
+}
+
+/* ---------- POI Marker ---------- */
+
+.poi-marker {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--seal-red-bright);
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.poi-marker:hover {
+  transform: translate(-50%, -100%) scale(1.18);
+  color: #e0604c;
+}
+
+.poi-marker:focus-visible {
+  outline: 2px solid var(--parchment);
+  outline-offset: 3px;
+  border-radius: 50%;
+}
+
+.poi-marker--active {
+  color: var(--gold);
+}
+
+.poi-marker__icon {
+  position: relative;
+  z-index: 2;
+}
+
+.poi-marker__pulse {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.35;
+  transform: translateX(-50%);
+  animation: poi-pulse 2.2s ease-out infinite;
+}
+
+@keyframes poi-pulse {
+  0% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.35;
+  }
+  70% {
+    transform: translateX(-50%) scale(3.4);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poi-marker__pulse {
+    animation: none;
+    opacity: 0.2;
+  }
+}
+
+/* ---------- POI Card / overlay ---------- */
+
+.poi-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 7, 4, 0.72);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 50;
+  animation: fade-in 0.15s ease;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.poi-card {
+  position: relative;
+  width: min(440px, 100%);
+  max-height: 86vh;
+  overflow-y: auto;
+  background: var(--parchment);
+  color: var(--ink);
+  border-radius: 10px;
+  border: 1px solid var(--gold);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
+.poi-card__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(28, 20, 11, 0.75);
+  color: var(--parchment);
+  cursor: pointer;
+  font-size: 0.95rem;
+  z-index: 2;
+}
+
+.poi-card__close:hover {
+  background: var(--seal-red);
+}
+
+.poi-card__image-wrap {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: var(--leather);
+}
+
+.poi-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.poi-card__body {
+  padding: 20px 22px 24px;
+}
+
+.poi-card__title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  margin: 0 0 10px;
+  color: var(--leather);
+  letter-spacing: 0.02em;
+}
+
+.poi-card__desc {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.55;
+  color: #2c2014;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 600px) {
+  .app__header {
+    padding: 10px 14px;
+  }
+
+  .app__hint {
+    display: none;
+  }
+
+  .poi-card__image-wrap {
+    height: 160px;
+  }
+}
