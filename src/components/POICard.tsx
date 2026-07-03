@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import type { POI } from "../data/pois";
 
 interface POICardProps {
@@ -6,14 +6,48 @@ interface POICardProps {
   onClose: () => void;
 }
 
+const FOCUSABLE = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
 export default function POICard({ poi, onClose }: POICardProps) {
-  // Fecha com a tecla Esc
+  const cardRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (!poi) return;
+
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab" || !cardRef.current) return;
+
+      const focusable = cardRef.current.querySelectorAll<HTMLElement>(FOCUSABLE);
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
+
     window.addEventListener("keydown", handleKey);
+
+    const card = cardRef.current;
+    if (card) {
+      const firstFocusable = card.querySelector<HTMLElement>(FOCUSABLE);
+      firstFocusable?.focus();
+    }
+
     return () => window.removeEventListener("keydown", handleKey);
   }, [poi, onClose]);
 
@@ -22,6 +56,7 @@ export default function POICard({ poi, onClose }: POICardProps) {
   return (
     <div className="poi-overlay" onClick={onClose}>
       <div
+        ref={cardRef}
         className="poi-card"
         role="dialog"
         aria-modal="true"

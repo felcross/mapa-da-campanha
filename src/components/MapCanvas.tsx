@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   TransformWrapper,
   TransformComponent,
@@ -10,64 +10,98 @@ import POICard from "./POICard";
 
 const MAP_WIDTH = 1748;
 const MAP_HEIGHT = 1181;
+const HEADER_HIDE_THRESHOLD = 1.6;
 
-export default function MapCanvas() {
+export interface MapCanvasProps {
+  onZoomChange?: (zoomedIn: boolean) => void;
+}
+
+export default function MapCanvas({ onZoomChange }: MapCanvasProps) {
   const [selectedPoi, setSelectedPoi] = useState<POI | null>(null);
   const [minScale, setMinScale] = useState(0.1);
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const transformRef = useRef<ReactZoomPanPinchRef | null>(null);
+  const resizeTimerRef = useRef<ReturnType<typeof setTimeout>>(null);
 
-  const calculateFitScale = () => {
+  const calculateFitScale = useCallback(() => {
     const el = containerRef.current;
     if (!el) return 0.1;
     const scaleX = el.clientWidth / MAP_WIDTH;
     const scaleY = el.clientHeight / MAP_HEIGHT;
-    
-    // Mudamos para Math.max para agir como um "cover", garantindo que 
-    // a imagem cubra toda a área visível do container sem deixar vazios.
     return Math.max(scaleX, scaleY);
-  };
+  }, []);
 
-  const fitToScreen = (ref: ReactZoomPanPinchRef) => {
-    const el = containerRef.current;
-    if (!el) return;
-    const fitScale = calculateFitScale();
-    setMinScale(fitScale * 0.8); // Permite afastar um pouco mais que o padrão se quiser
-    
-    ref.setTransform(
-      (el.clientWidth - MAP_WIDTH * fitScale) / 2,
-      (el.clientHeight - MAP_HEIGHT * fitScale) / 2,
-      fitScale,
-      0
-    );
-  };
+  const fitToScreen = useCallback(
+    (ref: ReactZoomPanPinchRef) => {
+      const el = containerRef.current;
+      if (!el) return;
+      const fitScale = calculateFitScale();
+      setMinScale(fitScale * 0.8);
+      ref.setTransform(
+        (el.clientWidth - MAP_WIDTH * fitScale) / 2,
+        (el.clientHeight - MAP_HEIGHT * fitScale) / 2,
+        fitScale,
+        0
+      );
+    },
+    [calculateFitScale]
+  );
 
-  const handleInit = (ref: ReactZoomPanPinchRef) => {
-    transformRef.current = ref;
-    fitToScreen(ref);
-  };
+  const handleInit = useCallback(
+    (ref: ReactZoomPanPinchRef) => {
+      transformRef.current = ref;
+      fitToScreen(ref);
+    },
+    [fitToScreen]
+  );
+
+  const handleZoomChange = useCallback(
+    (ref: ReactZoomPanPinchRef) => {
+      const fitScale = calculateFitScale();
+      onZoomChange?.(ref.state.scale > fitScale * HEADER_HIDE_THRESHOLD);
+    },
+    [calculateFitScale, onZoomChange]
+  );
 
   useEffect(() => {
     const handleResize = () => {
-      if (transformRef.current) fitToScreen(transformRef.current);
+      if (resizeTimerRef.current) clearTimeout(resizeTimerRef.current);
+      resizeTimerRef.current = setTimeout(() => {
+        if (transformRef.current) fitToScreen(transformRef.current);
+      }, 150);
     };
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (resizeTimerRef.current) clearTimeout(resizeTimerRef.current);
+    };
+  }, [fitToScreen]);
 
   return (
-    <div className="map-canvas" ref={containerRef} style={{ width: "100vw", height: "100vh", overflow: "hidden", position: "relative" }}>
+    <div
+      className="map-canvas"
+      ref={containerRef}
+      style={{ width: "100vw", height: "100vh", overflow: "hidden", position: "relative" }}
+    >
+      {!isMapLoaded && (
+        <div className="map-loading">
+          <div className="map-loading__spinner" />
+          <span>Carregando mapa…</span>
+        </div>
+      )}
+
       <TransformWrapper
         initialScale={minScale}
         minScale={minScale}
         maxScale={4}
-        // Mudamos limitToBounds para false para que você possa arrastar livremente pelos cantos da imagem
         limitToBounds={false}
         centerZoomedOut={true}
         centerOnInit={true}
         wheel={{ step: 0.12 }}
         doubleClick={{ disabled: true }}
         onInit={handleInit}
+        onZoom={handleZoomChange}
       >
         {({ zoomIn, zoomOut }) => (
           <>
@@ -94,11 +128,7 @@ export default function MapCanvas() {
             >
               <div
                 className="map-content-inner"
-                style={{ 
-                  position: "relative", 
-                  width: MAP_WIDTH, 
-                  height: MAP_HEIGHT 
-                }}
+                style={{ position: "relative", width: MAP_WIDTH, height: MAP_HEIGHT }}
               >
                 <img
                   src="/map/mapa.png"
@@ -106,6 +136,7 @@ export default function MapCanvas() {
                   className="map-image"
                   draggable={false}
                   style={{ width: "100%", height: "100%", display: "block" }}
+                  onLoad={() => setIsMapLoaded(true)}
                 />
 
                 {pois.map((poi) => (
