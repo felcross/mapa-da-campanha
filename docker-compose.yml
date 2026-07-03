@@ -1,16 +1,11 @@
 services:
   rpg-map:
     build: .
-    container_name: rpg-map
+    container_name: nihongan
     restart: unless-stopped
-    # Não expõe porta diretamente para o host — o Nginx Proxy Manager
-    # acessa via rede Docker interna, como seus outros projetos.
     networks:
-      - npm_network
+      - rede_vps
 
 networks:
-  npm_network:
+  rede_vps:
     external: true
-    # Ajuste o nome para o nome real da rede do seu Nginx Proxy Manager,
-    # ex: a rede criada pelo compose do NPM (geralmente algo como
-    # "nginx-proxy-manager_default" ou a que você já usa nos outros projetos).
