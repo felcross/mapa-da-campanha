@@ -1,36 +1,43 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   TransformWrapper,
   TransformComponent,
   type ReactZoomPanPinchRef,
 } from "react-zoom-pan-pinch";
+import { maps } from "../data/maps";
 import { pois, type POI } from "../data/pois";
 import POIMarker from "./POIMarker";
 import POICard from "./POICard";
 
-const MAP_WIDTH = 1748;
-const MAP_HEIGHT = 1181;
 const HEADER_HIDE_THRESHOLD = 1.6;
 
 export interface MapCanvasProps {
+  activeMapId: string;
   onZoomChange?: (zoomedIn: boolean) => void;
 }
 
-export default function MapCanvas({ onZoomChange }: MapCanvasProps) {
+export default function MapCanvas({ activeMapId, onZoomChange }: MapCanvasProps) {
   const [selectedPoi, setSelectedPoi] = useState<POI | null>(null);
   const [minScale, setMinScale] = useState(0.1);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const transformRef = useRef<ReactZoomPanPinchRef | null>(null);
   const resizeTimerRef = useRef<ReturnType<typeof setTimeout>>(null);
+  const prevMapIdRef = useRef(activeMapId);
+
+  const activeMap = useMemo(() => maps.find((m) => m.id === activeMapId) ?? maps[0], [activeMapId]);
+  const mapWidth = activeMap.width;
+  const mapHeight = activeMap.height;
+
+  const filteredPois = useMemo(() => pois.filter((p) => p.mapId === activeMapId), [activeMapId]);
 
   const calculateFitScale = useCallback(() => {
     const el = containerRef.current;
     if (!el) return 0.1;
-    const scaleX = el.clientWidth / MAP_WIDTH;
-    const scaleY = el.clientHeight / MAP_HEIGHT;
+    const scaleX = el.clientWidth / mapWidth;
+    const scaleY = el.clientHeight / mapHeight;
     return Math.max(scaleX, scaleY);
-  }, []);
+  }, [mapWidth, mapHeight]);
 
   const fitToScreen = useCallback(
     (ref: ReactZoomPanPinchRef) => {
@@ -39,13 +46,13 @@ export default function MapCanvas({ onZoomChange }: MapCanvasProps) {
       const fitScale = calculateFitScale();
       setMinScale(fitScale * 0.8);
       ref.setTransform(
-        (el.clientWidth - MAP_WIDTH * fitScale) / 2,
-        (el.clientHeight - MAP_HEIGHT * fitScale) / 2,
+        (el.clientWidth - mapWidth * fitScale) / 2,
+        (el.clientHeight - mapHeight * fitScale) / 2,
         fitScale,
         0
       );
     },
-    [calculateFitScale]
+    [calculateFitScale, mapWidth, mapHeight]
   );
 
   const handleInit = useCallback(
@@ -63,6 +70,22 @@ export default function MapCanvas({ onZoomChange }: MapCanvasProps) {
     },
     [calculateFitScale, onZoomChange]
   );
+
+  // Reset when map changes
+  useEffect(() => {
+    if (prevMapIdRef.current !== activeMapId) {
+      prevMapIdRef.current = activeMapId;
+      setSelectedPoi(null);
+      setIsMapLoaded(false);
+    }
+  }, [activeMapId]);
+
+  // Refit after map image loads
+  useEffect(() => {
+    if (isMapLoaded && transformRef.current) {
+      fitToScreen(transformRef.current);
+    }
+  }, [isMapLoaded, fitToScreen]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -92,6 +115,7 @@ export default function MapCanvas({ onZoomChange }: MapCanvasProps) {
       )}
 
       <TransformWrapper
+        key={activeMapId}
         initialScale={minScale}
         minScale={minScale}
         maxScale={4}
@@ -124,22 +148,23 @@ export default function MapCanvas({ onZoomChange }: MapCanvasProps) {
 
             <TransformComponent
               wrapperStyle={{ width: "100%", height: "100%" }}
-              contentStyle={{ width: `${MAP_WIDTH}px`, height: `${MAP_HEIGHT}px` }}
+              contentStyle={{ width: `${mapWidth}px`, height: `${mapHeight}px` }}
             >
               <div
                 className="map-content-inner"
-                style={{ position: "relative", width: MAP_WIDTH, height: MAP_HEIGHT }}
+                style={{ position: "relative", width: mapWidth, height: mapHeight }}
               >
                 <img
-                  src="/map/mapa.png"
-                  alt="Mapa do mundo de campanha"
+                  key={activeMapId}
+                  src={activeMap.imagem}
+                  alt={activeMap.nome}
                   className="map-image"
                   draggable={false}
                   style={{ width: "100%", height: "100%", display: "block" }}
                   onLoad={() => setIsMapLoaded(true)}
                 />
 
-                {pois.map((poi) => (
+                {filteredPois.map((poi) => (
                   <POIMarker
                     key={poi.id}
                     poi={poi}

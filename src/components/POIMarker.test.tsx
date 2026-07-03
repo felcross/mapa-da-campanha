@@ -5,11 +5,12 @@ import type { POI } from '../data/pois';
 
 const mockPoi: POI = {
   id: 'poi-test',
+  mapId: 'mapa-principal',
   x: 500,
   y: 300,
   nome: 'Local Teste',
   descricao: 'Descrição do local teste',
-  imagem: '/locations/test.jpg',
+  imagens: ['/locations/test.jpg'],
 };
 
 describe('POIMarker', () => {

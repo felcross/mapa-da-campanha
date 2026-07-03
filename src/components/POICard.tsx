@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import type { POI } from "../data/pois";
 
 interface POICardProps {
@@ -10,7 +10,27 @@ const FOCUSABLE = 'button, [href], input, select, textarea, [tabindex]:not([tabi
 
 export default function POICard({ poi, onClose }: POICardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const touchStartX = useRef(0);
 
+  const images = poi?.imagens ?? [];
+  const hasMultiple = images.length > 1;
+  const prevPoiIdRef = useRef(poi?.id);
+
+  if (poi?.id !== prevPoiIdRef.current) {
+    prevPoiIdRef.current = poi?.id;
+    setCurrentIndex(0);
+  }
+
+  const goPrev = useCallback(() => {
+    setCurrentIndex((i) => (i === 0 ? images.length - 1 : i - 1));
+  }, [images.length]);
+
+  const goNext = useCallback(() => {
+    setCurrentIndex((i) => (i === images.length - 1 ? 0 : i + 1));
+  }, [images.length]);
+
+  // Focus trap + keyboard nav
   useEffect(() => {
     if (!poi) return;
 
@@ -51,6 +71,18 @@ export default function POICard({ poi, onClose }: POICardProps) {
     return () => window.removeEventListener("keydown", handleKey);
   }, [poi, onClose]);
 
+  // Touch swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) goNext(); else goPrev();
+    }
+  };
+
   if (!poi) return null;
 
   return (
@@ -67,15 +99,49 @@ export default function POICard({ poi, onClose }: POICardProps) {
           ✕
         </button>
 
-        <div className="poi-card__image-wrap">
-          <img
-            className="poi-card__image"
-            src={poi.imagem}
-            alt={poi.nome}
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = "/locations/sem-imagem.svg";
-            }}
-          />
+        <div
+          className="poi-card__carousel"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div
+            className="poi-card__carousel-track"
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {images.map((src, i) => (
+              <img
+                key={`${poi.id}-${i}`}
+                className="poi-card__slide"
+                src={src}
+                alt={`${poi.nome} - imagem ${i + 1}`}
+                draggable={false}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "/locations/sem-imagem.svg";
+                }}
+              />
+            ))}
+          </div>
+
+          {hasMultiple && (
+            <>
+              <button className="poi-card__carousel-prev" onClick={goPrev} aria-label="Imagem anterior">
+                ‹
+              </button>
+              <button className="poi-card__carousel-next" onClick={goNext} aria-label="Próxima imagem">
+                ›
+              </button>
+              <div className="poi-card__carousel-dots">
+                {images.map((_, i) => (
+                  <button
+                    key={i}
+                    className={`poi-card__dot ${i === currentIndex ? "poi-card__dot--active" : ""}`}
+                    onClick={() => setCurrentIndex(i)}
+                    aria-label={`Imagem ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
 
         <div className="poi-card__body">

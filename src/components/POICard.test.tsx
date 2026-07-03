@@ -5,11 +5,18 @@ import type { POI } from '../data/pois';
 
 const mockPoi: POI = {
   id: 'poi-test',
+  mapId: 'mapa-principal',
   x: 500,
   y: 300,
   nome: 'Local Teste',
   descricao: 'Descrição do local teste',
-  imagem: '/locations/test.jpg',
+  imagens: ['/locations/test.jpg'],
+};
+
+const mockPoiMultipleImages: POI = {
+  ...mockPoi,
+  id: 'poi-multi',
+  imagens: ['/locations/img1.jpg', '/locations/img2.jpg', '/locations/img3.jpg'],
 };
 
 describe('POICard', () => {
@@ -62,8 +69,60 @@ describe('POICard', () => {
 
   it('uses fallback image on error', () => {
     render(<POICard poi={mockPoi} onClose={vi.fn()} />);
-    const img = screen.getByRole('img', { name: 'Local Teste' });
+    const img = screen.getByRole('img', { name: 'Local Teste - imagem 1' });
     fireEvent.error(img);
     expect(img).toHaveAttribute('src', '/locations/sem-imagem.svg');
+  });
+
+  it('does not show carousel nav for single image', () => {
+    render(<POICard poi={mockPoi} onClose={vi.fn()} />);
+    expect(screen.queryByLabelText('Imagem anterior')).not.toBeInTheDocument();
+    expect(screen.queryByLabelText('Próxima imagem')).not.toBeInTheDocument();
+  });
+
+  it('shows carousel nav for multiple images', () => {
+    render(<POICard poi={mockPoiMultipleImages} onClose={vi.fn()} />);
+    expect(screen.getByLabelText('Imagem anterior')).toBeInTheDocument();
+    expect(screen.getByLabelText('Próxima imagem')).toBeInTheDocument();
+    expect(screen.getByLabelText('Imagem 1')).toBeInTheDocument();
+    expect(screen.getByLabelText('Imagem 2')).toBeInTheDocument();
+    expect(screen.getByLabelText('Imagem 3')).toBeInTheDocument();
+  });
+
+  it('navigates carousel with next/prev buttons', () => {
+    render(<POICard poi={mockPoiMultipleImages} onClose={vi.fn()} />);
+    const nextBtn = screen.getByLabelText('Próxima imagem');
+    const prevBtn = screen.getByLabelText('Imagem anterior');
+
+    // Start at image 1
+    expect(screen.getByLabelText('Imagem 1')).toHaveClass('poi-card__dot--active');
+
+    // Go to image 2
+    fireEvent.click(nextBtn);
+    expect(screen.getByLabelText('Imagem 2')).toHaveClass('poi-card__dot--active');
+
+    // Go to image 3
+    fireEvent.click(nextBtn);
+    expect(screen.getByLabelText('Imagem 3')).toHaveClass('poi-card__dot--active');
+
+    // Wrap to image 1
+    fireEvent.click(nextBtn);
+    expect(screen.getByLabelText('Imagem 1')).toHaveClass('poi-card__dot--active');
+
+    // Go back to image 3
+    fireEvent.click(prevBtn);
+    expect(screen.getByLabelText('Imagem 3')).toHaveClass('poi-card__dot--active');
+  });
+
+  it('navigates carousel with dot buttons', () => {
+    render(<POICard poi={mockPoiMultipleImages} onClose={vi.fn()} />);
+
+    // Click dot 3
+    fireEvent.click(screen.getByLabelText('Imagem 3'));
+    expect(screen.getByLabelText('Imagem 3')).toHaveClass('poi-card__dot--active');
+
+    // Click dot 1
+    fireEvent.click(screen.getByLabelText('Imagem 1'));
+    expect(screen.getByLabelText('Imagem 1')).toHaveClass('poi-card__dot--active');
   });
 });
