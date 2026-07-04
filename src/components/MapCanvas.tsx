@@ -7,16 +7,16 @@ import {
 import { maps } from "../data/maps";
 import { pois, type POI } from "../data/pois";
 import POIMarker from "./POIMarker";
-import POICard from "./POICard";
 
 const HEADER_HIDE_THRESHOLD = 1.6;
 
 export interface MapCanvasProps {
   activeMapId: string;
   onZoomChange?: (zoomedIn: boolean) => void;
+  onSelectPoi?: (poi: POI | null) => void;
 }
 
-export default function MapCanvas({ activeMapId, onZoomChange }: MapCanvasProps) {
+export default function MapCanvas({ activeMapId, onZoomChange, onSelectPoi }: MapCanvasProps) {
   const [selectedPoi, setSelectedPoi] = useState<POI | null>(null);
   const [minScale, setMinScale] = useState(0.1);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
@@ -24,6 +24,11 @@ export default function MapCanvas({ activeMapId, onZoomChange }: MapCanvasProps)
   const transformRef = useRef<ReactZoomPanPinchRef | null>(null);
   const resizeTimerRef = useRef<ReturnType<typeof setTimeout>>(null);
   const prevMapIdRef = useRef(activeMapId);
+
+  const handleSelectPoi = useCallback((poi: POI | null) => {
+    setSelectedPoi(poi);
+    onSelectPoi?.(poi);
+  }, [onSelectPoi]);
 
   const activeMap = useMemo(() => maps.find((m) => m.id === activeMapId) ?? maps[0], [activeMapId]);
   const mapWidth = activeMap.width;
@@ -168,7 +173,7 @@ export default function MapCanvas({ activeMapId, onZoomChange }: MapCanvasProps)
                   <POIMarker
                     key={poi.id}
                     poi={poi}
-                    onSelect={setSelectedPoi}
+                    onSelect={handleSelectPoi}
                     isActive={selectedPoi?.id === poi.id}
                   />
                 ))}
@@ -177,8 +182,6 @@ export default function MapCanvas({ activeMapId, onZoomChange }: MapCanvasProps)
           </>
         )}
       </TransformWrapper>
-
-      <POICard poi={selectedPoi} onClose={() => setSelectedPoi(null)} />
     </div>
   );
 }
