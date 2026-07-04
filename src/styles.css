@@ -37,27 +37,29 @@ button {
 
 .app {
   height: 100vh;
-  display: flex;
-  flex-direction: column;
   overflow: hidden;
+  position: relative;
 }
 
 /* ---------- Header ---------- */
 
 .app__header {
-  flex-shrink: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   padding: 14px 24px;
-  background: linear-gradient(180deg, var(--leather-light), var(--leather));
-  border-bottom: 3px solid var(--ink);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  background: rgba(28, 20, 11, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(185, 137, 63, 0.3);
   display: flex;
   align-items: baseline;
   gap: 16px;
   flex-wrap: wrap;
-  position: relative;
   z-index: 5;
   transform: translateY(0);
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   opacity: 1;
 }
 
@@ -65,6 +67,14 @@ button {
   transform: translateY(-100%);
   opacity: 0;
   pointer-events: none;
+}
+
+/* Reveal header on hover near top of screen */
+.app__header--hidden:hover,
+.app:hover .app__header--hidden {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .app__title {

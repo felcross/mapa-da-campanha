@@ -7,7 +7,7 @@ interface MapSelectorProps {
 }
 
 export default function MapSelector({ maps, activeMapId, onChange }: MapSelectorProps) {
-  if (maps.length <= 1) return null;
+  if (maps.length === 0) return null;
 
   return (
     <select

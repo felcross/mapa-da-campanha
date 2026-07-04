@@ -5,7 +5,7 @@ import MapCanvas from "./components/MapCanvas";
 import "./styles.css";
 
 export default function App() {
-  const [headerHidden, setHeaderHidden] = useState(false);
+  const [headerHidden, setHeaderHidden] = useState(true);
   const [activeMapId, setActiveMapId] = useState(maps[0]?.id ?? "");
 
   const handleZoomChange = useCallback((zoomedIn: boolean) => {
