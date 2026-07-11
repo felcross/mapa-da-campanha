@@ -1,0 +1,36 @@
+/* ============================================
+   Design Tokens — Palette orientoantiga
+   ============================================ */
+
+:root {
+  /* === Core palette === */
+  --sumi: #1C1A16;
+  --sumi-soft: #4A4238;
+  --washi: #E8E0CC;
+  --washi-deep: #DDD3B8;
+  --shu: #A6352B;
+  --shu-deep: #7E2620;
+  --ai: #223B4C;
+  --ai-deep: #162834;
+  --kin: #B4922E;
+  --line: rgba(28, 26, 22, 0.14);
+  --line-strong: rgba(28, 26, 22, 0.28);
+
+  /* === Legacy map tokens (backward compat) === */
+  --ink: var(--sumi);
+  --leather: #3A2A18;
+  --leather-light: #5A4128;
+  --parchment: var(--washi);
+  --parchment-dim: var(--washi-deep);
+  --gold: var(--kin);
+  --seal-red: var(--shu);
+  --seal-red-bright: #C94D3C;
+
+  /* === Typography === */
+  --font-display: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+  --font-body: "Noto Sans JP", "Source Sans 3", "Hiragino Sans", system-ui, sans-serif;
+
+  /* === Layout === */
+  --sidebar-w: 336px;
+  --radius: 2px;
+}

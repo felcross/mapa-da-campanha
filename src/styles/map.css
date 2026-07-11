@@ -1,58 +1,160 @@
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap");
+/* ============================================
+   Map Project — Styles (restored from original)
+   ============================================ */
 
-:root {
-  --ink: #1c140b;
-  --leather: #3a2a18;
-  --leather-light: #5a4128;
-  --parchment: #e8dcc0;
-  --parchment-dim: #d8c9a3;
-  --gold: #b9893f;
-  --seal-red: #a83a2c;
-  --seal-red-bright: #c94d3c;
-
-  --font-display: "Cinzel", "Georgia", serif;
-  --font-body: "Source Sans 3", system-ui, sans-serif;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html,
-body,
-#root {
-  height: 100%;
-  margin: 0;
-}
-
-body {
-  background: var(--ink);
-  font-family: var(--font-body);
-  color: var(--parchment);
-}
-
-button {
-  font-family: inherit;
-}
-
-.app {
+.mapProject {
   height: 100vh;
   overflow: hidden;
   position: relative;
 }
 
-/* ---------- Header ---------- */
+/* --- Nav bar (always visible) --- */
 
-.app__header {
+.mapProject__nav {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  padding: 14px 24px;
-  background: rgba(28, 20, 11, 0.75);
+  height: 48px;
+  padding: 0 12px;
+  background: rgba(28, 20, 11, 0.85);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(185, 137, 63, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 20;
+}
+
+.mapProject__hamburger {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(185, 137, 63, 0.4);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--parchment);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.mapProject__hamburger:hover {
+  background: rgba(185, 137, 63, 0.15);
+}
+
+.mapProject__hubLink {
+  margin-left: auto;
+  background: none;
+  border: 1px solid rgba(185, 137, 63, 0.4);
+  border-radius: 6px;
+  color: var(--parchment-dim);
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.mapProject__hubLink:hover {
+  color: var(--parchment);
+  border-color: var(--gold);
+}
+
+/* --- Menu panel (slides from left) --- */
+
+.mapProject__menuPanel {
+  position: fixed;
+  top: 48px;
+  left: 0;
+  bottom: 0;
+  width: min(84vw, 320px);
+  background: rgba(28, 20, 11, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(185, 137, 63, 0.3);
+  z-index: 19;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 16px;
+  animation: menuSlideIn 0.2s ease;
+}
+
+@keyframes menuSlideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+.mapProject__menuPanelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--parchment);
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(185, 137, 63, 0.2);
+}
+
+.mapProject__menuClose {
+  background: none;
+  border: none;
+  color: var(--parchment-dim);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.mapProject__menuClose:hover {
+  color: var(--parchment);
+}
+
+.mapProject__menuSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mapProject__menuLabel {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--parchment-dim);
+}
+
+.mapProject__menuHub {
+  margin-top: auto;
+  background: none;
+  border: 1px solid rgba(185, 137, 63, 0.4);
+  border-radius: 6px;
+  color: var(--parchment-dim);
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.mapProject__menuHub:hover {
+  color: var(--parchment);
+  border-color: var(--gold);
+}
+
+/* --- Auto-hiding info header (desktop only) --- */
+
+.mapProject__header {
+  position: fixed;
+  top: 48px;
+  left: 0;
+  right: 0;
+  padding: 10px 24px;
+  background: rgba(28, 20, 11, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(185, 137, 63, 0.15);
   display: flex;
   align-items: baseline;
   gap: 16px;
@@ -63,37 +165,36 @@ button {
   opacity: 1;
 }
 
-.app__header--hidden {
+.mapProject__header--hidden {
   transform: translateY(-100%);
   opacity: 0;
   pointer-events: none;
 }
 
-/* Reveal header on hover near top of screen */
-.app__header--hidden:hover,
-.app:hover .app__header--hidden {
+.mapProject__header--hidden:hover,
+.mapProject:hover .mapProject__header--hidden {
   transform: translateY(0);
   opacity: 1;
   pointer-events: auto;
 }
 
-.app__title {
+.mapProject__title {
   font-family: var(--font-display);
-  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  font-size: clamp(1rem, 2vw, 1.4rem);
   letter-spacing: 0.04em;
   color: var(--parchment);
   margin: 0;
   text-shadow: 0 2px 0 rgba(0, 0, 0, 0.5);
 }
 
-.app__hint {
+.mapProject__hint {
   margin: 0;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: var(--parchment-dim);
   opacity: 0.85;
 }
 
-/* ---------- Map selector ---------- */
+/* --- Map selector --- */
 
 .map-selector {
   appearance: none;
@@ -120,7 +221,7 @@ button {
   outline-offset: 2px;
 }
 
-/* ---------- Map canvas ---------- */
+/* --- Map canvas --- */
 
 .map-canvas {
   position: relative;
@@ -128,8 +229,6 @@ button {
   min-height: 0;
   background: radial-gradient(circle at 50% 30%, #2a1f13, var(--ink) 75%);
 }
-
-/* ---------- Loading indicator ---------- */
 
 .map-loading {
   position: absolute;
@@ -175,11 +274,11 @@ button {
   -webkit-user-drag: none;
 }
 
-/* ---------- Zoom controls ---------- */
+/* --- Zoom controls --- */
 
 .map-controls {
   position: absolute;
-  top: 16px;
+  top: 60px;
   right: 16px;
   z-index: 10;
   display: flex;
@@ -214,7 +313,7 @@ button {
   outline-offset: 2px;
 }
 
-/* ---------- POI Marker ---------- */
+/* --- POI Marker --- */
 
 .poi-marker {
   position: absolute;
@@ -287,7 +386,7 @@ button {
   }
 }
 
-/* ---------- POI Card / overlay ---------- */
+/* --- POI Card / overlay --- */
 
 .poi-overlay {
   position: fixed;
@@ -303,12 +402,8 @@ button {
 }
 
 @keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .poi-card {
@@ -341,8 +436,6 @@ button {
 .poi-card__close:hover {
   background: var(--seal-red);
 }
-
-/* ---------- Carousel ---------- */
 
 .poi-card__carousel {
   position: relative;
@@ -383,13 +476,8 @@ button {
   line-height: 1;
 }
 
-.poi-card__carousel-prev {
-  left: 8px;
-}
-
-.poi-card__carousel-next {
-  right: 8px;
-}
+.poi-card__carousel-prev { left: 8px; }
+.poi-card__carousel-next { right: 8px; }
 
 .poi-card__carousel-prev:hover,
 .poi-card__carousel-next:hover {
@@ -441,14 +529,12 @@ button {
   color: #2c2014;
 }
 
-/* ---------- Responsive ---------- */
-
-@media (max-width: 600px) {
-  .app__header {
-    padding: 10px 14px;
+@media (max-width: 860px) {
+  .mapProject__header {
+    display: none;
   }
 
-  .app__hint {
+  .mapProject__hubLink {
     display: none;
   }
 

@@ -1,29 +1,31 @@
-import { useCallback, useState } from "react";
-import { maps } from "./data/maps";
-import type { POI } from "./data/pois";
-import MapSelector from "./components/MapSelector";
-import MapCanvas from "./components/MapCanvas";
-import POICard from "./components/POICard";
-import "./styles.css";
+import { useState } from "react";
+import HubScreen from "./components/hub/HubScreen";
+import MapView from "./components/map/MapView";
+import ClassesView from "./components/classes/ClassesView";
+import "./styles/tokens.css";
+import "./styles/hub.css";
+import "./styles/map.css";
+import "./styles/classes.css";
+
+type AppView = "hub" | "map" | "classes";
 
 export default function App() {
-  const [headerHidden, setHeaderHidden] = useState(true);
-  const [activeMapId, setActiveMapId] = useState(maps[0]?.id ?? "");
-  const [selectedPoi, setSelectedPoi] = useState<POI | null>(null);
-
-  const handleZoomChange = useCallback((zoomedIn: boolean) => {
-    setHeaderHidden(zoomedIn);
-  }, []);
+  const [view, setView] = useState<AppView>("hub");
 
   return (
-    <div className="app">
-      <header className={`app__header ${headerHidden ? "app__header--hidden" : ""}`}>
-        <h1 className="app__title">Mapa da Campanha</h1>
-        <MapSelector maps={maps} activeMapId={activeMapId} onChange={setActiveMapId} />
-        <p className="app__hint">Arraste para explorar · Role o mouse para zoom · Clique nos marcadores</p>
-      </header>
-      <MapCanvas activeMapId={activeMapId} onZoomChange={handleZoomChange} onSelectPoi={setSelectedPoi} />
-      <POICard poi={selectedPoi} onClose={() => setSelectedPoi(null)} />
-    </div>
+    <>
+      {view === "hub" && (
+        <HubScreen
+          onSelectMap={() => setView("map")}
+          onSelectClasses={() => setView("classes")}
+        />
+      )}
+      {view === "map" && (
+        <MapView onBack={() => setView("hub")} />
+      )}
+      {view === "classes" && (
+        <ClassesView onBack={() => setView("hub")} />
+      )}
+    </>
   );
 }

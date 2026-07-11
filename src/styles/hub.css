@@ -1,0 +1,148 @@
+/* ============================================
+   Hub Screen — Landing page
+   ============================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--sumi);
+  font-family: var(--font-body);
+  color: var(--washi);
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--shu);
+  outline-offset: 2px;
+}
+
+.hub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.hub__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  color: var(--washi);
+  margin: 0 0 8px;
+  letter-spacing: 0.02em;
+}
+
+.hub__subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 2vw, 1.05rem);
+  color: var(--sumi-soft);
+  margin: 0 0 48px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.hub__cards {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hub__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 280px;
+  padding: 40px 32px;
+  border: 2px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.hub__card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.hub__card--map {
+  border-color: var(--ai);
+}
+
+.hub__card--map:hover {
+  border-color: var(--ai);
+  background: rgba(34, 59, 76, 0.12);
+}
+
+.hub__card--classes {
+  border-color: var(--shu);
+}
+
+.hub__card--classes:hover {
+  border-color: var(--shu);
+  background: rgba(166, 53, 43, 0.12);
+}
+
+.hub__cardIcon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 24px;
+}
+
+.hub__card--map .hub__cardIcon {
+  background: var(--ai);
+  color: #fff;
+}
+
+.hub__card--classes .hub__cardIcon {
+  background: var(--shu);
+  color: #fff;
+}
+
+.hub__cardTitle {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--washi);
+}
+
+.hub__cardDesc {
+  font-size: 0.85rem;
+  color: var(--sumi-soft);
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .hub__cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hub__card {
+    width: 100%;
+    max-width: 320px;
+  }
+}
