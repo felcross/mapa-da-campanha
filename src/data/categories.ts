@@ -167,6 +167,30 @@ export interface SpellLibrary {
   levels: SpellLevel[];
 }
 
+export interface Tattoo {
+  name: string;
+  description: string;
+}
+
+export interface RuleTable {
+  headers: string[];
+  rows: string[][];
+}
+
+export interface RuleSection {
+  title?: string;
+  text?: string;
+  table?: RuleTable;
+  items?: string[];
+}
+
+export interface Order {
+  name: string;
+  glyph: string;
+  description: string;
+  techniques: Technique[];
+}
+
 export interface Item {
   id: string;
   name: string;
@@ -185,6 +209,9 @@ export interface Item {
   elementalVariants?: ElementalVariant[];
   domains?: Domain[];
   spellLibrary?: SpellLibrary[];
+  tattoos?: Tattoo[];
+  ruleSections?: RuleSection[];
+  orders?: Order[];
 }
 
 export interface Category {
@@ -2882,6 +2909,916 @@ export const DATA: Record<string, Category> = {
           }
         ],
         tags: ["Kamis", "Elemental", "Conjuração"],
+      },
+    ],
+  },
+
+  monges: {
+    label: "Monges",
+    seal: "☸",
+    listLabel: "Ordens",
+    items: [
+      {
+        id: "hoshi",
+        name: "Ordem Tatuada de Hoshi",
+        fullTitle:
+          "Ordens Tatuadas de Hoshi — Sub-ordens da Irmandade de Shinsei e do Clã Dragão",
+        glyph: "龍",
+        tagline:
+          "O poder das tatuagens sagradas: harmonia mística (Ise Zumi) ou confronto direto (Kikage Zumi).",
+        description:
+          "Dentro da Irmandade de Shinsei, os monges que seguem a linhagem de Hoshi dividem-se em duas vertentes filosóficas e marciais distintas. Ambas carregam o sangue místico e o poder das tatuagens sagradas, mas buscam a iluminação por caminhos opostos: os Ise Zumi, através da harmonia mística entre o espírito e o receptáculo físico, e os Kikage Zumi, através do confronto direto e da superação dos limites corpóreos.",
+        tags: ["Tatuagens", "Kiho", "Shinsei", "Dragão"],
+        orders: [
+          {
+            name: "Ordem Ise Zumi",
+            glyph: "🐲",
+            description:
+              "Os Ise Zumi trilham um caminho onde contemplação e ação caminham lado a lado. Diferentemente daqueles que buscam a iluminação apenas através do combate ou apenas da meditação, eles procuram harmonizar o corpo, o espírito e os elementos em uma única prática. Para eles, cada movimento nasce do silêncio interior, e cada silêncio prepara o próximo movimento.\n\nSuas tatuagens despertam por meio da disciplina espiritual, da compreensão dos kami e do domínio do próprio ki. Embora treinem artes marciais com dedicação, sua verdadeira força está em transformar a energia espiritual em proteção, percepção e técnicas capazes de alterar o fluxo natural de um confronto.\n\nMuitos Ise Zumi preferem evitar a violência sempre que possível, dedicando-se ao estudo, à contemplação e aos mistérios do mundo espiritual. Ainda assim, quando a ordem natural é ameaçada, lutam com serenidade e convicção, utilizando tanto a sabedoria quanto a força para restaurar o equilíbrio. Seu caminho representa a união perfeita entre a tradição contemplativa ancestral e a disciplina marcial, enxergando o combate não como um objetivo, mas como mais uma forma de compreender a natureza do universo.",
+            techniques: [
+              {
+                level: 1,
+                levelLabel: "一",
+                title: "O Sangue do Kami",
+                intro:
+                  "O sangue do Kami Togashi é levemente diluído na linhagem dominante da ordem Togashi, e os irmãos escolhidos para servir ao Dragão como vassalos dos Togashi recebem o sangue místico de um deus na forma de tatuagens únicas.",
+                effects: [
+                  {
+                    name: "Efeito",
+                    text: "Você ganha duas Tatuagens neste nível.",
+                  },
+                ],
+              },
+              {
+                level: 2,
+                levelLabel: "二",
+                title: "Corpo de Pedra",
+                intro:
+                  "O domínio do corpo é o primeiro passo essencial da jornada de um monge rumo à iluminação, e as artes marciais são as ferramentas perfeitas para harmonizar corpo e espírito.",
+                effects: [
+                  {
+                    name: "Efeito",
+                    text: "Você ganha um bônus de +1k1 ao total de todas as jogadas de ataque e avaliações de dano desarmado.",
+                  },
+                ],
+              },
+              {
+                level: 3,
+                levelLabel: "三",
+                title: "O Poder Dentro e Fora",
+                intro:
+                  "O ise zumi sabe que os kami não podem ajudar nenhum homem se ele se provar um receptáculo físico indigno.",
+                effects: [
+                  {
+                    name: "Mecânica",
+                    text: "Enquanto estiver sem armadura e sem nenhum Kiho ou Tatuagem ativa, você ganha Redução igual a 3 mais o seu Anel de Vazio.",
+                  },
+                  {
+                    name: "Tatuagem",
+                    text: "Você ganha uma Tatuagem adicional.",
+                  },
+                ],
+              },
+              {
+                level: 4,
+                levelLabel: "四",
+                title: "O Dom da Senhora",
+                intro:
+                  "A jornada do ise zumi eventualmente atrai as bênçãos e os dons de patronos divinos que reconhecem seu esforço e dedicação às artes marciais e ao aprimoramento físico.",
+                effects: [
+                  {
+                    name: "Tatuagem",
+                    text: "Você ganha uma Tatuagem neste nível.",
+                  },
+                  {
+                    name: "Defesa",
+                    text: "Você pode adicionar seus Reflexos ao seu teste contestado de defesa.",
+                  },
+                  {
+                    name: "Agarrada",
+                    text: "Ao rolar para controlar uma Agarrada (Grapple), você pode optar por usar seus Reflexos em vez de sua Força.",
+                  },
+                ],
+              },
+              {
+                level: 5,
+                levelLabel: "五",
+                title: "Bênção do Kami",
+                intro:
+                  "À medida que um ise zumi continua sua jornada de autodescoberta, acumulando novas experiências pelo caminho, ele eventualmente será julgado digno de sabedoria adicional na forma de novas tatuagens.",
+                effects: [
+                  {
+                    name: "Efeito",
+                    text: "Você ganha duas Tatuagens adicionais.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Ordem Kikage Zumi",
+            glyph: "⚡",
+            description:
+              "Os Kikage Zumi acreditam que a iluminação é alcançada pelo confronto direto com os próprios limites. Para eles, cada batalha, cada cicatriz e cada golpe recebido são ensinamentos que não podem ser encontrados em pergaminhos ou longos períodos de contemplação. Seu caminho é marcado pela disciplina física, pela coragem e pela determinação de avançar mesmo diante do medo.\n\nAs tatuagens sagradas de um Kikage Zumi despertam à medida que ele coloca seu corpo e seu espírito à prova. Em combate, seus movimentos são intensos e decisivos, unindo força, velocidade e instinto em uma única expressão de vontade. A violência nunca é um fim em si mesma, mas uma ferramenta para romper as ilusões que prendem a mente.\n\nEmbora sejam frequentemente vistos como guerreiros impetuosos, os verdadeiros Kikage Zumi compreendem que a força sem propósito é apenas brutalidade. Seu objetivo não é vencer todos os inimigos, mas superar a si mesmos sempre que entram em conflito.",
+            techniques: [
+              {
+                level: 1,
+                levelLabel: "一",
+                title: "Golpeie a Base",
+                intro:
+                  "À medida que o estudante de Kaze-do se torna mais proficiente, ele é capaz de focar o poder da mente, da alma e do corpo em golpes punitivos com as mãos e os pés.",
+                effects: [
+                  {
+                    name: "Dano",
+                    text: "Você pode gastar um Ponto de Vazio em rolagens de dano para ataques desarmados, incluindo o dano causado em uma Agarrada (Grapple).",
+                  },
+                  {
+                    name: "Tatuagem",
+                    text: "Você ganha uma tatuagem adicional.",
+                  },
+                ],
+              },
+              {
+                level: 2,
+                levelLabel: "二",
+                title: "Movendo o Vento",
+                intro:
+                  "O Kikage Zumi agora golpeia com a rapidez do próprio Elemento Ar, o verdadeiro caminho do Kaze-do.",
+                effects: [
+                  {
+                    name: "Efeito",
+                    text: "Você pode atacar como uma Ação Simples (Simple Action) ao realizar ataques desarmados.",
+                  },
+                  {
+                    name: "Tatuagem",
+                    text: "Você ganha uma tatuagem adicional.",
+                  },
+                ],
+              },
+              {
+                level: 3,
+                levelLabel: "三",
+                title: "Golpeie o Centro",
+                intro:
+                  "Os Kikage Zumi aprendem a golpear com velocidade e força terrível, ao mesmo tempo em que usam a rapidez do vento para arremessar seus oponentes ao chão.",
+                effects: [
+                  {
+                    name: "Derrubar",
+                    text: "Quando estiver lutando desarmado, você pode realizar a manobra Derrubar (Knockdown) com 1 Aumento (Raise) a menos.",
+                  },
+                  {
+                    name: "Tatuagem",
+                    text: "Você ganha uma tatuagem adicional.",
+                  },
+                ],
+              },
+              {
+                level: 4,
+                levelLabel: "四",
+                title: "Golpeie o Cume",
+                intro:
+                  "A maestria final dos caminhos do Kaze-do permite ao homem tatuado desferir golpes e arremessos que privam seus inimigos do próprio Ar.",
+                effects: [
+                  {
+                    name: "Derrubar Aprimorado",
+                    text: "Sempre que você realizar uma manobra Derrubar (Knockdown), você pode declarar dois Aumentos adicionais; se o Derrubar for bem-sucedido, seu oponente fica automaticamente Atordoado (Stunned).",
+                  },
+                  {
+                    name: "Agarrada",
+                    text: "Se você optar por arremessar um oponente durante uma Agarrada que você controla, ele deve rolar Terra contra ND 20 ou também ficará Atordoado.",
+                  },
+                  {
+                    name: "Tatuagem",
+                    text: "Você ganha uma tatuagem adicional.",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        tattoos: [
+          {
+            name: "Aranha",
+            description:
+              "Permite mover-se por superfícies verticais ou invertidas (paredes e tetos) usando metade do seu deslocamento durante Ações de Movimento.",
+          },
+          {
+            name: "Bambu",
+            description:
+              "Aumenta o seu ND de Armadura em um valor igual a (Nível de Escola x 2) + 5.",
+          },
+          {
+            name: "Camaleão",
+            description:
+              "Cria uma ilusão alterando sua aparência e roupas (não pode imitar pessoas específicas). Para perceberem a ilusão, devem passar em um teste contra ND igual à sua Consciência x 5.",
+          },
+          {
+            name: "Caranguejo",
+            description:
+              "Concede um valor de Redução de Dano igual ao seu Anel de Terra.",
+          },
+          {
+            name: "Centopeia",
+            description:
+              "Permite viajar distâncias imensas (Água x 30m por movimento) por um dia inteiro. Se parar por mais de um minuto, o efeito acaba, causando desmaio e exaustão por 12 horas.",
+          },
+          {
+            name: "Corvo",
+            description:
+              "[Sempre Ativa] Você rola dados extras iguais ao seu Nível de Escola para resistir à Contaminação das Terras Sombrias.",
+          },
+          {
+            name: "Crisântemo",
+            description:
+              "[Sempre Ativa] Torna você imune aos efeitos prejudiciais do clima frio ou quente extremo (não protege contra fogo ou magias).",
+          },
+          {
+            name: "Dragão",
+            description:
+              "Permite soprar um cone de fogo (Ação Complexa) que causa dano igual ao seu Anel de Fogo.",
+          },
+          {
+            name: "Equilíbrio",
+            description:
+              "Aumenta ou diminui (à sua escolha) o ND de feitiços direcionados a você em um valor de (Nível de Escola x 2) + 5.",
+          },
+          {
+            name: "Erupção",
+            description:
+              "Seus ataques desarmados são envoltos em chamas, causando dano extra igual ao seu Anel de Fogo + Nível de Escola.",
+          },
+          {
+            name: "Escorpião",
+            description:
+              "Adiciona dados extras (+Nível de Escola) em testes de Furtividade. Dados de dano que explodirem atordoam automaticamente o alvo.",
+          },
+          {
+            name: "Falcão",
+            description:
+              "Permite saltar uma distância imensa (Água x 7,5m) como uma Ação Complexa.",
+          },
+          {
+            name: "Fênix",
+            description:
+              "Pode ser ativada 1 vez por semana se você tiver ao menos 1 Ponto de Vazio. Quando seus ferimentos descerem de nível, consome todo seu Vazio e cura instantaneamente um número de Ferimentos igual a (Nível de Escola x 10).",
+          },
+          {
+            name: "Flor de Cerejeira",
+            description:
+              "Adiciona dados extras (+Nível de Escola) em todas as rolagens de Honra.",
+          },
+          {
+            name: "Garça",
+            description:
+              "Concede dados de bônus (Ar + Nível de Escola) para rolagens Sociais durante 1 hora (cada dado dá +1k0). O limite máximo de dados usados em um único teste é igual ao seu Anel de Vazio.",
+          },
+          {
+            name: "Ki-Rin",
+            description:
+              "Permite refazer qualquer rolagem uma vez por rodada, mantendo o melhor resultado.",
+          },
+          {
+            name: "Leão",
+            description:
+              "Concede a você graduações em uma Perícia Bugei (Marcial) igual ao seu Nível de Escola. (Substitui sua graduação atual se o Nível da Escola for maior).",
+          },
+          {
+            name: "Lobo",
+            description:
+              "Aguça os sentidos e concede Incrementos Livres (+Nível de Escola) em rolagens de Caça/Rastrear. O efeito dura um número de horas igual ao Nível de Escola.",
+          },
+          {
+            name: "Louva-a-deus",
+            description:
+              "[Sempre Ativa] Torna você completamente imune a todos os efeitos de Medo.",
+          },
+          {
+            name: "Máscara Branca",
+            description:
+              "Torna você imune a tentativas mágicas de ler sua mente. Além disso, aumenta o ND de quem tentar ler suas emoções ou avaliar sua honestidade em (+Vazio + Nível de Escola).",
+          },
+          {
+            name: "Montanha",
+            description:
+              "Reduz todas as suas penalidades por ferimentos em (Nível de Escola + 2).",
+          },
+          {
+            name: "Morcego",
+            description:
+              "Sente o ambiente intuitivamente, ignorando penalidades por escuridão ou cegueira (mas não supera furtividade ou invisibilidade mágica).",
+          },
+          {
+            name: "Oceano",
+            description:
+              "[Sempre Ativa] Você não precisa mais de comida ou bebida. Ao ativar a tatuagem (1 vez a cada 3 dias), você descansa instantaneamente o equivalente a 8h de sono e recupera todos os Pontos de Vazio.",
+          },
+          {
+            name: "Raiz de Flecha",
+            description:
+              "Cura você mesmo ou um aliado em um número de Feridas igual a (Nível de Escola x 5). Limite de 1 vez por dia por alvo.",
+          },
+          {
+            name: "Rouxinol",
+            description:
+              "Adiciona um bônus numérico fixo (+Terra + Nível de Escola) ao resultado total de suas rolagens de Meditação.",
+          },
+          {
+            name: "Sol",
+            description:
+              "Permite que você declare 1 Aumento a mais do que o seu limite normal permitiria em uma ação.",
+          },
+          {
+            name: "Tartaruga",
+            description:
+              "Concede graduações em uma Perícia Alta, Mercante ou Baixa igual ao seu Nível de Escola. (Substitui sua graduação atual se o Nível da Escola for maior).",
+          },
+          {
+            name: "Tempestade",
+            description:
+              "Manobras de Derrubar (Knockdown) custam 1 Aumento a menos (ou 2 a menos contra quadrúpedes). Em caso de sucesso, você soma (+Ar + Nível de Escola) no resultado do teste de Força contestado.",
+          },
+          {
+            name: "Tigre",
+            description:
+              "Seus ataques desarmados imitam garras e ignoram a Redução de Dano do oponente até um valor igual ao seu Nível de Escola.",
+          },
+          {
+            name: "Vazio",
+            description:
+              "Concede percepção das formas de vida ao seu redor em um raio de (Nível de Escola x 3m), revelando a posição de seres mesmo através de paredes, mas sem identificar detalhes específicos.",
+          },
+          {
+            name: "Vento",
+            description:
+              "Concede 1 Ação Simples adicional por rodada (não pode ser usada para ataque) e seu movimento não é mais limitado ao seu (Anel de Água x 6m).",
+          },
+        ],
+      },
+    ],
+  },
+
+  forcasEspeciais: {
+    label: "Forças Especiais",
+    seal: "⚔",
+    listLabel: "Organizações",
+    items: [
+      {
+        id: "guarda-esmeralda",
+        name: "Guarda Esmeralda",
+        fullTitle: "A Guarda Esmeralda: Os Kenshinzen",
+        glyph: "🛡",
+        tagline:
+          "Corpo de elite militar e investigativo que responde ao Campeão de Esmeralda.",
+        description:
+          "A Guarda Esmeralda é o corpo de elite militar e investigativo que responde diretamente ao Campeão de Esmeralda. Diferente dos exércitos dos Clãs, os Guardas Esmeralda possuem jurisdição absoluta, podendo atuar em qualquer território do Império de Esmeralda, independentemente de fronteiras clânicas. Seus membros mais temidos e respeitados são os Kenshinzen, samurais que uniram a maestria absoluta da espada (Kenjutsu) com o dever inabalável de aplicar a Lei Imperial.",
+        tags: ["Kenjutsu", "Magistrados", "Imperial", "Esmeralda"],
+        school: {
+          name: "Escola Kenshinzen",
+          skills: [
+            "Kenjutsu",
+            "Defesa",
+            "Investigação (Notar)",
+            "Esportes",
+            "Etiqueta",
+            "Intimidação",
+            "qualquer 1 Perícia",
+          ],
+          equipment: [
+            "Katana",
+            "Wakizashi",
+            "Armadura Leve",
+            "Roupas Imperiais",
+            "Kit de Investigação",
+            "10 Kokus",
+          ],
+        },
+        techniques: [
+          {
+            level: 1,
+            levelLabel: "一",
+            title: "O Coração da Espada (Ken no Kokoro)",
+            intro:
+              "O Kenshinzen não luta apenas contra o corpo do inimigo; ele governa o fluxo da justiça e da batalha. Ao entrar em harmonia absoluta com sua lâmina e com a Lei Imperial, o guarda antecipa as intenções criminosas e os movimentos adversários antes mesmo que o golpe seja desferido.",
+            effects: [
+              {
+                name: "Mecânica",
+                text: "Enquanto estiver empunhando armas de corte (Kenjutsu) e na Postura de Ataque, sua postura é tão impecável que intimida e confunde o agressor. Você soma o seu Rank de Honra ao seu Total de Defesa contra o primeiro ataque corpo a corpo recebido em cada rodada.",
+              },
+            ],
+          },
+          {
+            level: 2,
+            levelLabel: "二",
+            title: "O Coração do Imperador",
+            intro:
+              "Como um soldado de elite treinado para emboscadas, capturas e vigilância em qualquer terreno do Império, o Kenshinzen desenvolve reflexos aguçados e uma leitura corporal impecável, tornando-se virtualmente impossível de ser pego desprevenido por criminosos ou traidores.",
+            effects: [
+              {
+                name: "Mecânica",
+                text: "Sempre que você for alvo de uma emboscada ou surpreendido em batalha por falhar em um teste de Investigação (Notar) / Percepção, seu treinamento tático se ativa imediatamente. Você tem direito a realizar um Segundo Teste usando Esportes / Agilidade. Se tiver sucesso neste segundo teste, você nega a surpresa, reage a tempo e não sofre as penalidades de ser surpreendido.",
+              },
+            ],
+          },
+          {
+            level: 3,
+            levelLabel: "三",
+            title: "O Coração da Lei Implacável",
+            intro:
+              "No ápice de seu treinamento, o Kenshinzen combina sua agilidade física superior com a precisão cirúrgica de um executor imperial. Seus movimentos atléticos estendem-se diretamente para a letalidade de sua lâmina.",
+            effects: [
+              {
+                name: "Mecânica",
+                text: "A sua precisão marcial atinge o ápice. Você soma metade do seu Nível de Perícia em Esportes (arredondado para cima) ao total de todas as suas jogadas de ataque com armas de corte (Kenjutsu). Sua velocidade e controle corporal garantem que a justiça do Imperador seja rápida e infalível.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "oniwabanshu",
+        name: "Oniwabanshu",
+        fullTitle: "Oniwabanshu — Clã Escorpião",
+        glyph: "🜂",
+        tagline:
+          "O Braço das Sombras do Imperador — mestres da ilusão e da sombra.",
+        description:
+          "A palavra tejina significa 'ilusão'. Por séculos, ela foi o segredo mais bem guardado do clã escorpião, mas sob o decreto de Bayushi, essa arte foi elevada a um novo patamar. No isolado Dojo da Lua Oculta, os Soshi e os Shosuro foram incumbidos de pesquisar a fundo as kage yakiin (Marcas da Sombra) para forjar shinobis superiores. Dessa linhagem de elite nasceu a Ordem Oniwabanshu — samurais escolhidos a dedo para servirem como o Braço das Sombras do Imperador.",
+        tags: ["Tejina", "Sombra", "Escorpião", "Shinobi"],
+        techniques: [
+          {
+            level: 1,
+            levelLabel: "一",
+            title: "A Arte de Tejina",
+            intro:
+              "O Oniwabanshu domina os fundamentos da manipulação sensorial, usando o poder da Sombra para dobrar a realidade ao redor de seus alvos.",
+            effects: [
+              {
+                name: "Mecânica",
+                text: "Você pode gastar 1 Espaço de Feitiço de Ar ou 1 de Vazio como uma Ação Simples para ativar uma das seguintes habilidades:",
+                subEffects: [
+                  {
+                    name: "Manto da Noite (Toque)",
+                    text: "Torna invisível um objeto não vivo (menor que você) por um número de horas igual ao seu Anel de Ar. O item ainda pode ser detectado magicamente via Teste Contestado (Percepção/Ar).",
+                  },
+                  {
+                    name: "Rosto Oculto (Próprio)",
+                    text: "Altera suas feições para parecer outra pessoa (mesmo gênero/porte) por horas iguais ao seu Anel de Ar. Observadores familiares podem tentar um Teste Contestado base 10 (Investigação/Percepção).",
+                  },
+                  {
+                    name: "Conhecer a Mente (Curto)",
+                    text: "Sente pensamentos superficiais e emoções do alvo por Rodadas iguais ao seu Anel de Ar. Enquanto ativo, você recebe +2k2 em testes de Perícia Social contra o alvo.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            level: 2,
+            levelLabel: "二",
+            title: "Sombras Desvanecentes",
+            intro:
+              "Como um verdadeiro mestre da ordem, o Oniwabanshu sabe que não ser atingido é a forma mais pura de domínio. Ele se dissolve no ar no momento exato do impacto.",
+            effects: [
+              {
+                name: "Mecânica",
+                text: "Sempre que você for alvo de um ataque ou efeito hostil, você pode gastar 1 Espaço de Feitiço de Ar como uma Ação Livre. O atacante deve refazer a rolagem de ataque e manter o menor resultado.",
+              },
+              {
+                name: "Desvanecer em Sombras",
+                text: "Se o ataque falhar, você pode se deslocar imediatamente uma distância igual ao seu Anel de Ar x 1,5 metros. Este movimento não provoca ataques de oportunidade.",
+              },
+            ],
+          },
+          {
+            level: 3,
+            levelLabel: "三",
+            title: "Caminho da Sombra",
+            intro:
+              "O treinamento no Dojo da Lua Oculta permite que o samurai caminhe por onde outros apenas enxergam vácuo. A sombra torna-se sua visão e sua voz.",
+            effects: [
+              {
+                name: "Olhos do Nada",
+                text: "Você pode sacrificar um espaço de feitiço de qualquer Elemento para obter Visão Perfeita na escuridão absoluta por uma cena.",
+              },
+              {
+                name: "Fluidez Sombria",
+                text: "Você pode gastar 1 espaço de feitiço de Ar ou Vazio para ganhar +1k1 em qualquer teste de Furtividade, Prestidigitação ou Sinceridade (Engano).",
+              },
+              {
+                name: "Limite",
+                text: "Você não pode gastar mais espaços de feitiço desta forma do que o seu Nível de Habilidade da escola em um único teste.",
+              },
+            ],
+          },
+          {
+            level: 4,
+            levelLabel: "四",
+            title: "O Abraço da Escuridão",
+            intro:
+              "O Oniwabanshu torna-se um fantasma entre os homens. Suas ilusões são tão densas que drenam a vontade de lutar daqueles que as presenciam.",
+            effects: [
+              {
+                name: "Presença Dissolvente",
+                text: "Alvos tentando resistir às suas habilidades de Tejina sofrem uma penalidade de -1k1 em seus Testes Resistidos.",
+              },
+              {
+                name: "Mestria de Tejina",
+                text: "Você pode manter os efeitos de Rosto Oculto e Manto da Noite ativos simultaneamente sem precisar gastar ações para concentração.",
+              },
+            ],
+          },
+          {
+            level: 5,
+            levelLabel: "五",
+            title: "Desvelar a Sombra",
+            intro:
+              "Os místicos das Sombras aprendem a discernir e quebrar as ilusões do Nada, revelando as mentiras da Sombra.",
+            effects: [
+              {
+                name: "Expor a Verdade",
+                text: "Como Ação Simples, você pode gastar 1 Ponto de Vazio para tentar expor a verdadeira forma de qualquer Filho da Sombra ou lacaio do Nada dentro da sua visão. Realize uma Jogada Contestada de Vazio contra a Força de Vontade do alvo. Com sucesso, a criatura é revelada como realmente é e não pode reassumir sua forma ilusória enquanto permanecer sob sua observação.",
+              },
+              {
+                name: "Ataque Verdadeiro",
+                text: "Como Ação Livre, você pode gastar 1 Ponto de Vazio junto a um espaço de feitiços ao fazer um ataque físico. Esse efeito ignora as resistências e imunidades normais de criaturas ligadas ao Nada.",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
+  regras: {
+    label: "Regras",
+    seal: "📖",
+    listLabel: "Tópicos",
+    items: [
+      {
+        id: "progressao-xp",
+        name: "Sistema de Progressão de XP",
+        glyph: "📘",
+        tagline:
+          "Custo fixo para atributos e fórmula para perícias — quanto custa evoluir.",
+        description:
+          "A progressão de personagens é governada por Pontos de Experiência (XP). Atributos e Vazio possuem custo fixo, enquanto perícias seguem uma fórmula baseada no nível atual.",
+        tags: ["Progressão", "Atributos", "Perícias"],
+        ruleSections: [
+          {
+            title: "Atributos",
+            text: "Custo fixo para qualquer ponto de atributo ou Vazio.",
+            items: [
+              "1 ponto de Atributo = 50 XP",
+              "1 ponto de Vazio = 50 XP",
+            ],
+          },
+          {
+            title: "Perícias",
+            text: "Fórmula de custo baseada no nível atual da perícia.",
+            items: ["1 ponto de Perícia = 10 XP"],
+          },
+        ],
+      },
+
+      {
+        id: "conjuracao",
+        name: "Conjuração Shugenja e Dobra",
+        glyph: "🔮",
+        tagline:
+          "A dificuldade de conjuração segue a fórmula TN = (5 × Rank) + 10.",
+        description:
+          "Todos os feitiços e dobras elementais usam a mesma fórmula de dificuldade. O TN aumenta conforme o rank da magia desejada.",
+        tags: ["Conjuração", "TN", "Shugenja"],
+        ruleSections: [
+          {
+            title: "Fórmula de Dificuldade",
+            text: "TN = (5 × Rank da Magia) + 10",
+          },
+          {
+            title: "Tabela de Referência",
+            table: {
+              headers: ["Rank da Magia", "TN"],
+              rows: [
+                ["Rank 1", "15"],
+                ["Rank 2", "20"],
+                ["Rank 3", "25"],
+                ["Rank 4", "30"],
+                ["Rank 5", "35"],
+              ],
+            },
+          },
+        ],
+      },
+
+      {
+        id: "vazio",
+        name: "Vazio",
+        glyph: "⚪",
+        tagline:
+          "Recurso exclusivo de escolas treinadas — pode negar dano como ação livre.",
+        description:
+          "O Vazio é um recurso poderoso restrito a personagens treinados em escolas que concedem habilidades de uso de Vazio.",
+        tags: ["Vazio", "Defesa", "Recurso"],
+        ruleSections: [
+          {
+            items: [
+              "Só pode ser usado por personagens treinados em escolas que concedem habilidades de uso de Vazio.",
+              "Pode ser gasto como Ação Livre para negar 10 pontos de dano.",
+            ],
+          },
+        ],
+      },
+
+      {
+        id: "honra",
+        name: "Honra",
+        glyph: "🏵️",
+        tagline:
+          "O único uso da Honra no sistema — redutor de dano com ou sem armadura.",
+        description:
+          "A Honra funciona exclusivamente como um redutor de dano. Seu valor efetivo depende se o personagem está ou não usando armadura.",
+        tags: ["Honra", "Defesa", "Dano"],
+        ruleSections: [
+          {
+            items: [
+              "Com armadura: Metade do valor de Honra é adicionada ao redutor.",
+              "Sem armadura: O valor integral de Honra atua como redutor de dano.",
+            ],
+          },
+        ],
+      },
+
+      {
+        id: "iniciativa",
+        name: "Iniciativa",
+        glyph: "⚔️",
+        tagline: "Determinada pela Perícia da arma escolhida dividida por Reflexos.",
+        description:
+          "A Iniciativa define a ordem de ação no combate. Ela é calculada com base na perícia marcial do personagem e seu atributo de Reflexos.",
+        tags: ["Iniciativa", "Combate"],
+        ruleSections: [
+          {
+            title: "Fórmula",
+            text: "Iniciativa = Perícia da arma escolhida / Reflexos",
+          },
+        ],
+      },
+
+      {
+        id: "posturas",
+        name: "Guia de Posturas e Combate",
+        glyph: "⚔️",
+        tagline:
+          "Cinco posturas que definem o estilo tático do combatente no turno.",
+        description:
+          "As posturas determinam como o personagem distribui seus recursos entre ataque e defesa. Cada postura oferece bônus e penalidades distintos.",
+        tags: ["Posturas", "Combate", "Ataque", "Defesa"],
+        ruleSections: [
+          {
+            title: "Ataque Total",
+            text: "+2k1 em rolagens de Ataque e -2k1 em rolagens de Defesa.",
+            items: [
+              "Movimento: Reduz o deslocamento em Água -1.",
+              "Restrições: Não permite defesa passiva e limita outras ações complexas.",
+            ],
+          },
+          {
+            title: "Ataque (Padrão)",
+            text: "Tática padrão para escaramuças. Não possui bônus ou penalidades intrínsecas.",
+            items: [
+              "Movimento: Sem restrições de movimento.",
+              "Restrições: Sem restrições de ações.",
+            ],
+          },
+          {
+            title: "Defesa (Foco em Equilíbrio)",
+            text: "+1k1 no teste de Defesa e -1k1 no teste de Ataque.",
+            items: [
+              "Movimento: Reduz o deslocamento em Água -1.",
+            ],
+          },
+          {
+            title: "Defesa Total (Exclusiva Shugenja)",
+            text: "+2k2 em todas as rolagens de Defesa.",
+            items: [
+              "Movimento: Reduz o deslocamento em Água -1.",
+              "Restrições: Postura apenas para Shugenjas. Só é permitido conjurar feitiços; o personagem não pode realizar ataques físicos.",
+            ],
+          },
+          {
+            title: "Centro",
+            text: "+1k1 em todas as rolagens no próximo turno + bônus de Vazio.",
+            items: [
+              "Restrições: O personagem não pode realizar ataques ou ações ofensivas enquanto estiver nesta postura.",
+            ],
+          },
+        ],
+      },
+
+      {
+        id: "acoes",
+        name: "Economia de Ações",
+        glyph: "🕒",
+        tagline:
+          "Combinações permitidas de ações por turno e os três tipos de ação.",
+        description:
+          "Em seu turno, o personagem pode realizar diferentes combinações de ações. Cada tipo de ação permite certas atividades.",
+        tags: ["Ações", "Combate", "Turno"],
+        ruleSections: [
+          {
+            title: "Combinações por Turno",
+            items: [
+              "1 Ação Complexa + 1 Ação de Movimento",
+              "2 Ações Simples + 1 Ação de Movimento",
+              "2 Ações Simples + Ações Livres",
+            ],
+            text: "Nota: Cada Ação Livre só pode ser executada uma vez por rodada, a menos que especificado o contrário.",
+          },
+          {
+            title: "Ações Livres",
+            items: [
+              "Falar (curto)",
+              "Sacar arma pequena",
+              "Soltar itens",
+              "Encordoar arco",
+              "Levantar-se",
+              "Movimento curto",
+            ],
+          },
+          {
+            title: "Ações Simples",
+            items: [
+              "Sacar arma média/grande",
+              "Ativar Kata",
+              "Proteger aliado",
+              "Usar perícia (não-combate)",
+              "Movimento médio",
+            ],
+          },
+          {
+            title: "Ações Complexas",
+            items: [
+              "Realizar ataque (corpo a corpo ou distância)",
+              "Conjurar feitiços",
+              "Manobras",
+            ],
+          },
+        ],
+      },
+
+      {
+        id: "movimentacao",
+        name: "Movimentação e Terreno",
+        glyph: "🏃",
+        tagline:
+          "Distâncias percorridas por tipo de ação e penalidades de terreno.",
+        description:
+          "A distância percorrida depende do tipo de ação dedicada ao movimento. O mapa de batalha usa quadrados de 1,5m.",
+        tags: ["Movimentação", "Terreno", "Mapa"],
+        ruleSections: [
+          {
+            title: "Distâncias",
+            items: [
+              "Quadrado no mapa de batalha = 1,5m",
+              "Ação Movimento: Anel de Água × 1,5m",
+              "Máximo por Rodada: Até 6 × Anel de Água (salvo bônus extras)",
+            ],
+          },
+          {
+            title: "Modificadores de Terreno",
+            items: [
+              "Básico (Ruas, planícies): Sem penalidades.",
+              "Moderado (Grama alta, subidas): Água conta como -1 nível (mín. 1).",
+              "Difícil (Selva, pântano): Água conta como -2 níveis (mín. 1). O mestre pode aplicar -5 ou -10 em testes físicos.",
+            ],
+          },
+        ],
+      },
+
+      {
+        id: "combate",
+        name: "Sistema de Combate",
+        glyph: "🛡️",
+        tagline:
+          "Testes contestados, opções de defesa e regras para duas armas.",
+        description:
+          "O combate é resolvido com Testes Contestados entre atacante e defensor. O empate favorece a defesa.",
+        tags: ["Combate", "Ataque", "Defesa", "Armas"],
+        ruleSections: [
+          {
+            title: "Ataque",
+            text: "Fórmula: Perícia de Arma / Agilidade",
+          },
+          {
+            title: "Defesa",
+            text: "O defensor escolhe como reagir ao ataque:",
+            items: [
+              "Aparar: Perícia de Arma / Reflexo — Usa sua arma para desviar o golpe.",
+              "Bloquear: Perícia de Defesa / Vigor — Absorve o impacto com resistência ou armadura.",
+              "Esquiva: Perícia de Atletismo / Agilidade — Evita o golpe com movimento.",
+            ],
+          },
+          {
+            title: "Ataques à Distância",
+            text: "Flechas e similares: Caso escolha Aparar ou Esquivar, troca Reflexo por Percepção.",
+          },
+          {
+            title: "Duas Armas — Penalidades",
+            table: {
+              headers: ["Arma", "Penalidade"],
+              rows: [
+                ["Arma Menor", "-5"],
+                ["Arma Média", "-10"],
+                ["Arma Maior", "-15"],
+              ],
+            },
+          },
+          {
+            title: "Segundo Ataque",
+            text: "Todo ataque que superar a jogada de defesa do inimigo por 30 ou mais tem direito a aplicar um segundo ataque no alvo.",
+          },
+        ],
+      },
+
+      {
+        id: "emboscada",
+        name: "Emboscada e Surpresas",
+        glyph: "🌑",
+        tagline:
+          "Teste resistido entre Furtividade e Investigação — quem vence surpreende.",
+        description:
+          "Para realizar uma emboscada, o grupo escondido realiza um Teste Resistido contra o grupo que pode ser surpreendido.",
+        tags: ["Emboscada", "Surpresa", "Furtividade"],
+        ruleSections: [
+          {
+            title: "Teste Resistido",
+            items: [
+              "Atacante: Furtividade (Emboscada) / Agilidade",
+              "Defensor: Investigação (Notar) / Percepção",
+            ],
+          },
+          {
+            title: "Efeitos da Vitória do Emboscador",
+            items: [
+              "Iniciativa: Apenas o grupo emboscador age na 1ª rodada.",
+              "Restrições: O grupo emboscado não pode usar certas Posturas (como Defesa Total).",
+              "Bônus: O grupo escondido ganha +1k1 no primeiro ataque.",
+              "Penalidade: Os inimigos recebem -10 na Iniciativa durante toda a luta.",
+            ],
+          },
+        ],
+      },
+
+      {
+        id: "perigos-ambientais",
+        name: "Perigos Ambientais",
+        glyph: "⚠️",
+        tagline: "Quedas, afogamento e outros riscos do mundo natural.",
+        description:
+          "O mundo oferece perigos que vão além do combate direto. Quedas e afogamento são ameaças reais a qualquer aventureiro.",
+        tags: ["Ambiente", "Perigo", "Queda", "Afogamento"],
+        ruleSections: [
+          {
+            title: "Queda",
+            text: "1k1 de Ferimentos a cada 3 metros de queda.",
+            items: [
+              "Quedas menores que 3m normalmente não causam dano, a menos que o terreno seja perigoso (ex: pedras ou estacas).",
+            ],
+          },
+          {
+            title: "Afogamento",
+            text: "Teste de Manutenção: Perícia Esportes (Natação) / Força (NA 15) por minuto para manter-se à tona. Em condições severas (mar agitado), o Mestre pode alterar o NA ou o atributo.",
+            items: [
+              "Falha: O personagem pode prender a respiração por um número de Rodadas igual ao seu Vigor.",
+              "Dano de Asfixia: Após o limite de rodadas, sofre 2k2 de Ferimentos por Rodada e fica em estado Indefeso até ser salvo.",
+            ],
+          },
+        ],
+      },
+
+      {
+        id: "recuperacao",
+        name: "Recuperação de Ferimentos",
+        glyph: "🩹",
+        tagline:
+          "Descanso natural, tratamento ativo e ferimentos permanentes.",
+        description:
+          "A recuperação de ferimentos depende do descanso, de tratamento médico ou mágico, e pode resultar em cicatrizes permanentes.",
+        tags: ["Cura", "Ferimentos", "Descanso"],
+        ruleSections: [
+          {
+            title: "Descanso Natural",
+            text: "O personagem recupera (Vigor × 2) + Nível de Habilidades em Ferimentos por noite de sono.",
+          },
+          {
+            title: "Tratamento Ativo",
+            text: "A cura pode ser acelerada através de Perícias Médicas ou Feitiços de cura.",
+          },
+          {
+            title: "Ferimentos Permanentes",
+            text: "Cicatrizes graves ou perda de membros não se curam naturalmente; seus efeitos mecânicos e narrativos ficam a critério do Mestre.",
+          },
+        ],
       },
     ],
   },

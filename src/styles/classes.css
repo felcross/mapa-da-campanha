@@ -672,7 +672,7 @@ button {
 
 .resourceCard__table th {
   background: var(--ai);
-  color: #fff;
+  color: var(--washi);
   font-weight: 500;
   font-size: 11px;
   letter-spacing: 0.06em;
@@ -747,7 +747,7 @@ button {
 
 .difficultyCard__table th {
   background: var(--ai);
-  color: #fff;
+  color: var(--washi);
   font-weight: 500;
   font-size: 11px;
   letter-spacing: 0.06em;
@@ -828,6 +828,55 @@ button {
   padding: 14px;
   background: var(--washi);
   border-top: 1px solid var(--line-strong);
+}
+
+/* --- Orders (sub-classes) --- */
+
+.orders {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.order {
+  border-left: 3px solid var(--kin);
+  padding-left: 16px;
+}
+
+.order__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.order__glyph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--ai);
+  color: var(--washi);
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.order__name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--sumi);
+  margin: 0;
+}
+
+.order__desc {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--sumi-soft);
+  font-style: italic;
+  margin: 0 0 12px;
 }
 
 /* --- Technique timeline --- */
@@ -1125,6 +1174,129 @@ button {
   line-height: 1.6;
   color: var(--sumi);
   margin-top: 6px;
+}
+
+/* --- Tattoos --- */
+
+.tattoos {
+  margin-top: 20px;
+}
+
+.tattoos__title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--sumi);
+  margin: 0 0 6px;
+}
+
+.tattoos__subtitle {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--sumi-soft);
+  margin: 0 0 14px;
+  font-style: italic;
+}
+
+.tattoos__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.tattooCard {
+  padding: 12px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--washi-deep);
+}
+
+.tattooCard__name {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--sumi);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.tattooCard__desc {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--sumi-soft);
+  margin: 0;
+}
+
+/* --- Rule Sections --- */
+
+.ruleSections {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ruleSection {
+  border-left: 2px solid var(--kin);
+  padding-left: 14px;
+}
+
+.ruleSection__title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--sumi);
+  margin: 0 0 6px;
+}
+
+.ruleSection__text {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--sumi-soft);
+  margin: 0 0 8px;
+}
+
+.ruleSection__list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--sumi);
+}
+
+.ruleSection__list li {
+  margin-bottom: 4px;
+}
+
+.ruleSection__list li::marker {
+  color: var(--kin);
+}
+
+.ruleSection__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.ruleSection__table th,
+.ruleSection__table td {
+  padding: 6px 10px;
+  border: 1px solid var(--line-strong);
+  text-align: left;
+}
+
+.ruleSection__table th {
+  background: var(--ai);
+  color: var(--washi);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ruleSection__table td {
+  background: var(--washi);
+  color: var(--sumi);
 }
 
 /* --- Large screens: multi-column descriptions --- */

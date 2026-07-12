@@ -103,8 +103,59 @@ export default function DetailScreen({ categoryLabel, item }: DetailScreenProps)
           </div>
         )}
 
-        {/* ── Techniques ── */}
-        {item.techniques && item.techniques.length > 0 && (
+        {/* ── Orders (sub-classes) ── */}
+        {item.orders && item.orders.length > 0 && (
+          <div className="orders">
+            {item.orders.map((order) => (
+              <div key={order.name} className="order">
+                <div className="order__header">
+                  <span className="order__glyph">{order.glyph}</span>
+                  <h3 className="order__name">{order.name}</h3>
+                </div>
+                {order.description.split("\n\n").map((para, pi) => (
+                  <p key={pi} className="order__desc">{para}</p>
+                ))}
+                {order.techniques.length > 0 && (
+                  <div className="techniques">
+                    <Accordion
+                      items={order.techniques.map((t) => ({
+                        key: `tech-${order.name}-${t.level}`,
+                        label: t.title,
+                        sealLabel: t.levelLabel,
+                        content: (
+                          <div className="techniques__level">
+                            <p className="techniques__intro">{t.intro}</p>
+                            <div className="techniques__effects">
+                              {t.effects.map((ef) => (
+                                <div key={ef.name} className="techniques__effect">
+                                  <span className="techniques__effectName">{ef.name}</span>
+                                  <p className="techniques__effectText">{ef.text}</p>
+                                  {ef.subEffects && ef.subEffects.length > 0 && (
+                                    <div className="techniques__subEffects">
+                                      {ef.subEffects.map((se) => (
+                                        <div key={se.name} className="techniques__subEffect">
+                                          <span className="techniques__effectName">{se.name}</span>
+                                          <p className="techniques__effectText">{se.text}</p>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ),
+                      }))}
+                    />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* ── Techniques (standalone, for non-order items) ── */}
+        {!item.orders && item.techniques && item.techniques.length > 0 && (
           <div className="techniques">
             <Accordion
               items={item.techniques.map((t) => ({
@@ -331,6 +382,78 @@ export default function DetailScreen({ categoryLabel, item }: DetailScreenProps)
               }
               return null;
             })}
+          </div>
+        )}
+
+        {/* ── Tattoos (accordion) ── */}
+        {item.tattoos && item.tattoos.length > 0 && (
+          <div className="tattoos">
+            <Accordion
+              items={[{
+                key: "tattoos",
+                label: `Tatuagens Místicas (${item.tattoos.length})`,
+                content: (
+                  <>
+                    <p className="tattoos__subtitle">
+                      Ativadas como Ações Livres. Apenas uma tatuagem pode ficar ativa por vez
+                      (as Passivas não impedem outras ativações). Efeitos ativos duram um número
+                      de rodadas igual ao Nível de Escola x 2. Devem estar expostas.
+                    </p>
+                    <div className="tattoos__grid">
+                      {item.tattoos.map((t) => (
+                        <div key={t.name} className="tattooCard">
+                          <span className="tattooCard__name">{t.name}</span>
+                          <p className="tattooCard__desc">{t.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ),
+              }]}
+            />
+          </div>
+        )}
+
+        {/* ── Rule Sections ── */}
+        {item.ruleSections && item.ruleSections.length > 0 && (
+          <div className="ruleSections">
+            {item.ruleSections.map((section, i) => (
+              <div key={i} className="ruleSection">
+                {section.title && (
+                  <h4 className="ruleSection__title">{section.title}</h4>
+                )}
+                {section.text && (
+                  <p className="ruleSection__text">{section.text}</p>
+                )}
+                {section.items && section.items.length > 0 && (
+                  <ul className="ruleSection__list">
+                    {section.items.map((item, j) => (
+                      <li key={j}>{item}</li>
+                    ))}
+                  </ul>
+                )}
+                {section.table && (
+                  <table className="ruleSection__table">
+                    <thead>
+                      <tr>
+                        {section.table.headers.map((h) => (
+                          <th key={h}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {section.table.rows.map((row, ri) => (
+                        <tr key={ri}>
+                          {row.map((cell, ci) => (
+                            <td key={ci}>{cell}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+            ))}
           </div>
         )}
 
