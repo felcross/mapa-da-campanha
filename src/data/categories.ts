@@ -129,19 +129,17 @@ export interface WallVariantSet {
 
 export type ElementalVariant = EkuroVariant | WallVariantSet;
 
-export interface ConstellationField {
-  [key: string]: string;
-}
-
 export interface Constellation {
   name: string;
-  summary: string;
-  fields: ConstellationField;
+  level: number;
+  description: string;
+  effect: string;
+  extras?: Record<string, string>;
 }
 
 export interface Domain {
   name: string;
-  sealLabel: string;
+  description: string;
   constellations: Constellation[];
 }
 
@@ -351,7 +349,7 @@ export const DATA: Record<string, Category> = {
         glyph: "鷹",
         tagline: "A elite absoluta da segurança imperial, lealdade inabalável ao Trono.",
         description:
-          "Os Seppun, conhecidos como os Miharu, são a elite absoluta da segurança imperial. Para um Miharu, a linhagem Hantei é o coração de Rokugan; protegê-la é garantir que o sol continue a brilhar. Eles sacrificam suas vidas e desejos pessoais em favor de uma vigilância eterna contra traições, invasões e corrupção, servindo diretamente como a guarda pessoal da Imperatriz.",
+          "Fundado por Hantei, o Clã da Coruja nasceu do juramento de um antigo imperador que falhou em proteger seu mundo e dedicou sua nova vida à defesa de Nana. Seus membros são vigilantes incansáveis e guardiões da Imperatriz, tendo como principal força a Guarda Miharu, conhecida como os Olhos da Coruja. Sua lealdade é absoluta, colocando a segurança do Trono de Jade acima de qualquer interesse pessoal.",
         bonuses: [
           { source: "Família Seppun", value: "+1 Vontade" },
           { source: "Bônus de Escola", value: "+1 Percepção" },
@@ -469,7 +467,7 @@ export const DATA: Record<string, Category> = {
         glyph: "蠍",
         tagline: "Mestres do dever sujo, a lâmina nas sombras do Império.",
         description:
-          "Os Bayushi são os mestres do dever sujo, a lâmina nas sombras que protege o Império de formas que a honra convencional não permite. Sua escola de Bushi foca em velocidade, pragmatismo e uma periculosidade que pune qualquer hesitação do adversário.",
+          "Fundado por Bayushi, o Clã do Escorpião atua nas sombras para proteger a Imperatriz e o Império. Especialistas em espionagem, investigação, contraespionagem e missões secretas, realizam tarefas que outros samurais não podem assumir sem comprometer sua honra. Sua ordem secreta, os Oniwabanshū, domina o Kagenari, uma arte mística baseada nas Marcas das Sombras, travando uma guerra silenciosa contra os agentes da família Gojo e do Dragão das Sombras.",
         bonuses: [
           { source: "Família Bayushi", value: "+1 Agilidade" },
           { source: "Bônus de Escola", value: "+1 Inteligência" },
@@ -1245,6 +1243,162 @@ export const DATA: Record<string, Category> = {
         ],
         tags: ["Investigação", "Defesa", "Adaptação"],
       },
+
+      {
+        id: "garca",
+        name: "Garça",
+        fullTitle: "Clã da Garça: Linhagem Doji",
+        glyph: "鷺",
+        tagline: "Diplomatas, artistas e estudiosos — guardiões da cultura e da identidade.",
+        description:
+          "Fundado por Lady Doji, o Clã da Garça tornou-se o grande guardião da cultura e da identidade de Nihongan. Seus samurais são diplomatas, artistas e estudiosos, responsáveis por aperfeiçoar as leis, a literatura, a música, a poesia e as tradições do Império. Enquanto outros clãs defendem suas fronteiras, os Garça preservam a alma da civilização.",
+        bonuses: [
+          { source: "Família Doji", value: "+1 Inteligência" },
+          { source: "Bônus de Escola", value: "+1 Vontade" },
+        ],
+        school: {
+          name: "Escola de Bugei Doji",
+          skills: [
+            "Corte",
+            "Etiqueta",
+            "Caligrafia",
+            "Comércio",
+            "Literatura",
+            "Música",
+            "qualquer 1 Perícia Social",
+          ],
+          equipment: [
+            "Daisho",
+            "Armadura Leve",
+            "Roupas Refinadas",
+            "Kit de Escrita",
+            "Instrumento Musical",
+            "15 Kokus",
+          ],
+        },
+        techniques: [
+          {
+            level: 1,
+            levelLabel: "一",
+            title: "O Caminho da Garça",
+            intro:
+              "O samurai do Garça aprende que a palavra pode ser mais afiada que a lâmina, e que a diplomacia é a primeira linha de defesa do Império.",
+            effects: [
+              {
+                name: "Diplomacia",
+                text: "Você recebe +2k0 em todos os testes de Perícia Social enquanto estiver em território neutro ou aliado.",
+              },
+              {
+                name: "Presença",
+                text: "Seu teste de Iniciativa é augmentado pelo dobro do seu Rank de Etiqueta.",
+              },
+            ],
+          },
+          {
+            level: 2,
+            levelLabel: "二",
+            title: "A Palavra Afiada",
+            intro:
+              "O Garça domina a arte de persuadir, negociar e manipular conversas a seu favor.",
+            effects: [
+              {
+                name: "Negociação",
+                text: "Você pode refazer qualquer teste de Comércio ou Corte uma vez por cena, mantendo o melhor resultado.",
+              },
+            ],
+          },
+          {
+            level: 3,
+            levelLabel: "三",
+            title: "O Poder da Cultura",
+            intro:
+              "A erudição do Garça se manifesta em habilidades sobrenaturais que transcendem o mundo material.",
+            effects: [
+              {
+                name: "Erudição",
+                text: "Você recebe +1k1 em todos os testes de Conhecimento e Perícias Sociais.",
+              },
+            ],
+          },
+        ],
+        tags: ["Diplomacia", "Cultura", "Artes"],
+      },
+
+      {
+        id: "fenix",
+        name: "Fênix",
+        fullTitle: "Clã Fênix: Linhagem Isawa",
+        glyph: "鳳",
+        tagline: "Guardiões do conhecimento elemental e da magia autorizada.",
+        description:
+          "Fundado pela própria Imperatriz Nana em homenagem a Naka (Isawa Kenji), o Clã Fênix é o guardião do conhecimento elemental e da magia autorizada. Após o Decreto Elemental, o uso da magia passou a ser rigidamente controlado para preservar o equilíbrio do mundo. O clã supervisiona essa tradição por meio do Conselho Elemental, composto por cinco Mestres Elementais e seus cinco discípulos, sendo a única autoridade acima deles a própria Imperatriz.",
+        bonuses: [
+          { source: "Família Isawa", value: "+1 Inteligência" },
+          { source: "Bônus de Escola", value: "+1 Percepção" },
+        ],
+        school: {
+          name: "Escola Shugenja Isawa",
+          skills: [
+            "Meditação",
+            "Teologia",
+            "Conhecimento: Elementos",
+            "Caligrafia",
+            "História",
+            "Investigação",
+            "qualquer 1 Perícia",
+          ],
+          equipment: [
+            "Daisho",
+            "Armadura Leve",
+            "Roupas de Cerimônia",
+            "Kit de Caligrafia",
+            "Talismãs Elementais",
+            "10 Kokus",
+          ],
+        },
+        techniques: [
+          {
+            level: 1,
+            levelLabel: "一",
+            title: "O Caminho da Fênix",
+            intro:
+              "O Fênix aprende que o equilíbrio dos elementos é a chave para todo poder. Através da meditação e do estudo, ele canalis forças que outros apenas temem.",
+            effects: [
+              {
+                name: "Percepção Elemental",
+                text: "Você pode sentir a presença de magia elemental em um raio de 15 metros como uma Ação Simples.",
+              },
+            ],
+          },
+          {
+            level: 2,
+            levelLabel: "二",
+            title: "O Decreto Elemental",
+            intro:
+              "O Fênix compreende as leis que governam o uso da magia e pode aplicá-las com maestria.",
+            effects: [
+              {
+                name: "Controle",
+                text: "Você recebe +1k1 em todos os testes de Conjuração de feitiços elementais.",
+              },
+            ],
+          },
+          {
+            level: 3,
+            levelLabel: "三",
+            title: "A Autoridade do Conselho",
+            intro:
+              "No ápice de seu treinamento, o Fênix se torna uma autoridade reconhecida nas artes elementais.",
+            effects: [
+              {
+                name: "Maestria",
+                text: "Feitiços de Rank 3 ou inferior podem ser conjurados como Ação Simples.",
+              },
+            ],
+          },
+        ],
+        tags: ["Elementos", "Magia", "Conselho"],
+      },
     ],
   },
 
@@ -1366,322 +1520,314 @@ export const DATA: Record<string, Category> = {
         ],
         domains: [
           {
-            name: "Domínio 1",
-            sealLabel: "一",
+            name: "Domínio da Guerra e Combate",
+            description: "Focado em melhorar capacidades de luta, ataque e defesa.",
             constellations: [
               {
-                name: "Constelação da Sabedoria",
-                summary: "+1 Nível em uma Perícia na qual seja imperito",
-                fields: {
-                  Efeito:
-                    "o usuário recebe +1 Nível em uma Perícia na qual seja imperito. A Perícia é escolhida no momento da invocação.",
-                },
+                name: "Constelação do Guerreiro Celeste",
+                level: 1,
+                description: "Conta a história de um campeão espiritual das batalhas.",
+                effect: "Concede +1k1 em sua próxima jogada de Perícia com Armas ou Jiujutsu.",
+                extras: { Restrições: "A Perícia específica deve ser escolhida na criação da constelação." },
               },
               {
-                name: "Constelação do Construtor",
-                summary:
-                  "+1k1 em uma Perícia de Criação específica por 1 hora/dia",
-                fields: {
-                  Efeito:
-                    "concede por 1 hora por dia, o alvo +1k1 em uma Perícia de Criação específica. A Perícia deve ser escolhida quando a constelação é aprendida/criada.",
-                },
+                name: "Constelação da Fúria Celeste",
+                level: 2,
+                description: "Narra a fúria de um espírito guerreiro indomável.",
+                effect: "O usuário recebe +1k1 nas jogadas de dano. A escolha (para uma arma específica ou ataque desarmado) é feita na criação da constelação.",
+                extras: { Duração: "Turnos iguais ao Anel de Água." },
               },
               {
-                name: "Constelação da Fortuna Serena",
-                summary: "+2k1 em uma rolagem, 1 vez a cada 24h",
-                fields: {
-                  Efeito:
-                    "o usuário pode melhorar uma rolagem; ele recebe +2k1. Só pode ser usada uma vez a cada 24h.",
+                name: "Constelação da Armadura Celeste",
+                level: 3,
+                description: "Antiga aliança entre espíritos guerreiros e defensores inabaláveis.",
+                effect: "Se sem armadura: Teste de defesa aumenta em +1k1 e recebe Redução 5. Se com armadura: ignora todas as penalidades de Perícia causadas por ela.",
+                extras: { Duração: "Turnos iguais ao Anel de Vazio." },
+              },
+              {
+                name: "Constelação do Chefe Celeste",
+                level: 4,
+                description: "Representa a liderança que eleva todos ao redor.",
+                effect: "O usuário escolhe uma Perícia que possua pelo menos 4 Níveis. Concede +2 Níveis nessa mesma Perícia para até 10 aliados.",
+                extras: {
+                  Incrementos: "Cada Incremento permite afetar +1 aliado.",
+                  Limites: "Ninguém pode ultrapassar o limite de 10 Níveis na perícia. Uso 1 vez por dia.",
+                  Duração: "1 hora.",
+                },
+              },
+            ],
+          },
+          {
+            name: "Domínio da Vitalidade e Cura",
+            description: "Focado em sobrevivência, recuperação e resistência física.",
+            constellations: [
+              {
+                name: "Constelação da Abundância",
+                level: 1,
+                description: "Tempo de fartura que afastava os Tempos Magros. NA de Invocação 20.",
+                effect: "Ignora penalidades de fome por 1 dia.",
+                extras: {
+                  Limites: "1 uso/dia. Só funciona por até 7 dias consecutivos.",
+                  Duração: "Deve ser mantida por 1 hora para ativar.",
                 },
               },
               {
                 name: "Constelação da Mãe Estelar",
-                summary:
-                  "Recupera Ferimentos como se Vigor fosse 1 nível maior",
-                fields: {
-                  Condição:
-                    "deve ser mantida por 1 dia inteiro e empunhada/invocada por pelo menos 1 hora nesse período a cada hora.",
-                  Efeito:
-                    "o usuário recupera Ferimentos como se seu Vigor fosse 1 Nível maior. Isso não altera o valor real de Vigor.",
-                  Incrementos:
-                    "a cada 1 Incremento, aumenta em +1 o Nível efetivo de Vigor para recuperação.",
-                },
-              },
-              {
-                name: "Constelação das Águas Profundas",
-                summary: "+3k0 em Esportes (Nadar), +Ênfase em Nadar",
-                fields: {
-                  Efeito:
-                    "o usuário pode nadar normalmente (exceto condições extremas), é considerado como tendo +3k0 Níveis em Esportes (para nadar) e ganha Ênfase em Nadar, mesmo que não possua.",
-                },
-              },
-              {
-                name: "Constelação do Pai Vigilante",
-                summary:
-                  "Indica direção de uma criatura voluntária, 1 vez/hora por 24h",
-                fields: {
-                  Efeito:
-                    "a constelação é sintonizada a uma criatura voluntária específica. Uma vez por hora durante 24h, o usuário pode fazê-la indicar a direção exata dessa criatura.",
-                  Limite: "alcance máximo de 15 km.",
-                  Incrementos:
-                    "cada Incremento adiciona +15 km ao alcance.",
-                },
-              },
-            ],
-          },
-          {
-            name: "Domínio 2",
-            sealLabel: "二",
-            constellations: [
-              {
-                name: "Constelação do Guerreiro Celeste",
-                summary:
-                  "+1k1 em Perícias com Armas ou Jiujutsu",
-                fields: {
-                  Efeito:
-                    "Concede +1k1 em todas as rolagens de Perícias com Armas ou Jiujutsu na próxima jogada. A Perícia específica deve ser escolhida na criação da constelação.",
+                level: 2,
+                description: "Representa o amor protetor e restaurador.",
+                effect: "Usuário recupera Ferimentos ao descansar como se seu Vigor fosse 1 Nível maior (não altera o Vigor real).",
+                extras: {
+                  Custo: "1 hora de meditação",
+                  Duração: "24h",
+                  Incrementos: "Cada 1 Incremento aumenta em +1 o Nível efetivo de Vigor para recuperação.",
                 },
               },
               {
                 name: "Constelação do Antídoto Celeste",
-                summary:
-                  "Remove efeitos de venenos, 1 vez/semana",
-                fields: {
-                  Efeito:
-                    "1 vez por semana, o usuário pode remover os efeitos de um único veneno de um alvo.",
-                  Limitação:
-                    "Venenos magicamente criados podem ser curados através de testes contestados contra a NA de criação do feitiço.",
-                },
+                level: 3,
+                description: "Baseada no conhecimento de um grande curandeiro.",
+                effect: "Remove os efeitos de um único veneno de um alvo (1 vez por semana).",
+                extras: { Limites: "Venenos mágicos exigem teste contestado contra a NA de criação do feitiço." },
               },
               {
                 name: "Constelação dos Amantes",
-                summary:
-                  "Cura até 10 Ferimentos de outro alvo, 1 vez/dia",
-                fields: {
-                  Efeito:
-                    "o usuário pode, pelo toque, curar até 10 Ferimentos de outro alvo. Uso: 1 vez por dia.",
-                  Custo:
-                    "o usuário sofre a mesma quantidade de Ferimentos curados. Esses Ferimentos não podem ser curados por magia, apenas naturalmente.",
-                },
+                level: 4,
+                description: "Narra um espírito que sacrificou tudo por amor.",
+                effect: "Pelo toque, cura até 10 Ferimentos de outro alvo (1 vez por dia).",
+                extras: { Custo: "O usuário sofre a exata mesma quantidade de Ferimentos curados. Esses ferimentos não podem ser curados por magia, só descanso natural." },
               },
               {
-                name: "Constelação do Companheiro",
-                summary:
-                  "+1k1 em testes sociais por 24h",
-                fields: {
-                  Efeito:
-                    "o usuário recebe +1k1 em todos os testes sociais. Funciona com qualquer tipo de interação, incluindo criaturas não humanas, por 24h.",
-                },
+                name: "Constelação da Vida Persistente",
+                level: 5,
+                description: "Espírito guerreiro que sobreviveu além dos limites.",
+                effect: "Escolher um ao ativar: Ignorar Ferimentos no valor de (5 × Anel de Terra) por 1 vez no dia OU ignorar todas as penalidades de Ferimentos (exceto morte) por 1 hora.",
+                extras: { Limites: "1 vez por dia por alvo." },
+              },
+            ],
+          },
+          {
+            name: "Domínio da Busca e Conexão",
+            description: "Focado em localizar pessoas e rastreamento.",
+            constellations: [
+              {
+                name: "Constelação do Caçador",
+                level: 1,
+                description: "Rastreador de sentidos sobrenaturais.",
+                effect: "+1k1 em testes de Caça (apenas quando o olfato for relevante).",
               },
               {
-                name: "Constelação da Abundância",
-                summary:
-                  "Ignora penalidades de fome por 1 dia",
-                fields: {
-                  "NA de Invocação": "20",
-                  Ativação:
-                    "o usuário deve manter a constelação por 1 hora.",
-                  Efeito:
-                    "o usuário ignora todas as penalidades de fome por 1 dia inteiro.",
-                  Limite:
-                    "pode ser usada uma vez por dia. Funciona por até 7 dias consecutivos, após isso deixa de funcionar.",
+                name: "Constelação do Pai Vigilante",
+                level: 2,
+                description: "Vínculo inquebrável entre protetor e protegido.",
+                effect: "Sintonizada a uma criatura voluntária específica. Uma vez por hora, o usuário pode fazê-la indicar a direção exata dessa criatura.",
+                extras: {
+                  Alcance: "Máximo de 15 km.",
+                  Incrementos: "Cada Incremento adiciona +15 km ao alcance.",
+                  Duração: "24h.",
                 },
               },
               {
                 name: "Constelação do Lar Gêmeo",
-                summary:
-                  "Vínculo entre duas constelações sintonizadas, indica direção",
-                fields: {
-                  Efeito:
-                    "a invocação gera duas marcas/constelações sintonizadas entre si. Cada portador pode, uma vez por hora, fazer a constelação indicar a direção exata da outra.",
-                  Alcance: "80 km a cada 2 Incrementos.",
-                },
-              },
-              {
-                name: "Constelação do Caçador",
-                summary: "+1k1 em testes de Caça (olfato)",
-                fields: {
-                  Efeito:
-                    "o usuário recebe +1k1 em testes de Caça, apenas quando o olfato for relevante.",
-                },
-              },
-              {
-                name: "Constelação dos Espíritos",
-                summary:
-                  "Perceber, entender e ser entendido por espíritos por 1h/dia",
-                fields: {
-                  Efeito:
-                    "por 1 hora por dia, o usuário pode perceber espíritos e fantasmas, entendê-los e ser entendido por eles.",
-                  Forma: "Necessário um Ritual.",
-                },
+                level: 3,
+                description: "Vínculo entre dois pontos espirituais.",
+                effect: "Gera duas marcas/constelações sintonizadas. Cada portador pode, uma vez por hora, fazer a constelação indicar a direção exata da outra.",
+                extras: { Alcance: "80 km (a cada 2 Incrementos ampliado)." },
               },
             ],
           },
           {
-            name: "Domínio 3",
-            sealLabel: "三",
+            name: "Domínio do Espaço e Movimento",
+            description: "Focado em mobilidade superior.",
             constellations: [
               {
-                name: "Constelação da Armadura Celeste",
-                summary:
-                  "+1k1 Defesa + Redução 5 (sem armadura) ou ignora penalidades",
-                fields: {
-                  Efeito:
-                    "se o usuário não estiver usando armadura: seu Teste de defesa aumenta em +1k1 e recebe Redução 5. Se já estiver usando armadura: pode ignorar todas as penalidades de Perícia causadas por ela.",
-                  Duração: "Dura o vazio em turnos.",
-                },
-              },
-              {
-                name: "Constelação do Coletor Sombrio",
-                summary: "+1k1 Furtividade + Mãos Rápidas",
-                fields: {
-                  Efeito:
-                    "o usuário recebe +1k1 em testes de Furtividade e +1k1 em testes de Mãos Rápidas.",
-                  Duração: "Dura o vazio em turnos.",
-                },
+                name: "Constelação das Águas Profundas",
+                level: 1,
+                description: "Espírito que dominava as águas como a terra.",
+                effect: "O usuário pode nadar normalmente. É considerado como tendo +3k0 Níveis em Esportes (para nadar) e ganha Ênfase em Nadar temporariamente.",
+                extras: { Duração: "1 hora por dia." },
               },
               {
                 name: "Constelação do Corredor dos Ventos",
-                summary:
-                  "Anel de Água +2 níveis para movimento",
-                fields: {
-                  Efeito:
-                    "o usuário se move como se seu Anel de Água fosse +2 Níveis maior. Este bônus se acumula com habilidades naturais equivalentes.",
-                  Incrementos:
-                    "a cada 2 Incrementos, aumenta em +1 Nível adicional no Anel de Água efetivo.",
-                  Duração: "Dura anel de água em turnos.",
-                },
-              },
-              {
-                name: "Constelação da Vida Persistente",
-                summary:
-                  "Ignorar até 5×Terra em Ferimentos ou penalidades por 1h",
-                fields: {
-                  Uso: "1 vez por dia.",
-                  Efeitos:
-                    "escolher um ao ativar: ignorar até 5 × Terra em Ferimentos 1 vez por dia, ou ignorar todas as penalidades de Ferimentos (exceto morte) por 1 hora.",
-                  Restrição:
-                    "Não pode ser usado no mesmo alvo no período de 24h.",
+                level: 2,
+                description: "Representa um espírito de velocidade sobrenatural.",
+                effect: "O usuário se move como se seu Anel de Água fosse +2 Níveis maior (acumula com habilidades naturais equivalentes).",
+                extras: {
+                  Incrementos: "A cada 2 Incrementos, aumenta em +1 Nível adicional no Anel de Água efetivo.",
+                  Duração: "Turnos iguais ao Anel de Água.",
                 },
               },
             ],
           },
           {
-            name: "Domínio 4",
-            sealLabel: "四",
+            name: "Domínio da Mente e Sociedade",
+            description: "Focado em intelecto, percepção social e conhecimento.",
             constellations: [
               {
-                name: "Constelação da Fúria Celeste",
-                summary: "+1k1 nas jogadas de dano",
-                fields: {
-                  Efeito:
-                    "o usuário recebe +1k1 nas jogadas de dano.",
-                  Aplicação:
-                    "vale para uma arma específica ou ataques desarmados. A escolha é feita quando a constelação é criada.",
-                  Duração: "Dura anel de Água em turnos.",
-                },
+                name: "Constelação da Sabedoria",
+                level: 1,
+                description: "Espírito de um explorador versátil, mestre em improvisar habilidades.",
+                effect: "Recebe +1 Nível em uma Perícia na qual seja imperito (escolhida no momento da invocação).",
+              },
+              {
+                name: "Constelação do Companheiro",
+                level: 2,
+                description: "Espírito carismático cercado de aliados.",
+                effect: "Recebe +1k1 em todos os testes sociais, incluindo interações com criaturas não humanas.",
+                extras: { Duração: "24h." },
               },
               {
                 name: "Constelação do Mercador Astuto",
-                summary:
-                  "Saber se a última afirmação foi mentira, 1 vez/dia",
-                fields: {
-                  Efeito:
-                    "1 vez por dia, o usuário pode saber se a última coisa que ouviu foi uma mentira.",
-                },
+                level: 3,
+                description: "Espírito negociador que jamais era enganado.",
+                effect: "1 vez por dia, o usuário pode saber com absoluta certeza se a última coisa que ouviu foi uma mentira.",
               },
+            ],
+          },
+          {
+            name: "Domínio Místico e Espiritual",
+            description: "Focado em interação com magia, reinos espirituais e criaturas do vazio.",
+            constellations: [
               {
-                name: "Constelação do Demônio Quebrado",
-                summary:
-                  "Pode ferir criaturas Invulneráveis com qualquer arma",
-                fields: {
-                  Efeito:
-                    "O usuário pode ferir criaturas Invulneráveis com qualquer arma. Não reduz a redução de dano do monstro.",
-                  Duração: "Dura o vazio em turnos.",
-                  Uso: "1 vez por dia por alvo.",
-                },
+                name: "Constelação dos Espíritos",
+                level: 1,
+                description: "Espíritos dominados e compreendidos.",
+                effect: "Pode perceber espíritos e fantasmas, entendê-los e ser entendido por eles. Necessário um Ritual.",
+                extras: { Duração: "1 hora por dia." },
               },
               {
                 name: "Constelação da Luz Eterna",
-                summary:
-                  "Ver claramente ignorando escuridão, névoa, fumaça",
-                fields: {
-                  Efeito:
-                    "o usuário pode ver claramente, ignorando cegueira, escuridão, névoa, fumaça e qualquer penalidade de visibilidade.",
+                level: 2,
+                description: "Visão perfeita além de qualquer obstáculo.",
+                effect: "O usuário pode ver claramente, ignorando cegueira, escuridão, névoa, fumaça e qualquer penalidade de visibilidade.",
+                extras: {
+                  Limites: "1 uso por dia.",
                   Duração: "1 hora.",
-                  Uso: "1 vez por dia.",
                 },
               },
               {
                 name: "Constelação do Sonho Vigilante",
-                summary:
-                  "Entrar no Reino Espiritual consciente, 1 vez/semana",
-                fields: {
-                  Efeito:
-                    "1 vez por semana, ao dormir, o usuário pode entrar no Reino Espiritual e permanecer consciente e no controle de suas ações.",
+                level: 3,
+                description: "Espírito que caminhava consciente pelos sonhos.",
+                effect: "1 vez por semana, ao dormir, o usuário pode entrar no Reino Espiritual, permanecendo consciente e no controle de suas ações.",
+              },
+              {
+                name: "Constelação do Xamã Estelar",
+                level: 4,
+                description: "Domínio espiritual absoluto sobre a magia.",
+                effect: "1 vez por dia, ativa a constelação para fazer com que seu próximo feitiço não consuma espaço de magia.",
+                extras: { Incrementos: "A cada 2 Incrementos, ganha +1 uso adicional por dia." },
+              },
+              {
+                name: "Constelação da Ruína Sombria",
+                level: 5,
+                description: "Catástrofe ancestral que marcou o mundo.",
+                effect: "Proteção contra criaturas Sombrias ou qualquer ser espiritual. Criaturas afetadas devem passar em Rolagem de Vontade (NA 35) ou não podem atacar ou causar dano ao usuário.",
+                extras: {
+                  Restrições: "Se o usuário atacar a criatura, perde a proteção contra ela. Ao final da duração, a constelação se dissipa permanentemente.",
+                  Incrementos: "Cada Incremento aumenta o NA do teste em +5.",
+                  Duração: "1 hora.",
                 },
               },
             ],
           },
           {
-            name: "Domínio 5",
-            sealLabel: "五",
+            name: "Domínio do Destino e Milagres",
+            description: "Efeitos únicos e poderosos que alteram as regras do mundo.",
             constellations: [
               {
-                name: "Constelação do Amanhã",
-                summary: "Concede Grande Destino ao alvo",
-                fields: {
-                  "NA de Invocação": "25",
-                  Condição:
-                    "a constelação deve ser sintonizada a um indivíduo específico no momento da criação. Não funciona para mais ninguém.",
-                  Efeito:
-                    "o alvo recebe os efeitos da Vantagem Grande Destino. Não precisa manter a constelação ativa constantemente para que funcione.",
-                  Duração: "enquanto a constelação permanecer intacta.",
-                  Limitações:
-                    "quando a constelação salva a vida do alvo, ela se dissipa (quebra). Se for desfeita prematuramente, o alvo morre imediatamente.",
-                  Restrição:
-                    "o invocador pode ter apenas uma ativa por vez. Só pode criar outra após a anterior se dissipar.",
+                name: "Constelação da Fortuna Serena",
+                level: 1,
+                description: "Espírito virtuoso que sempre tomava o caminho correto.",
+                effect: "O usuário pode melhorar uma rolagem recebendo +2k1.",
+                extras: { Limites: "Uso de 1 vez a cada 24h." },
+              },
+              {
+                name: "Constelação do Demônio Quebrado",
+                level: 2,
+                description: "Derrota de uma entidade invulnerável através de astúcia.",
+                effect: "O usuário pode ferir criaturas com a habilidade 'Invulnerável' usando qualquer arma. Redução de Dano da criatura não é afetada.",
+                extras: {
+                  Limites: "1 vez por dia por alvo.",
+                  Duração: "Turnos iguais ao Anel de Vazio.",
                 },
               },
               {
-                name: "Constelação do Chefe Celeste",
-                summary:
-                  "Concede até +2 Níveis em uma Perícia para até 10 aliados",
-                fields: {
-                  Efeito:
-                    "o usuário pode escolher uma Perícia em que tenha pelo menos 4 Níveis e pode conceder até +2 Níveis nessa Perícia para até 10 aliados.",
-                  Incrementos:
-                    "cada Incremento permite afetar +1 aliado adicional.",
-                  Limite:
-                    "Nenhum alvo pode receber mais Níveis do que o limite de 10 em Perícias.",
-                  Uso: "1 vez por dia.",
+                name: "Constelação do Amanhã",
+                level: 3,
+                description: "Espírito destinado a sobreviver ao inevitável. NA de Invocação: 25.",
+                effect: "Sintonizada a um indivíduo específico na criação. O alvo recebe os efeitos da Vantagem Grande Destino.",
+                extras: {
+                  Restrições: "O invocador pode ter apenas uma ativa por vez. Quando salva a vida do alvo, se dissipa. Se desfeita prematuramente, o alvo morre imediatamente.",
+                  Duração: "Enquanto permanecer intacta.",
+                },
+              },
+            ],
+          },
+          {
+            name: "Domínios Isolados",
+            description: "Constelações de utilidade específica que não se enquadram completamente nas outras categorias.",
+            constellations: [
+              {
+                name: "Constelação do Construtor",
+                level: 1,
+                description: "Espírito de criação e precisão.",
+                effect: "Concede +1k1 em uma Perícia de Criação específica (escolhida na criação).",
+                extras: { Duração: "1 hora por dia." },
+              },
+            ],
+          },
+          {
+            name: "Domínio dos Selos e Guardas",
+            description: "Focado em preparação tática, armadilhas espirituais e proteção elemental canalizada através de talismãs (wards).",
+            constellations: [
+              {
+                name: "Constelação do Selo Elemental",
+                level: 1,
+                description: "Canaliza a energia bruta dos elementos em um papel ou marca mística para proteger ou fortalecer rapidamente.",
+                effect: "Ao ativar esta constelação, o usuário escolhe um Elemento e ganha o respectivo bônus: Ar (Recebe +1k1 em rolagens de Defesa); Terra (Recebe Redução de Dano 5); Água (O deslocamento do alvo é dobrado); Fogo (O próximo ataque corpo-a-corpo ou à distância causa dano extra igual ao Anel de Fogo × 2).",
+                extras: {
+                  Incrementos: "A cada 2 Incrementos na ativação, o efeito base é dobrado (+2k2 Defesa, Redução 10, etc).",
+                  Duração: "Turnos iguais ao Anel de Vazio.",
+                },
+              },
+              {
+                name: "Constelação do Vigia Puro",
+                level: 2,
+                description: "Baseada nas antigas wards de purificação, detecta e expulsa a corrupção.",
+                effect: "Pode ser fixada em um objeto, porta ou pessoa. Qualquer criatura Sombria ou com a Mácula (Corrupção) que tocar no alvo sofrerá dano igual ao Anel de Vazio do usuário e revelará imediatamente sua contaminação para o criador do selo.",
+                extras: {
+                  Limites: "Pode manter um número de selos ativos igual ao seu Anel de Vazio.",
+                  Duração: "24 horas.",
+                },
+              },
+              {
+                name: "Constelação do Refúgio Protetor",
+                level: 3,
+                description: "Cria um local consagrado que amortece o impacto de qualquer agressão física ou mística.",
+                effect: "Ao custo de 1 Ponto de Vazio, o usuário cria uma área de proteção ao redor do selo. Qualquer dano (causado por feitiços ou ataques físicos) que as criaturas recebam enquanto estiverem dentro dessa área será reduzido em 1k1 (até o limite mínimo de 1k1 de dano sofrido).",
+                extras: {
+                  Área: "Raio de 5 metros a partir do selo.",
                   Duração: "1 hora.",
                 },
               },
               {
-                name: "Constelação do Xamã Estelar",
-                summary:
-                  "Próximo feitiço não consuma espaço de magia",
-                fields: {
-                  Efeito:
-                    "1 vez por dia, o usuário pode ativar a constelação para fazer com que seu próximo feitiço não consuma espaço de magia.",
-                  Incrementos:
-                    "a cada 2 Incrementos, ganha +1 uso adicional por dia.",
+                name: "Constelação da Vigília Elemental",
+                level: 4,
+                description: "Um selo de controle espiritual que interfere na capacidade das entidades elementais de conjurar magia livremente.",
+                effect: "Cria uma área mística (raio de 5 metros). Entidades e espíritos elementais (Kami) podem entrar e sair normalmente da área, porém, para conjurarem feitiços ou habilidades mágicas dentro da área (ou contra quem está dentro dela), eles precisam primeiro passar em um Teste Contestado do seu próprio Anel principal contra o Anel de Vazio do criador do selo.",
+                extras: {
+                  Incrementos: "+1 Incremento aumenta a duração em 1 hora; +1 Incremento aumenta a área em +5 metros.",
+                  Duração: "1 hora.",
                 },
               },
               {
-                name: "Constelação da Ruína Sombria",
-                summary:
-                  "Proteção contra criaturas Sombrias por 1h, NA 35",
-                fields: {
-                  Efeito:
-                    "por 1 hora, o usuário fica protegido contra criaturas Sombrias ou qualquer ser espiritual. Criaturas afetadas devem passar em uma Rolagem de Vontade contra NA 35. Se falharem, não podem atacar ou causar dano ao usuário.",
-                  Limitação:
-                    "se o usuário atacar uma dessas criaturas, perde imediatamente a proteção contra ela.",
-                  "Após a duração":
-                    "a constelação se dissipa permanentemente.",
-                  Incrementos:
-                    "cada Incremento aumenta o NA do teste em +5.",
+                name: "Constelação da Égide Negra",
+                level: 5,
+                description: "A técnica projetada para isolar e repelir a corrupção e os espíritos maculados.",
+                effect: "Cria uma barreira intransponível (raio de 5 metros). Criaturas sombrias e espíritos corrompidos (Kansen) são proibidos de entrar na área e não podem usar magias contra quem está lá dentro. Para quebrar essa regra (entrar ou atacar), o Kansen precisa passar em um Teste Contestado rigoroso de seu Anel principal contra o Anel de Vazio do criador do selo.",
+                extras: {
+                  Incrementos: "+1 Incremento aumenta a duração em 1 hora; +1 Incremento aumenta a área em +5 metros.",
+                  Duração: "1 hora.",
                 },
               },
             ],
@@ -1705,8 +1851,8 @@ export const DATA: Record<string, Category> = {
             text: "Através das preces do sacerdote, os espíritos adormecidos na natureza despertam e ganham forma física. Uma centelha se torna um chicote de chamas vivas; o solo se ergue como uma fortaleza intransponível. A matéria atende ao chamado da alma.",
           },
           {
-            name: "O Elo de Sangue e Oração",
-            text: "Diferente de outras ordens, o Shugenja usa suas orações e sua linhagem espiritual para aterrar o poder. Ele não dobra o elemento à força; ele se torna um reflexo dele. Sem o devido respeito e oferendas rituais aos kamis locais, a terra se recusa a se mover e o fogo se extingue antes de queimar.",
+            name: "O Elo de Oração e Reverência",
+            text: "Diferente de outras ordens, o Shugenja é escolhido pelos próprios elementos — kamis reconhecem nele uma vida dedicada e uma personalidade afinada com a natureza do mundo. Através de orações, mudras rituais e oferendas, ele estabelece um vínculo de confiança com os espíritos. Ele não dobra o elemento à força; ele se torna um reflexo dele. Sem o devido respeito e reverência aos kamis locais, a terra se recusa a se mover e o fogo se extingue antes de queimar.",
           },
         ],
         upkeep: {

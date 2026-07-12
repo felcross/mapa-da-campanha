@@ -293,22 +293,30 @@ export default function DetailScreen({ categoryLabel, item }: DetailScreenProps)
               items={item.domains.map((d) => ({
                 key: `domain-${d.name}`,
                 label: d.name,
-                sealLabel: d.sealLabel,
                 content: (
-                  <div className="domains__constellations">
-                    {d.constellations.map((c) => (
-                      <div key={c.name} className="domains__constellation">
-                        <h4 className="domains__constellationName">{c.name}</h4>
-                        <p className="domains__constellationSummary">{c.summary}</p>
-                        <div className="domains__constellationFields">
-                          {Object.entries(c.fields).map(([key, val]) => (
-                            <div key={key} className="domains__field">
-                              <span className="domains__fieldKey">{key}:</span> {val}
+                  <div className="domains__content">
+                    <p className="domains__description">{d.description}</p>
+                    <div className="domains__constellations">
+                      {d.constellations.map((c) => (
+                        <div key={c.name} className="domains__constellation">
+                          <div className="domains__constellationHeader">
+                            <span className="domains__constellationLevel">Rank {c.level}</span>
+                            <h4 className="domains__constellationName">{c.name}</h4>
+                          </div>
+                          <p className="domains__constellationSummary">{c.description}</p>
+                          <p className="domains__constellationEffect">{c.effect}</p>
+                          {c.extras && Object.keys(c.extras).length > 0 && (
+                            <div className="domains__constellationExtras">
+                              {Object.entries(c.extras).map(([key, val]) => (
+                                <div key={key} className="domains__extra">
+                                  <span className="domains__extraKey">{key}:</span> {val}
+                                </div>
+                              ))}
                             </div>
-                          ))}
+                          )}
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 ),
               }))}
@@ -335,20 +343,25 @@ export default function DetailScreen({ categoryLabel, item }: DetailScreenProps)
                       </div>
                     )}
                     {variant.variants && variant.variants.length > 0 && (
-                      <div className="variantCard__items">
-                        {variant.variants.map((v) => (
-                          <div key={v.name} className="variantCard__item">
-                            <span className="variantCard__element">{v.element}</span>
-                            <span className="variantCard__name">{v.name}</span>
-                            <span className="variantCard__stats">
-                              Alcance: {v.range} | Dano: {v.damage}
-                            </span>
-                            {v.special && (
-                              <p className="variantCard__desc">{v.special}</p>
-                            )}
-                          </div>
-                        ))}
-                      </div>
+                      <Accordion
+                        className="variantsAccordion"
+                        defaultOpen={variant.variants[0]?.name}
+                        items={variant.variants.map((v) => ({
+                          key: v.name,
+                          label: `${v.element} — ${v.name}`,
+                          content: (
+                            <div className="variantCard__itemDetail">
+                              <div className="variantCard__itemStats">
+                                <span>Alcance: {v.range}</span>
+                                <span>Dano: {v.damage}</span>
+                              </div>
+                              {v.special && (
+                                <p className="variantCard__itemSpecial">{v.special}</p>
+                              )}
+                            </div>
+                          ),
+                        }))}
+                      />
                     )}
                   </div>
                 );
@@ -358,25 +371,34 @@ export default function DetailScreen({ categoryLabel, item }: DetailScreenProps)
                   <div key={variant.name} className="variantCard">
                     <h4 className="variantCard__name">{variant.name}</h4>
                     <p className="variantCard__desc">{variant.description}</p>
-                    {variant.tiers.map((tier) => (
-                      <div key={tier.name} className="variantCard__tier">
-                        <h5 className="variantCard__tierName">{tier.name}</h5>
-                        <div className="variantCard__stats">
-                          <div>Anel: {tier.stats.ring}</div>
-                          <div>Alcance: {tier.stats.range}</div>
-                          <div>Área: {tier.stats.area}</div>
-                          <div>Duração: {tier.stats.duration}</div>
-                          <div>Incrementos: {tier.stats.increments}</div>
-                        </div>
-                        {tier.variants.map((v) => (
-                          <div key={v.name} className="variantCard__wallVariant">
-                            <span className="variantCard__element">{v.element}</span>
-                            <span className="variantCard__name">{v.name}</span>
-                            <p className="variantCard__desc">{v.description}</p>
+                    <Accordion
+                      className="variantsAccordion"
+                      defaultOpen={variant.tiers[0]?.name}
+                      items={variant.tiers.map((tier) => ({
+                        key: tier.name,
+                        label: tier.name,
+                        content: (
+                          <div className="variantCard__tierContent">
+                            <div className="variantCard__tierStats">
+                              <div>Anel: {tier.stats.ring}</div>
+                              <div>Alcance: {tier.stats.range}</div>
+                              <div>Área: {tier.stats.area}</div>
+                              <div>Duração: {tier.stats.duration}</div>
+                              <div>Incrementos: {tier.stats.increments}</div>
+                            </div>
+                            <div className="variantCard__tierVariants">
+                              {tier.variants.map((v) => (
+                                <div key={v.name} className="variantCard__wallVariant">
+                                  <span className="variantCard__wallElement">{v.element}</span>
+                                  <span className="variantCard__wallName">{v.name}</span>
+                                  <p className="variantCard__wallDesc">{v.description}</p>
+                                </div>
+                              ))}
+                            </div>
                           </div>
-                        ))}
-                      </div>
-                    ))}
+                        ),
+                      }))}
+                    />
                   </div>
                 );
               }

@@ -992,11 +992,23 @@ button {
   gap: 8px;
 }
 
+.domains__content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.domains__description {
+  font-size: 13px;
+  color: var(--sumi-soft);
+  font-style: italic;
+  margin: 0;
+}
+
 .domains__constellations {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 8px 0 0;
+  gap: 8px;
 }
 
 .domains__constellation {
@@ -1006,33 +1018,61 @@ button {
   background: var(--washi);
 }
 
+.domains__constellationHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.domains__constellationLevel {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--washi);
+  background: var(--ai);
+  padding: 2px 6px;
+  border-radius: var(--radius);
+  flex-shrink: 0;
+}
+
 .domains__constellationName {
   font-family: var(--font-display);
   font-size: 14px;
   font-weight: 700;
   color: var(--sumi);
-  margin-bottom: 4px;
+  margin: 0;
 }
 
 .domains__constellationSummary {
   font-size: 13px;
   color: var(--sumi-soft);
-  margin-bottom: 6px;
+  margin: 0 0 6px;
 }
 
-.domains__constellationFields {
+.domains__constellationEffect {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--sumi);
+  margin: 0 0 6px;
+}
+
+.domains__constellationExtras {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
 }
 
-.domains__field {
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--sumi);
+.domains__extra {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--sumi-soft);
 }
 
-.domains__fieldKey {
+.domains__extraKey {
   font-weight: 500;
   color: var(--ai);
 }
@@ -1174,6 +1214,127 @@ button {
   line-height: 1.6;
   color: var(--sumi);
   margin-top: 6px;
+}
+
+.variantCard__benefits {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.variantCard__benefit {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--sumi);
+}
+
+.variantCard__benefit strong {
+  color: var(--ai);
+}
+
+.variantCard__items {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.variantCard__item {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--washi);
+}
+
+.variantCard__tier {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line-strong);
+}
+
+.variantCard__tierName {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--sumi);
+  margin: 0 0 6px;
+}
+
+.variantCard__wallVariant {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.variantCard__wallVariant:last-child {
+  border-bottom: none;
+}
+
+.variantCard__itemDetail {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.variantCard__itemStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--sumi);
+}
+
+.variantCard__itemSpecial {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--sumi-soft);
+  font-style: italic;
+  margin: 0;
+}
+
+.variantCard__tierContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.variantCard__tierStats {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--sumi);
+}
+
+.variantCard__tierVariants {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.variantCard__wallElement {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ai);
+  margin-right: 6px;
+}
+
+.variantCard__wallName {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sumi);
+}
+
+.variantCard__wallDesc {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--sumi-soft);
+  margin: 4px 0 0;
+}
+
+.variantsAccordion .accordion__content {
+  background: var(--washi);
 }
 
 /* --- Tattoos --- */
