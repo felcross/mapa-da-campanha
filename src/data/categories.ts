@@ -3680,16 +3680,36 @@ export const DATA: Record<string, Category> = {
         name: "Honra",
         glyph: "🏵️",
         tagline:
-          "O único uso da Honra no sistema — redutor de dano com ou sem armadura.",
+          "Redutor de dano e vida extra à beira da morte.",
         description:
-          "A Honra funciona exclusivamente como um redutor de dano. Seu valor efetivo depende se o personagem está ou não usando armadura.",
-        tags: ["Honra", "Defesa", "Dano"],
+          "A Honra funciona como redutor de dano e concede vida extra quando o personagem chega a 0 PV.",
+        tags: ["Honra", "Defesa", "Dano", "Vida Extra"],
         ruleSections: [
           {
+            title: "Redutor de Dano",
             items: [
               "Com armadura: Metade do valor de Honra é adicionada ao redutor.",
               "Sem armadura: O valor integral de Honra atua como redutor de dano.",
             ],
+          },
+          {
+            title: "Honra à Beira da Morte (Vida Extra)",
+            text: "Ativado quando os PV chegam a 0. O jogador realiza um teste de Vigor com NA = 10 - Vigor do Personagem.",
+            items: [
+              "Efeito de Sucesso: Negar a inconsciência/morte e ganhar PV Extra temporários.",
+              "Cálculo da Vida Extra: Valor de Honra atual + Rolagem do Dado de Classe Social.",
+            ],
+          },
+          {
+            title: "Tabela de Dados por Classe Social",
+            table: {
+              headers: ["Classe Social", "Dado"],
+              rows: [
+                ["Buke (Proletário)", "1d6"],
+                ["Classes Religiosas (Monges/Shugenjas)", "1d8"],
+                ["Buke (Aristocrata)", "1d10"],
+              ],
+            },
           },
         ],
       },
@@ -3698,14 +3718,21 @@ export const DATA: Record<string, Category> = {
         id: "iniciativa",
         name: "Iniciativa",
         glyph: "⚔️",
-        tagline: "Determinada pela Perícia da arma escolhida dividida por Reflexos.",
+        tagline: "Valor fixo na ficha — Agilidade + Reflexos.",
         description:
-          "A Iniciativa define a ordem de ação no combate. Ela é calculada com base na perícia marcial do personagem e seu atributo de Reflexos.",
+          "A Iniciativa é um valor fixo e estático na ficha. O personagem com o maior valor age primeiro no turno.",
         tags: ["Iniciativa", "Combate"],
         ruleSections: [
           {
             title: "Fórmula",
-            text: "Iniciativa = Perícia da arma escolhida / Reflexos",
+            text: "Iniciativa = Agilidade + Reflexos",
+          },
+          {
+            title: "Resolução",
+            items: [
+              "O personagem com o maior valor total age primeiro no turno.",
+              "Desempate: Teste Disputado de Perícia de Ataque / Reflexos. Quem obtiver maior resultado assume a frente.",
+            ],
           },
         ],
       },
@@ -3715,10 +3742,10 @@ export const DATA: Record<string, Category> = {
         name: "Guia de Posturas e Combate",
         glyph: "⚔️",
         tagline:
-          "Cinco posturas que definem o estilo tático do combatente no turno.",
+          "Posturas táticas e a mecânica de Chanbara (Duelo).",
         description:
-          "As posturas determinam como o personagem distribui seus recursos entre ataque e defesa. Cada postura oferece bônus e penalidades distintos.",
-        tags: ["Posturas", "Combate", "Ataque", "Defesa"],
+          "As posturas determinam como o personagem distribui seus recursos entre ataque e defesa. Chanbara é um atributo passivo que permite arrastar oponentes para duelos.",
+        tags: ["Posturas", "Combate", "Chanbara", "Duelo"],
         ruleSections: [
           {
             title: "Ataque Total",
@@ -3752,10 +3779,14 @@ export const DATA: Record<string, Category> = {
             ],
           },
           {
-            title: "Centro",
-            text: "+1k1 em todas as rolagens no próximo turno + bônus de Vazio.",
+            title: "Chanbara (Duelo)",
+            text: "Atributo passivo: Status + Honra. Ação Complexa para evocar o oponente ao duelo.",
             items: [
-              "Restrições: O personagem não pode realizar ataques ou ações ofensivas enquanto estiver nesta postura.",
+              "Duelo MAIOR que o alvo: Oponente é obrigado a aceitar. Turno especial isolado.",
+              "Duelo IGUAL ao alvo: Teste Disputado para definir o desfecho.",
+              "Duelo MENOR que o alvo: Oponente escolhe se aceita ou recusa.",
+              "Se recusar: Ambos perdem a ação deste turno.",
+              "Uso: Uma vez por combate.",
             ],
           },
         ],
@@ -3963,6 +3994,167 @@ export const DATA: Record<string, Category> = {
           {
             title: "Ferimentos Permanentes",
             text: "Cicatrizes graves ou perda de membros não se curam naturalmente; seus efeitos mecânicos e narrativos ficam a critério do Mestre.",
+          },
+        ],
+      },
+
+      {
+        id: "armas-divinas",
+        name: "Armas Divinas",
+        glyph: "⚡",
+        tagline:
+          "Tier lendário — armas de poder incomensurável que transcendem a forja terrena.",
+        description:
+          "Armas divinas são adquiridas apenas por intervenção direta das Fortunas ou dos Deuses Dragões.",
+        tags: ["Armas", "Lendário", "Divino"],
+        ruleSections: [
+          {
+            title: "Aquisição",
+            text: "Só podem ser adquiridas por meio de intervenção direta das Fortunas ou dos Deuses Dragões.",
+          },
+          {
+            title: "Dano Base",
+            text: "O dado de ataque salta imediatamente para 1d20, independente do tamanho original da arma.",
+          },
+          {
+            title: "Dado Auxiliar Ampliado",
+            text: "Se a arma for uma Nemuranai (Desperta), o dado auxiliar (+1d4) aumenta dois níveis na escala de dados, virando 1d8.",
+          },
+          {
+            title: "Propriedade Divina",
+            text: "O dano deste armamento é considerado Jade para fins de explorar vulnerabilidades de criaturas maculadas.",
+          },
+          {
+            title: "Exemplo",
+            text: "Uma faca (Arma Leve) que se torne uma Arma Divina Desperta rolará 1d20 + 1d8 de dano.",
+          },
+        ],
+      },
+
+      {
+        id: "po-de-jade",
+        name: "Pó de Jade",
+        glyph: "💎",
+        tagline:
+          "Medida paliativa para combater criaturas imunes a armas mundanas.",
+        description:
+          "Pó de Jade pode ser passado na lâmina para causar dano a criaturas que seriam invulneráveis.",
+        tags: ["Item", "Jade", "Criaturas"],
+        ruleSections: [
+          {
+            title: "Aplicação",
+            text: "Passar o pó na lâmina, ponta de flecha ou clava exige uma Ação Complexa. O efeito dura até ser gasto, lavado ou consumido.",
+          },
+          {
+            title: "Degradação por Impacto",
+            text: "O pó vai se soltando da arma a cada golpe desferido com sucesso.",
+            items: [
+              "1º Acerto: Causa Dano Total.",
+              "2º Acerto: Causa Metade (1/2) do Dano.",
+              "3º Acerto: Causa Um Quarto (1/4) do Dano.",
+              "Após o 3º Acerto: O pó esgota-se completamente.",
+            ],
+          },
+          {
+            title: "Degradação Ambiental",
+            text: "Se exposto à corrupção dentro das Terras Sombrias, a Mácula consumirá o pó de jade da arma em 2 horas, mesmo que nenhum ataque seja feito.",
+          },
+        ],
+      },
+
+      {
+        id: "habilidades-criaturas",
+        name: "Habilidades Especiais (Criaturas)",
+        glyph: "👹",
+        tagline:
+          "Efeitos sobrenaturais comumente encontrados em monstros e ameaças.",
+        description:
+          "Características especiais que definem o comportamento e as limitações de criaturas no combate.",
+        tags: ["Criaturas", "Monstros", "Habilidades"],
+        ruleSections: [
+          {
+            title: "Medo",
+            text: "A criatura emana uma aura aterrorizante ativada automaticamente no começo de qualquer encontro. Obriga os oponentes a realizarem testes de resistência a Medo.",
+          },
+          {
+            title: "Imenso",
+            text: "Devido ao vasto tamanho ou anatomia monstruosa, a criatura é imune a ser Imobilizada ou a sofrer a manobra Derrubar. Ela também não pode iniciar imobilizações contra outros, a menos que possua Jiujutsu.",
+          },
+          {
+            title: "Invulnerabilidade",
+            text: "Ataques mundanos normais são inúteis. A criatura só sofre dano normal de feitiços, armas Nemuranais ou armas feitas de materiais sagrados (Jade, Cristal ou Obsidiana).",
+            items: [
+              "Qualquer outro tipo de ataque causará apenas 1 Ferimento fixo, independentemente do dano rolado.",
+              "Se a criatura tiver Redução, a Invulnerabilidade é aplicada por último.",
+            ],
+          },
+          {
+            title: "Invulnerabilidade Parcial",
+            text: "A criatura possui a regra de Invulnerabilidade normal, mas aplicada apenas a fontes específicas de dano indicadas em sua ficha (ex: Invulnerável a flechas, ou Invulnerável a fogo). Ataques vindos dessa fonte causam apenas 1 Ferimento.",
+          },
+          {
+            title: "Invulnerabilidade Superior",
+            text: "Possui todos os benefícios da Invulnerabilidade padrão, mas também ignora uma ou mais fontes mágicas que normalmente a feririam (ex: Invulnerabilidade Superior a Jade, ou a Feitiços de Ar).",
+          },
+        ],
+      },
+
+      {
+        id: "sistema-armas",
+        name: "Sistema de Armas",
+        glyph: "🗡️",
+        tagline:
+          "Categorias de tamanho, atributos de arma e progressão de qualidade.",
+        description:
+          "As armas são divididas em três categorias de tamanho e possuem três atributos principais: Dureza, Resistência e Dano.",
+        tags: ["Armas", "Combate", "Ferreiro"],
+        ruleSections: [
+          {
+            title: "Atributos da Arma",
+            items: [
+              "Dureza: Define a solidez da arma. Derivado da qualidade do material.",
+              "Resistência: Define a durabilidade antes de quebrar. Derivado da qualidade do material.",
+              "Dano: Define o dado que será lançado no ataque. Derivado da qualidade do ferreiro.",
+            ],
+          },
+          {
+            title: "Escala de Dados",
+            text: "1d4 → 1d6 → 1d8 → 1d10 → 1d12 → 1d20",
+          },
+          {
+            title: "Tabela de Dano por Qualidade",
+            table: {
+              headers: ["Categoria", "Ruim", "Normal", "Superior", "Obra de Arte"],
+              rows: [
+                ["Leve", "1d4 - 2", "1d4", "1d6", "1d8"],
+                ["Média", "1d6 - 3", "1d6", "1d8", "1d10"],
+                ["Grande", "1d8 - 4", "1d8", "1d10", "1d12"],
+              ],
+            },
+          },
+          {
+            title: "Qualidade Ruim",
+            text: "Utiliza o dado base da categoria, mas sofre penalidade numérica igual à metade do valor máximo do dado (ex: 1d4 vira 1d4 - 2).",
+          },
+          {
+            title: "Qualidade Superior",
+            text: "Sobe 1 nível na escala de dados.",
+          },
+          {
+            title: "Qualidade Obra de Arte",
+            text: "Sobe 2 níveis na escala de dados (1 nível acima da Superior).",
+          },
+          {
+            title: "Armas Desertas (Nemuranai)",
+            text: "Artefatos místicos cujos espíritos (kami) foram acordados.",
+            items: [
+              "Bônus de Dano: Adiciona +1d4 diretamente à parada de dados de dano da arma.",
+              "Efeito Místico: A arma passa a causar dano diretamente em espíritos.",
+            ],
+          },
+          {
+            title: "Exemplo",
+            text: "Uma faca (Arma Leve) de qualidade Obra de Arte causa 1d8 de dano. Se se tornar Nemuranai, sua parada de dados final será 1d8 + 1d4.",
           },
         ],
       },
