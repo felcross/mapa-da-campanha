@@ -90,7 +90,7 @@ export default function FichaView({ onBack }: FichaViewProps) {
     <div className="ficha">
       {/* Força o encaixe perfeito na folha A4 */}
       <style>{`
-        @page ficha-all {
+        @page {
           size: A4 landscape;
           margin: 6mm;
         }
@@ -107,7 +107,6 @@ export default function FichaView({ onBack }: FichaViewProps) {
             padding: 0 !important;
           }
           .ficha__sheet {
-            page: ficha-all;
             width: 100%;
             margin: 0;
             border: none;
