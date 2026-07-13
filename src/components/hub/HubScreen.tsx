@@ -1,9 +1,10 @@
 interface HubScreenProps {
   onSelectMap: () => void;
   onSelectClasses: () => void;
+  onSelectFicha: () => void;
 }
 
-export default function HubScreen({ onSelectMap, onSelectClasses }: HubScreenProps) {
+export default function HubScreen({ onSelectMap, onSelectClasses, onSelectFicha }: HubScreenProps) {
   return (
     <div className="hub">
       <h1 className="hub__title">Ferramentas do Mestre</h1>
@@ -18,6 +19,11 @@ export default function HubScreen({ onSelectMap, onSelectClasses }: HubScreenPro
           <span className="hub__cardIcon">侍</span>
           <span className="hub__cardTitle">Compendium de Classes</span>
           <p className="hub__cardDesc">Samurai, Sacerdotes, técnicas, feitiços e domínios</p>
+        </button>
+        <button className="hub__card hub__card--ficha" onClick={onSelectFicha}>
+          <span className="hub__cardIcon">📋</span>
+          <span className="hub__cardTitle">Ficha Download</span>
+          <p className="hub__cardDesc">Ficha de personagem L5R para impressão e PDF</p>
         </button>
       </div>
     </div>

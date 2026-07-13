@@ -101,6 +101,15 @@ button {
   background: rgba(166, 53, 43, 0.12);
 }
 
+.hub__card--ficha {
+  border-color: var(--kin);
+}
+
+.hub__card--ficha:hover {
+  border-color: var(--kin);
+  background: rgba(180, 146, 46, 0.12);
+}
+
 .hub__cardIcon {
   width: 56px;
   height: 56px;
@@ -118,6 +127,11 @@ button {
 
 .hub__card--classes .hub__cardIcon {
   background: var(--shu);
+  color: #fff;
+}
+
+.hub__card--ficha .hub__cardIcon {
+  background: var(--kin);
   color: #fff;
 }
 

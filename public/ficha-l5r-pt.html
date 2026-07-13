@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Ficha de Personagem — L5R</title>
+<style>
+  :root {
+    --parchment: #fcfaf2;
+    --parchment-dark: #e8e2cf;
+    --ink: #2d2722;
+    --ink-soft: #6e655f;
+    --red: #8c2323;
+    --gold: #bfa15f;
+    --line: #d0c9bc;
+
+    --earth: #5b6d4a;
+    --air: #5a6f8f;
+    --water: #3a6678;
+    --fire: #a34823;
+    --void: #3e3a35;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: #4a4540;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: var(--ink);
+  }
+
+  .toolbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--ink); color: var(--parchment);
+    padding: 12px 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 13px;
+    border-bottom: 3px solid var(--gold);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+  .toolbar-inner { max-width: 1000px; margin: 0 auto; display: table; width: 100%; }
+  .toolbar-left { display: table-cell; vertical-align: middle; }
+  .toolbar-right { display: table-cell; text-align: right; vertical-align: middle; }
+
+  .btn {
+    background: var(--red); color: #fff; border: none;
+    padding: 8px 14px; border-radius: 4px; cursor: pointer;
+    font-size: 13px; font-weight: bold; transition: background 0.2s;
+  }
+  .btn:hover { background: #a62e2e; }
+  .btn.secondary { background: var(--gold); color: var(--ink); margin-right: 8px; }
+  .btn.secondary:hover { background: #d4b570; }
+
+  .skill-select-container { display: inline-block; margin-right: 15px; }
+  .skill-select-container select, .skill-select-container input {
+    padding: 6px 10px; border-radius: 4px; border: 1px solid var(--line);
+    font-size: 13px; background: white;
+  }
+
+  .sheet {
+    width: 297mm; min-height: 210mm; margin: 20px auto;
+    background: var(--parchment); padding: 8mm 10mm;
+    position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+
+  /* Header */
+  .header-table { width: 100%; border-collapse: collapse; margin-bottom: 6px; border-bottom: 2px solid var(--ink); }
+  .header-cell { vertical-align: bottom; padding-bottom: 5px; }
+  .header-info-block { width: 45%; }
+  .header-stats-block { width: 25%; padding-left: 15px; }
+  .header-logo-block { width: 30%; text-align: right; }
+
+  .field-row { margin-bottom: 4px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink-soft); }
+  .field-label { display: inline-block; width: 65px; font-weight: bold; }
+  /* Ajuste: rótulos maiores em pt-BR (ex: "Discernimento:") precisam de mais espaço */
+  .header-stats-block .field-label { width: 122px; font-size: 9px; }
+  .field-line { display: inline-block; border-bottom: 1px solid var(--line); width: calc(100% - 75px); height: 13px; vertical-align: bottom; }
+  .header-stats-block .field-line { width: calc(100% - 132px); }
+
+  .logo-title { font-family: 'Times New Roman', Georgia, serif; font-size: 16px; font-weight: bold; text-transform: uppercase; letter-spacing: 1.2px; color: var(--red); line-height: 1.05; }
+  .logo-subtitle { font-size: 8px; color: var(--gold); letter-spacing: 2px; font-weight: bold; margin-top: 2px; }
+
+  /* Faixas horizontais genericas (aneis / prestigio / combate) */
+  .h-strip {
+    display: flex; justify-content: space-between; gap: 6px;
+    border: 1px solid var(--line); border-radius: 6px;
+    background: rgba(255,255,255,0.25); padding: 5px 6px; margin-bottom: 6px;
+    page-break-inside: avoid;
+  }
+  .h-col { flex: 1; text-align: center; padding: 0 2px; }
+  .h-col + .h-col { border-left: 1px dotted var(--line); }
+
+  .h-title-row { display: flex; align-items: center; justify-content: center; gap: 5px; margin-bottom: 4px; }
+  .h-title { font-size: 9.5px; font-weight: bold; text-transform: uppercase; letter-spacing: .5px; color: var(--ink); line-height:1.1; }
+  .h-circle { width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 3px solid var(--c); box-shadow: inset 0 0 4px rgba(0,0,0,.15); flex-shrink: 0; }
+
+  .h-sub { display: flex; align-items: center; justify-content: center; gap: 5px; margin-bottom: 3px; }
+  /* Ajuste: rótulos de atributos em pt-BR (ex: "Vontade", "Consciência") são mais longos que em inglês */
+  .h-sub .h-sub-label { font-size: 7.5px; text-transform: uppercase; letter-spacing: .2px; color: var(--ink-soft); width: 66px; text-align: right; line-height:1.0; }
+  /* Variações para textos mais longos (fórmulas de Ataque/Defesa/Duelo) - largas o suficiente para caber em 1 linha */
+  .h-sub .h-sub-label.lg { width: 118px; font-size: 7px; }
+  .h-sub .h-sub-label.xl { width: 160px; font-size: 6.8px; }
+  .h-circle-sm { width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 2px solid var(--c); flex-shrink: 0; }
+
+  .h-title-note { font-size: 7px; font-weight: normal; text-transform: none; display: block; color: var(--ink-soft); }
+  .h-duel-tag { font-size: 7.5px; font-weight: bold; text-transform: uppercase; letter-spacing: .5px; color: var(--red); text-align: center; margin-bottom: 3px; }
+  .h-duel-rule { font-size: 6.3px; font-style: italic; color: var(--ink-soft); line-height: 1.15; text-align: center; margin-top: 3px; padding: 0 2px; }
+  .stance-title-note { font-weight: normal; text-transform: none; font-size: 7px; display: block; color: var(--ink-soft); }
+
+  .h-col.earth { --c: var(--earth); }
+  .h-col.air   { --c: var(--air); }
+  .h-col.water { --c: var(--water); }
+  .h-col.fire  { --c: var(--fire); }
+  .h-col.void  { --c: var(--void); }
+  .h-col.gold  { --c: var(--gold); }
+  .h-col.red   { --c: var(--red); }
+
+  /* Layout de colunas */
+  .main-layout { width: 100%; border-collapse: collapse; page-break-inside: avoid; }
+  .col-left { width: 58%; vertical-align: top; padding-right: 20px; }
+  .col-right { width: 42%; vertical-align: top; }
+
+  .section-heading {
+    background: var(--ink); color: var(--parchment);
+    font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    padding: 3px 8px; font-weight: bold; margin-top: 6px; margin-bottom: 4px;
+  }
+
+  table.skills-table { width: 100%; border-collapse: collapse; font-size: 10px; page-break-inside: avoid; }
+  table.skills-table th { text-align: left; font-size: 8.5px; text-transform: uppercase; color: var(--ink-soft); border-bottom: 1.5px solid var(--ink); padding: 2px 4px; letter-spacing: 0.5px; }
+  table.skills-table td { border-bottom: 1px solid var(--line); padding: 2.5px 4px; vertical-align: middle; }
+  .col-sch { width: 30px; text-align: center; }
+  /* Ajuste: "Grau", "Atributo" e "Rolagem" em pt-BR precisam de um pouco mais de largura */
+  .col-rank { width: 44px; text-align: center; }
+  .col-trait { width: 60px; text-align: center; }
+  .col-roll { width: 58px; text-align: center; }
+  .col-action { width: 26px; text-align: center; }
+
+  .blank-line { display: block; width: 100%; height: 11px; border-bottom: 1px dashed var(--line); }
+  .blank-center-line { display: inline-block; width: 24px; height: 11px; border-bottom: 1px dashed var(--line); }
+
+  .remove-btn { background: none; border: none; color: var(--red); cursor: pointer; font-weight: bold; font-size: 12px; }
+
+  .box-track { border: 1.5px solid var(--ink); margin-bottom: 5px; background: rgba(255,255,255,0.3); page-break-inside: avoid; }
+  .box-title { background: var(--ink); color: var(--parchment); font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; padding: 2px 6px; font-weight: bold; }
+
+  /* Linha com label + circulo preenchivel (usado em Vida/Resistencia) */
+  .fill-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 2.5px 8px; border-bottom: 1px dotted var(--line); font-size: 9px; }
+  .fill-row .fill-label { color: var(--ink-soft); text-transform: uppercase; letter-spacing: .3px; }
+  .fill-circle { width: 15px; height: 15px; border-radius: 50%; border: 2px solid var(--red); background: #fff; flex-shrink: 0; }
+
+  .life-formula { font-size: 8px; padding: 3px 6px 2px; color: var(--ink-soft); font-style: italic; }
+
+  /* Referencia de Vida por Terra: linha unica, mais compacta que uma tabela */
+  .life-ref-line { font-size: 7.5px; color: var(--ink-soft); padding: 0 6px 3px; }
+  .life-ref-line b { color: var(--ink); }
+
+  table.penalty-table { width: 100%; border-collapse: collapse; font-size: 8px; }
+  table.penalty-table th { background: var(--parchment-dark); font-size: 7.5px; text-transform: uppercase; padding: 2px; border: 1px solid var(--ink); }
+  table.penalty-table td { border: 1px solid var(--line); padding: 2px 4px; }
+  table.penalty-table td:last-child { text-align: center; font-weight: bold; color: var(--red); width: 50px; }
+  table.penalty-table tfoot td { background: var(--parchment-dark); font-weight: bold; }
+
+  /* Faixa horizontal de Posturas */
+  .stances-strip {
+    display: flex; gap: 6px; border: 1px solid var(--line); border-radius: 6px;
+    background: rgba(255,255,255,0.25); padding: 5px 6px; margin-top: 6px;
+    page-break-inside: avoid;
+  }
+  .stance-col { flex: 1; padding: 0 3px; }
+  .stance-col + .stance-col { border-left: 1px dotted var(--line); padding-left: 6px; }
+  .stance-title { font-size: 8.5px; font-weight: bold; text-transform: uppercase; color: var(--red); text-align: center; margin-bottom: 3px; letter-spacing: .3px; }
+  .stance-block { font-size: 6.9px; line-height: 1.2; margin-bottom: 2px; color: var(--ink); }
+  .stance-block b { color: var(--ink-soft); text-transform: uppercase; font-size: 6.5px; display: block; margin-bottom: 1px; letter-spacing: .3px; }
+
+  .weapons-section { margin-top: 6px; page-break-inside: avoid; }
+  .weapons-table-container { display: table; width: 100%; }
+  .weapon-wrapper { display: table-cell; width: 50%; vertical-align: top; }
+  .weapon-wrapper:first-child { padding-right: 12px; }
+
+  table.weapon-card { width: 100%; border-collapse: collapse; font-size: 9px; border: 1.5px solid var(--ink); }
+  table.weapon-card th { background: var(--ink); color: var(--parchment); text-transform: uppercase; padding: 2.5px; font-size: 8.5px; letter-spacing: 0.5px; }
+  table.weapon-card td { padding: 2.5px 4px; border-bottom: 1px solid var(--line); }
+  /* Ajuste: "Rolagem de Ataque" / "Rolagem de Dano" são mais longos que os originais em inglês */
+  table.weapon-card td.lbl { width: 105px; text-transform: uppercase; font-size: 7.5px; color: var(--ink-soft); font-weight: bold; border-right: 1px solid var(--line); }
+
+  @media print {
+    body { background: #fff; }
+    .toolbar { display: none; }
+    .sheet { box-shadow: none; margin: 0; padding: 10mm 10mm; }
+    .remove-btn { display: none; }
+    .col-action { display: none; }
+    @page { size: A4 landscape; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <div class="toolbar-left">
+      <div class="skill-select-container">
+        <label for="skillPreset">Perícias Prontas: </label>
+        <select id="skillPreset" onchange="handlePresetChange()">
+          <option value="">-- Escolha ou digite ao lado --</option>
+          <option value="Atletismo">Atletismo</option>
+          <option value="Batalha">Batalha</option>
+          <option value="Comércio">Comércio</option>
+          <option value="Defesa">Defesa</option>
+          <option value="Etiqueta">Etiqueta</option>
+          <option value="Iaijutsu">Iaijutsu</option>
+          <option value="Investigação">Investigação</option>
+          <option value="Kenjutsu">Kenjutsu</option>
+          <option value="Kyujutsu">Kyujutsu</option>
+          <option value="Sinceridade">Sinceridade</option>
+          <option value="Meditação">Meditação</option>
+        </select>
+        <input type="text" id="customSkillName" placeholder="Nome personalizado">
+      </div>
+      <button class="btn secondary" onclick="addSkillFromToolbar()">+ Adicionar à Lista</button>
+    </div>
+    <div class="toolbar-right">
+      <button class="btn" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+    </div>
+  </div>
+</div>
+
+<div class="sheet">
+
+  <table class="header-table">
+    <tr>
+      <td class="header-cell header-info-block">
+        <div class="field-row"><span class="field-label">Nome:</span><span class="field-line"></span></div>
+        <div class="field-row"><span class="field-label">Clã:</span><span class="field-line"></span></div>
+        <div class="field-row"><span class="field-label">Escola:</span><span class="field-line"></span></div>
+      </td>
+      <td class="header-cell header-stats-block">
+        <div class="field-row"><span class="field-label">Nível:</span><span class="field-line"></span></div>
+        <div class="field-row"><span class="field-label">Experiência:</span><span class="field-line"></span></div>
+        <div class="field-row"><span class="field-label">Discernimento:</span><span class="field-line"></span></div>
+      </td>
+      <td class="header-cell header-logo-block">
+        <div class="logo-title">Lenda dos<br>Cinco Anéis</div>
+        <div class="logo-subtitle">FICHA DE PERSONAGEM</div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- FAIXA 1: ANEIS -->
+  <div class="h-strip">
+    <div class="h-col earth">
+      <div class="h-title-row"><span class="h-title">Terra</span><div class="h-circle"></div></div>
+      <div class="h-sub"><span class="h-sub-label">Vigor</span><div class="h-circle-sm"></div></div>
+      <div class="h-sub"><span class="h-sub-label">Vontade</span><div class="h-circle-sm"></div></div>
+    </div>
+    <div class="h-col air">
+      <div class="h-title-row"><span class="h-title">Ar</span><div class="h-circle"></div></div>
+      <div class="h-sub"><span class="h-sub-label">Reflexos</span><div class="h-circle-sm"></div></div>
+      <div class="h-sub"><span class="h-sub-label">Consciência</span><div class="h-circle-sm"></div></div>
+    </div>
+    <div class="h-col water">
+      <div class="h-title-row"><span class="h-title">Água</span><div class="h-circle"></div></div>
+      <div class="h-sub"><span class="h-sub-label">Força</span><div class="h-circle-sm"></div></div>
+      <div class="h-sub"><span class="h-sub-label">Percepção</span><div class="h-circle-sm"></div></div>
+    </div>
+    <div class="h-col fire">
+      <div class="h-title-row"><span class="h-title">Fogo</span><div class="h-circle"></div></div>
+      <div class="h-sub"><span class="h-sub-label">Agilidade</span><div class="h-circle-sm"></div></div>
+      <div class="h-sub"><span class="h-sub-label">Inteligência</span><div class="h-circle-sm"></div></div>
+    </div>
+    <div class="h-col void">
+      <div class="h-title-row"><span class="h-title">Vazio</span><div class="h-circle"></div></div>
+      <div class="h-sub"><span class="h-sub-label">Pontos Gastos</span><div class="h-circle-sm"></div></div>
+      <div class="h-sub"><span class="h-sub-label">Vazio Temporário</span><div class="h-circle-sm"></div></div>
+    </div>
+  </div>
+
+  <!-- FAIXA 2: PRESTIGIO (Honra / Gloria / Status / Corrupção) -->
+  <div class="h-strip">
+    <div class="h-col gold">
+      <div class="h-title-row"><span class="h-title">Honra</span><div class="h-circle"></div></div>
+    </div>
+    <div class="h-col gold">
+      <div class="h-title-row"><span class="h-title">Glória</span><div class="h-circle"></div></div>
+    </div>
+    <div class="h-col gold">
+      <div class="h-title-row"><span class="h-title">Status</span><div class="h-circle"></div></div>
+    </div>
+    <div class="h-col gold">
+      <div class="h-title-row"><span class="h-title">Corrupção</span><div class="h-circle"></div></div>
+    </div>
+  </div>
+
+  <!-- FAIXA 3: INICIATIVA / ATAQUE / DEFESA / DUELO (CHANBARA) -->
+  <div class="h-strip">
+    <div class="h-col red">
+      <div class="h-title-row"><span class="h-title">Inicisdsdsativa</span></div>
+      <div class="h-sub"><span class="h-sub-label">Perícia + Agilidade</span><div class="h-circle-sm"></div></div>
+      <div class="h-title-row"><span class="h-title">Ataque</span></div>
+      <div class="h-sub"><span class="h-sub-label lg">Arma / Agilidade</span><div class="h-circle-sm"></div></div>
+    </div>
+    </div>
+    <div class="h-col red">
+      <div class="h-title-row"><span class="h-title">Ataque</span></div>
+      <div class="h-sub"><span class="h-sub-label lg">Arma / Agilidade</span><div class="h-circle-sm"></div></div>
+    </div>
+    <div class="h-col red" style="flex: 1.7;">
+      <div class="h-title-row"><span class="h-title">Defesa</span></div>
+      <div class="h-sub"><span class="h-sub-label xl">Aparar: Arma / Reflexo</span><div class="h-circle-sm"></div></div>
+      <div class="h-sub"><span class="h-sub-label xl">Bloquear: Defesa / Vigor</span><div class="h-circle-sm"></div></div>
+      <div class="h-sub"><span class="h-sub-label xl">Esquiva: Atletismo / Agilidade</span><div class="h-circle-sm"></div></div>
+    </div>
+    <div class="h-col red" style="flex: 1.2;">
+      <div class="h-title-row"><span class="h-title">Duelo <span class="h-title-note">(Status+Honra)</span></span><div class="h-circle"></div></div>
+      <div class="h-duel-tag">Chanbara</div>
+      <div class="h-sub"><span class="h-sub-label lg">Foco: Iniciativa / Vazio</span><div class="h-circle-sm"></div></div>
+      <div class="h-sub"><span class="h-sub-label lg">Saque: Iaijutsu / Vazio</span><div class="h-circle-sm"></div></div>
+      <div class="h-duel-rule">Regra: superar o Foco por 5+ concede 1k0 no Saque.</div>
+    </div>
+  </div>
+
+  <table class="main-layout">
+    <tr>
+      <td class="col-left">
+
+        <div class="section-heading">Perícias</div>
+        <table class="skills-table">
+          <thead>
+            <tr>
+              <th class="col-sch">Esc</th>
+              <th>Nome da Perícia</th>
+              <th class="col-rank">Grau</th>
+              <th class="col-trait">Atributo</th>
+              <th class="col-roll">Rolagem</th>
+              <th>Ênfases e Maestria</th>
+              <th class="col-action"></th>
+            </tr>
+          </thead>
+          <tbody id="skillsBody"></tbody>
+        </table>
+
+      </td>
+
+      <td class="col-right">
+
+        <div class="box-track">
+          <div class="box-title">Vida</div>
+          <div class="life-formula">Vida = 18 × Terra (máx. 3 pontos) + Vigor</div>
+          <div class="life-ref-line"><b>Terra 1</b> = 18 (metade 9) &nbsp;|&nbsp; <b>Terra 2</b> = 36 (metade 18) &nbsp;|&nbsp; <b>Terra 3</b> = 54 (metade 27)</div>
+          <div class="fill-row"><span class="fill-label">Vigor</span><div class="fill-circle"></div></div>
+          <div class="fill-row"><span class="fill-label">Vida Total (Base + Vigor)</span><div class="fill-circle"></div></div>
+          <div class="fill-row"><span class="fill-label">Vida Atual</span><div class="fill-circle"></div></div>
+        </div>
+
+        <div class="box-track">
+          <div class="box-title">Resistência</div>
+          <div class="life-formula">Resistência = Vigor + Nível — golpes que você aguenta antes de cansar</div>
+          <div class="fill-row"><span class="fill-label">Resistência (Vigor + Nível)</span><div class="fill-circle"></div></div>
+          <div class="fill-row"><span class="fill-label">Resistência Atual</span><div class="fill-circle"></div></div>
+        </div>
+
+        <div class="box-track">
+          <div class="box-title">Penalidades</div>
+          <table class="penalty-table">
+            <thead><tr><th>Condição</th><th>Penal.</th></tr></thead>
+            <tbody>
+              <tr><td>Resistência esgotada (cansado)</td><td>−1k0</td></tr>
+              <tr><td>Vida ≤ metade</td><td>−1k0</td></tr>
+              <tr><td>Vida ≤ metade + cansado</td><td>−1k0</td></tr>
+            </tbody>
+            <tfoot><tr><td>Máximo acumulado</td><td>−3k0</td></tr></tfoot>
+          </table>
+        </div>
+
+      </td>
+    </tr>
+  </table>
+
+  <!-- FAIXA 4: POSTURAS -->
+  <div class="section-heading">Posturas</div>
+  <div class="stances-strip">
+
+    <div class="stance-col">
+      <div class="stance-title">Ataque Total</div>
+      <div class="stance-block"><b>Efeito</b>+2k1 ATQ / -1k1 DEF.</div>
+      <div class="stance-block"><b>Restrições</b>Só pode atacar.</div>
+    </div>
+
+    <div class="stance-col">
+      <div class="stance-title">Defesa</div>
+      <div class="stance-block"><b>Efeito</b>-1k1 ATQ / +1k1 DEF.</div>
+      <div class="stance-block"><b>Movimento</b>Água -1.</div>
+    </div>
+
+    <div class="stance-col">
+      <div class="stance-title">Defesa Total <span class="stance-title-note">(Sacerdotes)</span></div>
+      <div class="stance-block"><b>Efeito</b>+2k2 DEF.</div>
+      <div class="stance-block"><b>Movimento</b>Água -2.</div>
+    </div>
+
+    <div class="stance-col">
+      <div class="stance-title">Chanbara</div>
+      <div class="stance-block"><b>Duelo Igual</b>Contestado: 1d10 + Vazio.</div>
+      <div class="stance-block"><b>Duelo Maior</b>Entra em Duelo.</div>
+      <div class="stance-block"><b>Restrições</b>1x por batalha, corpo a corpo.</div>
+    </div>
+
+    <div class="stance-col">
+      <div class="stance-title">Segundo Ataque</div>
+      <div class="stance-block"><b>Regra</b>Supere a defesa do inimigo por 30 ou mais.</div>
+    </div>
+
+    <div class="stance-col">
+      <div class="stance-title">Ataques à Distância</div>
+      <div class="stance-block"><b>Regra</b>Se Aparar ou Esquivar, troca por Percepção.</div>
+    </div>
+
+  </div>
+
+  <div class="weapons-section">
+    <div class="section-heading">Armas e Equipamento de Combate</div>
+    <div class="weapons-table-container">
+
+      <div class="weapon-wrapper">
+        <table class="weapon-card">
+          <thead><tr><th colspan="2">Arma 1</th></tr></thead>
+          <tbody>
+            <tr><td class="lbl">Tipo</td><td><span class="blank-line"></span></td></tr>
+            <tr><td class="lbl">Rolagem de Ataque</td><td><span class="blank-line"></span></td></tr>
+            <tr><td class="lbl">Rolagem de Dano</td><td><span class="blank-line"></span></td></tr>
+            <tr><td class="lbl">Notas</td><td><span class="blank-line"></span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="weapon-wrapper">
+        <table class="weapon-card">
+          <thead><tr><th colspan="2">Armadura</th></tr></thead>
+          <tbody>
+            <tr><td class="lbl">Tipo</td><td><span class="blank-line"></span></td></tr>
+            <tr><td class="lbl">Bônus de Defesa</td><td><span class="blank-line"></span></td></tr>
+            <tr><td class="lbl">Redução</td><td><span class="blank-line"></span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const defaultSkills = ["Defesa", "Kenjutsu", "Iaijutsu", "Etiqueta", "Sinceridade", "Atletismo", "Investigação"];
+
+  function createSkillRow(name) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="col-sch"><span class="blank-center-line" style="width:14px;"></span></td>
+      <td style="font-weight: bold; color: var(--ink); font-size:10.5px;">${name}</td>
+      <td class="col-rank"><span class="blank-center-line"></span></td>
+      <td class="col-trait"><span class="blank-center-line"></span></td>
+      <td class="col-roll"><span class="blank-center-line"></span></td>
+      <td><span class="blank-line"></span></td>
+      <td class="col-action"><button class="remove-btn" onclick="this.closest('tr').remove()">✕</button></td>
+    `;
+    return tr;
+  }
+
+  function handlePresetChange() {
+    const select = document.getElementById('skillPreset');
+    const input = document.getElementById('customSkillName');
+    if (select.value) input.value = select.value;
+  }
+
+  function addSkillFromToolbar() {
+    const input = document.getElementById('customSkillName');
+    const name = input.value.trim();
+    if (!name) return;
+    document.getElementById('skillsBody').appendChild(createSkillRow(name));
+    input.value = '';
+    document.getElementById('skillPreset').value = '';
+  }
+
+  const tbody = document.getElementById('skillsBody');
+  defaultSkills.forEach(skill => tbody.appendChild(createSkillRow(skill)));
+  for (let i = 0; i < 2; i++) tbody.appendChild(createSkillRow(""));
+</script>
+
+</body>
+</html>
