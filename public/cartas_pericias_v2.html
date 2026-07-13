@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Cartas de Perícias — L5R</title>
+<style>
+  :root {
+    --parchment: #fcfaf2;
+    --parchment-dark: #e8e2cf;
+    --ink: #2d2722;
+    --ink-soft: #6e655f;
+    --red: #8c2323;
+    --gold: #bfa15f;
+    --line: #d0c9bc;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: #4a4540;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: var(--ink);
+  }
+
+  .toolbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--ink); color: var(--parchment);
+    padding: 12px 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 13px;
+    border-bottom: 3px solid var(--gold);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    display: flex; justify-content: flex-end;
+  }
+  .btn {
+    background: var(--red); color: #fff; border: none;
+    padding: 8px 14px; border-radius: 4px; cursor: pointer;
+    font-size: 13px; font-weight: bold;
+  }
+  .btn:hover { background: #a62e2e; }
+
+  .sheet {
+    width: 210mm; min-height: 297mm; margin: 20px auto;
+    background: var(--parchment); padding: 10mm 9mm;
+    position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+
+  .page-title {
+    text-align: center; font-size: 13px; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--red); font-weight: bold;
+    margin-bottom: 8px; border-bottom: 2px solid var(--ink); padding-bottom: 6px;
+  }
+
+  /* Layout em colunas: distribui os cards e evita quebrar um card no meio */
+  .cards-container {
+    column-count: 3;
+    column-gap: 6mm;
+  }
+
+  .skill-card {
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: rgba(255,255,255,0.4);
+    margin-bottom: 6mm;
+    overflow: hidden;
+  }
+
+  .skill-card-title {
+    background: var(--ink);
+    color: var(--parchment);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+    padding: 4px 6px;
+    font-weight: bold;
+  }
+
+  .skill-card-body { padding: 5px 7px 7px; }
+
+  .whatdoes-label {
+    font-size: 7px; text-transform: uppercase; letter-spacing: .4px;
+    color: var(--red); font-weight: bold; margin-bottom: 2px;
+  }
+  .whatdoes-text {
+    font-size: 8px; line-height: 1.32; color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .emphases-label {
+    font-size: 7px; text-transform: uppercase; letter-spacing: .4px;
+    color: var(--red); font-weight: bold; margin-bottom: 3px;
+    border-top: 1px dotted var(--line); padding-top: 4px;
+  }
+  .emphasis-item {
+    font-size: 7.6px; line-height: 1.3; margin-bottom: 4px;
+  }
+  .emphasis-item:last-child { margin-bottom: 0; }
+  .emphasis-name {
+    font-weight: bold; color: var(--ink-soft); text-transform: uppercase;
+    font-size: 7.2px; letter-spacing: .2px;
+  }
+
+  @media print {
+    body { background: #fff; }
+    .toolbar { display: none; }
+    .sheet { box-shadow: none; margin: 0; padding: 8mm 8mm; }
+    @page { size: A4; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button class="btn" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+</div>
+
+<div class="sheet">
+  <div class="page-title">Referência de Perícias</div>
+
+  <div class="cards-container">
+
+    <div class="skill-card">
+      <div class="skill-card-title">Adivinhação</div>
+      <div class="skill-card-body">
+        <div class="whatdoes-label">O que faz</div>
+        <div class="whatdoes-text">Permite vislumbrar os tecidos do destino e prever eventos futuros (uma vez por dia).</div>
+        <div class="emphases-label">Ênfases</div>
+        <div class="emphasis-item"><span class="emphasis-name">Astrologia</span> — Usar esse teste quando quiser prever o futuro ou obter presságios lendo a posição das estrelas e astros.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Kawaru</span> — Usar esse teste quando quiser prever o futuro jogando e interpretando objetos pequenos (pedras, palitos ou moedas com hexagramas) em uma tigela.</div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title">Arte</div>
+      <div class="skill-card-body">
+        <div class="whatdoes-label">O que faz</div>
+        <div class="whatdoes-text">Mede o talento do personagem em criar obras nobres e refinadas reconhecidas pela sociedade. As ênfases variam de acordo com a arte escolhida (Bonsai, Jardinagem, Ikebana, Origami, Pintura, Poesia, Escultura, Tatuagem, etc.).</div>
+        <div class="emphases-label">Ênfases</div>
+        <div class="emphasis-item"><span class="emphasis-name">Qualquer Arte</span> — Usar esse teste quando quiser criar uma obra física ou literária de alto nível para impressionar alguém ou demonstrar status cultural.</div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title">Atuação</div>
+      <div class="skill-card-body">
+        <div class="whatdoes-label">O que faz</div>
+        <div class="whatdoes-text">Capacidade de se passar por outra pessoa de forma convincente ou atuar nos teatros tradicionais (Kabuki e Noh).</div>
+        <div class="emphases-label">Ênfases</div>
+        <div class="emphasis-item"><span class="emphasis-name">Clã</span> — Usar esse teste quando o disfarce exigir que você mude o seu Clã de origem para o de outra pessoa.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Gênero</span> — Usar esse teste quando o disfarce exigir se passar por alguém de um gênero diferente do seu.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Profissão</span> — Usar esse teste quando o disfarce exigir se passar por alguém de outra função social (ex: um guerreiro se passando por um monge ou cortesão).</div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title">Caligrafia</div>
+      <div class="skill-card-body">
+        <div class="whatdoes-label">O que faz</div>
+        <div class="whatdoes-text">Demonstra refino, sofisticação e conhecimento de escritas avançadas através da escrita manual.</div>
+        <div class="emphases-label">Ênfases</div>
+        <div class="emphasis-item"><span class="emphasis-name">Cifra</span> — Usar esse teste quando quiser criar uma mensagem codificada secreta do seu Clã ou tentar quebrar/decifrar o código de outra pessoa.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Alto Rokugani</span> — Usar esse teste quando precisar escrever documentos oficiais ou cartas usando o estilo de linguagem extremamente formal e florido da Corte Imperial.</div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title">Cerimônia do Chá</div>
+      <div class="skill-card-body">
+        <div class="whatdoes-label">O que faz</div>
+        <div class="whatdoes-text">Um ritual sagrado de 30 minutos feito em silêncio para limpar a mente e recuperar as energias do grupo. Não possui ênfases.</div>
+        <div class="emphases-label">Ênfases</div>
+        <div class="emphasis-item"><span class="emphasis-name">Geral</span> — Usar esse teste quando quiser conduzir o ritual formal do chá para que você e os participantes recuperem Pontos de Vazio.</div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title">Corte</div>
+      <div class="skill-card-body">
+        <div class="whatdoes-label">O que faz</div>
+        <div class="whatdoes-text">Funciona como o "ataque social" em Rokugan. É a perícia usada para dominar conversas e jogos políticos na corte.</div>
+        <div class="emphases-label">Ênfases</div>
+        <div class="emphasis-item"><span class="emphasis-name">Boatos</span> — Usar esse teste quando quiser espalhar uma fofoca maldosa sobre um rival ou tentar descobrir os rumores que estão correndo pelos corredores do palácio.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Manipulação</span> — Usar esse teste quando quiser influenciar as opiniões de alguém de forma sutil, direcionar um debate para o assunto que você quer ou encurralar um oponente socialmente.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Retórica</span> — Usar esse teste quando quiser vencer discussões formais através da eloquência, falar bonito ou criar frases de efeito inteligentes.</div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title">Etiqueta</div>
+      <div class="skill-card-body">
+        <div class="whatdoes-label">O que faz</div>
+        <div class="whatdoes-text">Funciona como a "defesa social". Mede o conhecimento das regras rígidas de comportamento e protocolo do Império.</div>
+        <div class="emphases-label">Ênfases</div>
+        <div class="emphasis-item"><span class="emphasis-name">Burocracia</span> — Usar esse teste quando precisar lidar com as engrenagens difíceis do governo, como conseguir uma audiência com um oficial de alto escalão.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Conversação</span> — Usar esse teste quando quiser puxar assunto na corte de forma segura, garantindo que o tema seja educado e não cause ofensas.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Cortesia</span> — Usar esse teste quando quiser se defender de manipulações e fofocas alheias, expressar uma opinião polêmica sem ofender ninguém ou se lembrar de um costume social esquecido.</div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title">Feitiçaria</div>
+      <div class="skill-card-body">
+        <div class="whatdoes-label">O que faz</div>
+        <div class="whatdoes-text">Mede o conhecimento místico dos shugenjas sobre o funcionamento das preces, o estudo da magia e a interação com os espíritos elementais.</div>
+        <div class="emphases-label">Ênfases</div>
+        <div class="emphasis-item"><span class="emphasis-name">Importunar</span> — Usar esse teste quando estiver usando o feitiço Comunicar e quiser persuadir, convencer ou bajular um espírito (kami) para que ele ajude você ou realize uma tarefa.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Pesquisa de Feitiços</span> — Usar esse teste quando quiser passar semanas estudando na biblioteca do seu clã para criar e formular um feitiço totalmente novo.</div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title">Investigação</div>
+      <div class="skill-card-body">
+        <div class="whatdoes-label">O que faz</div>
+        <div class="whatdoes-text">A perícia clássica dos magistrados. Permite analisar cenas de crime, ligar pistas ao longo do tempo e encontrar o que está oculto.</div>
+        <div class="emphases-label">Ênfases</div>
+        <div class="emphasis-item"><span class="emphasis-name">Interrogatório</span> — Usar esse teste quando estiver questionando uma testemunha ou suspeito e quiser extrair informações ou descobrir se a pessoa está mentindo.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Notar</span> — Usar esse teste quando tentar perceber de relance se há alguém ativamente escondido ou camuflado ao seu redor (geralmente contra a Furtividade do alvo).</div>
+        <div class="emphasis-item"><span class="emphasis-name">Procurar</span> — Usar esse teste quando revistar minuciosamente um local atrás de pistas físicas, gavetas falsas ou objetos escondidos.</div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title">Jogos</div>
+      <div class="skill-card-body">
+        <div class="whatdoes-label">O que faz</div>
+        <div class="whatdoes-text">Representa o domínio do samurai nos passatempos tradicionais do Império, sejam eles disputas mentais, estratégicas ou físicas.</div>
+        <div class="emphases-label">Ênfases</div>
+        <div class="emphasis-item"><span class="emphasis-name">Go / Shogi</span> — Usar esse teste quando disputar uma partida de jogos de tabuleiro que exigem pura estratégia mental e raciocínio lógico.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Kemari</span> — Usar esse teste quando participar da competição física de chutar e manter a bola no ar com outros samurais.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Sadane / Correspondências</span> — Usar esse teste quando participar de jogos corteses baseados em trocas de cartas poéticas ou debates de críticas improvisadas.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Fortunas e Ventos</span> — Usar esse teste quando apostar ou participar do famoso jogo de azar e dados de Rokugan.</div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title">Medicina</div>
+      <div class="skill-card-body">
+        <div class="whatdoes-label">O que faz</div>
+        <div class="whatdoes-text">Permite tratar feridos de guerra, diagnosticar males físicos e garantir que os soldados do seu senhor se recuperem para lutar novamente.</div>
+        <div class="emphases-label">Ênfases</div>
+        <div class="emphasis-item"><span class="emphasis-name">Tratamento de Feridas</span> — Usar esse teste quando usar um Kit de Medicina para costurar cortes, imobilizar ossos e curar mecanicamente os pontos de vida (Ferimentos) de um aliado.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Antídotos</span> — Usar esse teste quando precisar identificar uma toxina e preparar uma substância para neutralizar os efeitos de um veneno.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Doenças</span> — Usar esse teste quando precisar diagnosticar os sintomas de uma febre, peste ou enfermidade e tratar o paciente.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Fitoterapia</span> — Usar esse teste quando quiser buscar ervas na natureza, preparar unguentos, chás medicinais e remédios caseiros.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Inumanos (Naga, Nezumi, etc.)</span> — Usar esse teste quando precisar realizar qualquer procedimento médico ou cirúrgico em uma raça não-humana (esta ênfase deve ser comprada para uma raça específica).</div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title">Meditação</div>
+      <div class="skill-card-body">
+        <div class="whatdoes-label">O que faz</div>
+        <div class="whatdoes-text">Permite ao samurai acalmar a mente através dos ensinamentos do Tao de Shinsei, seja para recuperar suas energias espirituais ou resistir a privações físicas.</div>
+        <div class="emphases-label">Ênfases</div>
+        <div class="emphasis-item"><span class="emphasis-name">Recuperação de Vazio</span> — Usar esse teste quando quiser passar meia hora meditando em silêncio absoluto para recarregar seus Pontos de Vazio.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Jejum</span> — Usar esse teste quando precisar ignorar a fome e a sede, resistindo aos efeitos físicos de passar dias sem comida e sem água.</div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title">Performance</div>
+      <div class="skill-card-body">
+        <div class="whatdoes-label">O que faz</div>
+        <div class="whatdoes-text">Mede a habilidade do personagem de entreter a corte com artes performáticas, contar histórias ou inspirar soldados antes de marcharem para a guerra.</div>
+        <div class="emphases-label">Ênfases</div>
+        <div class="emphasis-item"><span class="emphasis-name">Instrumentos, Dança e Títeres</span> — Usar esse teste quando quiser dar um show em um banquete, tocar uma música ou dançar para impressionar a audiência e ganhar favores políticos.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Oratória, Narração e Canção</span> — Usar esse teste quando quiser fazer um discurso emocionante, contar a lenda de um ancestral para inflamar o espírito dos guerreiros ou cantar uma balada tradicional.</div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-title">Sinceridade</div>
+      <div class="skill-card-body">
+        <div class="whatdoes-label">O que faz</div>
+        <div class="whatdoes-text">A arte de parecer absolutamente convincente no que diz. Na corte de Rokugan, o importante não é necessariamente falar a verdade, mas sim fazer com que os outros acreditem que você é sincero.</div>
+        <div class="emphases-label">Ênfases</div>
+        <div class="emphasis-item"><span class="emphasis-name">Honestidade</span> — Usar esse teste quando estiver dizendo a verdade e precisar que as pessoas confiem plenamente na sua palavra e na sua integridade.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Ardil (Baixa Perícia)</span> — Usar esse teste quando precisar contar uma mentira descarada, mas com uma postura tão firme e polida que ninguém desconfiará de você.</div>
+        <div class="emphasis-item"><span class="emphasis-name">Geral (Evitar Insultos)</span> — Usar esse teste quando precisar dar uma resposta evasiva ou um elogio ambíguo para sair de uma saia justa sem ofender uma autoridade de Status maior.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

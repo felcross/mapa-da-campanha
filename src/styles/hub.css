@@ -57,7 +57,7 @@ button {
 
 .hub__cards {
   display: flex;
-  gap: 24px;
+  gap: 16px;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -66,10 +66,10 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  width: 280px;
-  padding: 40px 32px;
-  border: 2px solid var(--line-strong);
+  gap: 10px;
+  width: 160px;
+  padding: 24px 16px;
+  border: 1.5px solid var(--line-strong);
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.03);
   cursor: pointer;
@@ -111,13 +111,13 @@ button {
 }
 
 .hub__cardIcon {
-  width: 56px;
-  height: 56px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .hub__card--map .hub__cardIcon {
@@ -132,6 +132,20 @@ button {
 
 .hub__card--ficha .hub__cardIcon {
   background: var(--kin);
+  color: #fff;
+}
+
+.hub__card--pericias {
+  border-color: var(--ai-deep);
+}
+
+.hub__card--pericias:hover {
+  border-color: var(--ai-deep);
+  background: rgba(22, 40, 52, 0.12);
+}
+
+.hub__card--pericias .hub__cardIcon {
+  background: var(--ai-deep);
   color: #fff;
 }
 
@@ -151,12 +165,13 @@ button {
 
 @media (max-width: 640px) {
   .hub__cards {
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
 
   .hub__card {
     width: 100%;
-    max-width: 320px;
+    padding: 16px 12px;
   }
 }
