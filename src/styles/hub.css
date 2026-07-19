@@ -164,6 +164,20 @@ button {
   color: #fff;
 }
 
+.hub__card--armas {
+  border-color: var(--shu-deep);
+}
+
+.hub__card--armas:hover {
+  border-color: var(--shu-deep);
+  background: rgba(97, 24, 24, 0.12);
+}
+
+.hub__card--armas .hub__cardIcon {
+  background: var(--shu-deep);
+  color: #fff;
+}
+
 .hub__cardTitle {
   font-family: var(--font-display);
   font-size: 1.2rem;

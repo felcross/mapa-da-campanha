@@ -3,9 +3,10 @@ interface HubScreenProps {
   onSelectClasses: () => void;
   onSelectFicha: () => void;
   onSelectPericias: () => void;
+  onSelectArmas: () => void;
 }
 
-export default function HubScreen({ onSelectMap, onSelectClasses, onSelectFicha, onSelectPericias }: HubScreenProps) {
+export default function HubScreen({ onSelectMap, onSelectClasses, onSelectFicha, onSelectPericias, onSelectArmas }: HubScreenProps) {
   return (
     <div className="hub">
       <h1 className="hub__title">Campanha Nihongan</h1>
@@ -26,6 +27,10 @@ export default function HubScreen({ onSelectMap, onSelectClasses, onSelectFicha,
         <button className="hub__card hub__card--pericias" onClick={onSelectPericias}>
           <span className="hub__cardIcon">⚔</span>
           <span className="hub__cardTitle">Perícias</span>
+        </button>
+        <button className="hub__card hub__card--armas" onClick={onSelectArmas}>
+          <span className="hub__cardIcon">🗡</span>
+          <span className="hub__cardTitle">Armas</span>
         </button>
       </div>
     </div>

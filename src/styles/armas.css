@@ -1,0 +1,327 @@
+/* ============================================
+   Armas — Compêndio de Armas L5R
+   ============================================ */
+
+.armas {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #ddd8cc;
+  font-family: var(--font-body);
+  color: #2d2722;
+  overflow: hidden;
+}
+
+/* --- Toolbar --- */
+.armas__toolbar {
+  background: #2d2722;
+  border-bottom: 2px solid #bfa15f;
+  color: #fcfaf2;
+  padding: 5px 14px;
+  z-index: 10;
+  font-family: Arial, sans-serif;
+  flex-shrink: 0;
+}
+
+.armas__toolbarInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.armas__backBtn {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  padding: 3px 10px;
+  border: 1px solid #8a6e33;
+  border-radius: 2px;
+  cursor: pointer;
+  background: transparent;
+  color: #ede0bc;
+}
+
+.armas__backBtn:hover {
+  background: rgba(191, 161, 95, 0.15);
+  color: #bfa15f;
+}
+
+.armas__nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.armas__navBtn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #8a6e33;
+  border-radius: 2px;
+  background: transparent;
+  color: #ede0bc;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.armas__navBtn:hover:not(:disabled) {
+  background: rgba(191, 161, 95, 0.15);
+  color: #bfa15f;
+}
+
+.armas__navBtn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.armas__navIndicator {
+  font-size: 11px;
+  color: #ede0bc;
+  min-width: 40px;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+/* --- Carousel --- */
+.armas__carousel {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  display: flex;
+  -webkit-overflow-scrolling: touch;
+}
+
+.armas__carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Card --- */
+.armas__card {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  overflow-y: auto;
+  padding: 20px 16px;
+  position: relative;
+  background: #fcfaf2;
+  border-left: 1px solid #d0c9bc;
+  border-right: 1px solid #d0c9bc;
+}
+
+.armas__card:first-child {
+  border-left: none;
+}
+
+.armas__card:last-child {
+  border-right: none;
+}
+
+.armas__cardCorner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: rgba(140, 35, 35, 0.5);
+  border-style: solid;
+}
+
+.armas__cardCorner--tl { top: 10px; left: 10px; border-width: 2px 0 0 2px; }
+.armas__cardCorner--tr { top: 10px; right: 10px; border-width: 2px 2px 0 0; }
+.armas__cardCorner--bl { bottom: 10px; left: 10px; border-width: 0 0 2px 2px; }
+.armas__cardCorner--br { bottom: 10px; right: 10px; border-width: 0 2px 2px 0; }
+
+.armas__cardTitle {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #8c2323;
+  margin: 0 0 8px;
+}
+
+.armas__cardDivider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  opacity: 0.6;
+}
+
+.armas__cardDividerLine {
+  height: 1px;
+  width: 40px;
+  background: rgba(140, 35, 35, 0.4);
+}
+
+.armas__cardDividerDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(140, 35, 35, 0.6);
+  margin: 0 6px;
+}
+
+/* --- Section --- */
+.armas__section {
+  margin-bottom: 20px;
+}
+
+.armas__section:last-child {
+  margin-bottom: 0;
+}
+
+.armas__sectionTitle {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.9;
+  margin: 0 0 14px;
+  color: #2d2722;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.armas__sectionLine {
+  width: 20px;
+  height: 1px;
+  background: rgba(140, 35, 35, 0.6);
+  flex-shrink: 0;
+}
+
+.armas__sectionLine--flex {
+  flex: 1;
+  background: rgba(140, 35, 35, 0.2);
+}
+
+/* --- Mastery list --- */
+.armas__masteryList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.armas__masteryItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #2d2722;
+}
+
+.armas__masteryLevel {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: #8c2323;
+  white-space: nowrap;
+  min-width: 55px;
+  font-size: 0.9rem;
+}
+
+.armas__masteryDesc {
+  font-family: var(--font-body);
+  color: rgba(45, 39, 34, 0.8);
+  line-height: 1.6;
+}
+
+/* --- Weapon list --- */
+.armas__weaponList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.armas__weaponItem {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.armas__weaponName {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  color: #2d2722;
+}
+
+.armas__weaponRule {
+  margin-top: 4px;
+  padding-left: 10px;
+  border-left: 2px solid rgba(140, 35, 35, 0.4);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: rgba(45, 39, 34, 0.8);
+  line-height: 1.5;
+}
+
+.armas__weaponRule strong {
+  color: #8c2323;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  margin-right: 4px;
+}
+
+/* --- Dots indicator --- */
+.armas__dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 0;
+  flex-shrink: 0;
+  background: #ddd8cc;
+}
+
+.armas__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid #8a6e33;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s;
+}
+
+.armas__dot--active {
+  background: #8c2323;
+  border-color: #8c2323;
+}
+
+/* --- Desktop: carousel horizontal com setas --- */
+@media (min-width: 768px) {
+  .armas__card {
+    padding: 32px 48px;
+  }
+
+  .armas__masteryItem {
+    font-size: 0.9rem;
+  }
+
+  .armas__weaponName {
+    font-size: 1.2rem;
+  }
+}
+
+/* --- Mobile: scroll vertical no card --- */
+@media (max-width: 767px) {
+  .armas__card {
+    padding: 16px 14px;
+  }
+}

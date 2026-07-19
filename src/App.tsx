@@ -4,14 +4,16 @@ import MapView from "./components/map/MapView";
 import ClassesView from "./components/classes/ClassesView";
 import FichaView from "./components/ficha/FichaView";
 import PericiasView from "./components/pericias/PericiasView";
+import ArmasView from "./components/armas/ArmasView";
 import "./styles/tokens.css";
 import "./styles/hub.css";
 import "./styles/map.css";
 import "./styles/classes.css";
 import "./styles/ficha.css";
 import "./styles/pericias.css";
+import "./styles/armas.css";
 
-type AppView = "hub" | "map" | "classes" | "ficha" | "pericias";
+type AppView = "hub" | "map" | "classes" | "ficha" | "pericias" | "armas";
 
 export default function App() {
   const [view, setView] = useState<AppView>("hub");
@@ -24,6 +26,7 @@ export default function App() {
           onSelectClasses={() => setView("classes")}
           onSelectFicha={() => setView("ficha")}
           onSelectPericias={() => setView("pericias")}
+          onSelectArmas={() => setView("armas")}
         />
       )}
       {view === "map" && (
@@ -37,6 +40,9 @@ export default function App() {
       )}
       {view === "pericias" && (
         <PericiasView onBack={() => setView("hub")} />
+      )}
+      {view === "armas" && (
+        <ArmasView onBack={() => setView("hub")} />
       )}
     </>
   );
