@@ -1,38 +1,6 @@
 /* ============================================
-   Classes Project — Styles (fixed)
+   Compêndio — Cyberpunk Noir
    ============================================ */
-
-* {
-  box-sizing: border-box;
-}
-
-html, body, #root {
-  height: 100%;
-  margin: 0;
-}
-
-body {
-  background: var(--sumi);
-  font-family: var(--font-body);
-  color: var(--washi);
-}
-
-button {
-  font-family: inherit;
-}
-
-:focus-visible {
-  outline: 2px solid var(--shu);
-  outline-offset: 2px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
 
 /* --- Layout --- */
 
@@ -40,9 +8,10 @@ button {
   position: relative;
   height: 100vh;
   overflow: hidden;
+  background: var(--sumi);
 }
 
-/* --- Sidebar (desktop: static panel, mobile: overlay drawer) --- */
+/* --- Sidebar --- */
 
 .classesProject__sidebar {
   position: absolute;
@@ -52,7 +21,7 @@ button {
   width: var(--sidebar-w);
   display: flex;
   flex-direction: column;
-  background: var(--washi-deep);
+  background: var(--sumi-soft);
   border-right: 1px solid var(--line-strong);
   overflow: hidden;
   z-index: 30;
@@ -64,13 +33,19 @@ button {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(var(--line) 0.5px, transparent 0.5px);
-  background-size: 14px 14px;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 212, 255, 0.015) 2px,
+      rgba(0, 212, 255, 0.015) 4px
+    );
   pointer-events: none;
   z-index: 0;
 }
 
-/* --- Sidebar header: hub button + close button side by side --- */
+/* --- Sidebar header --- */
 
 .classesProject__sidebarHeader {
   display: flex;
@@ -88,15 +63,17 @@ button {
   padding: 12px 14px;
   background: none;
   border: none;
-  color: var(--sumi-soft);
+  color: var(--ai);
   font-size: 0.8rem;
   cursor: pointer;
   transition: color 0.15s ease, background 0.15s ease;
+  font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
 .classesProject__hubBtn:hover {
-  color: var(--shu);
-  background: var(--washi);
+  color: #fff;
+  background: rgba(0, 212, 255, 0.1);
 }
 
 .classesProject__closeBtn {
@@ -107,7 +84,7 @@ button {
   background: none;
   border: none;
   border-left: 1px solid var(--line-strong);
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   font-size: 1rem;
   cursor: pointer;
   transition: color 0.15s ease, background 0.15s ease;
@@ -115,7 +92,7 @@ button {
 
 .classesProject__closeBtn:hover {
   color: var(--shu);
-  background: var(--washi);
+  background: rgba(255, 45, 85, 0.1);
 }
 
 /* --- Main area --- */
@@ -131,14 +108,14 @@ button {
   transition: left 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* --- Backdrop (mobile only) --- */
+/* --- Backdrop (mobile) --- */
 
 .classesProject__backdrop {
   position: absolute;
   inset: 0;
   z-index: 25;
-  background: rgba(10, 8, 6, 0.55);
-  backdrop-filter: blur(1px);
+  background: rgba(10, 10, 15, 0.7);
+  backdrop-filter: blur(2px);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.32s ease;
@@ -154,22 +131,23 @@ button {
   z-index: 5;
   width: 38px;
   height: 38px;
-  border-radius: 50%;
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--line-strong);
-  background: var(--washi);
-  color: var(--sumi);
+  border: 1px solid var(--ai);
+  background: var(--sumi);
+  color: var(--ai);
   font-size: 15px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  box-shadow: var(--neon-cyan);
   transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 
 .classesProject__toggle:hover {
-  border-color: var(--shu);
-  color: var(--shu);
+  border-color: #fff;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
 }
 
 .classesProject__toggle:active {
@@ -190,7 +168,7 @@ button {
   gap: 10px;
   width: 100%;
   padding: 10px 12px;
-  background: var(--washi);
+  background: var(--sumi);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
   cursor: pointer;
@@ -198,7 +176,7 @@ button {
 }
 
 .switcher__trigger:hover {
-  border-color: var(--shu);
+  border-color: var(--ai);
 }
 
 .switcher__seal {
@@ -207,13 +185,12 @@ button {
   justify-content: center;
   width: 34px;
   height: 34px;
-  background: var(--shu);
+  background: var(--ai);
   color: #fff;
-  font-family: var(--font-display);
   font-size: 18px;
   font-weight: 700;
-  border-radius: 3px;
-  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  box-shadow: var(--neon-cyan);
   flex-shrink: 0;
 }
 
@@ -228,20 +205,21 @@ button {
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--sumi-soft);
+  color: var(--ai);
 }
 
 .switcher__label {
   font-family: var(--font-display);
   font-size: 16px;
   font-weight: 700;
-  color: var(--sumi);
+  color: var(--washi);
+  letter-spacing: 0.04em;
 }
 
 .switcher__chevron {
   width: 14px;
   height: 14px;
-  color: var(--sumi-soft);
+  color: var(--ai);
   transition: transform 0.15s ease;
   flex-shrink: 0;
 }
@@ -256,10 +234,10 @@ button {
   right: 12px;
   margin-top: 6px;
   padding: 6px;
-  background: var(--washi);
+  background: var(--sumi-soft);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
   list-style: none;
   z-index: 20;
 }
@@ -279,20 +257,20 @@ button {
   border-radius: var(--radius);
   cursor: pointer;
   text-align: left;
+  color: var(--washi);
   transition: background 0.1s ease;
 }
 
 .switcher__option:hover {
-  background: var(--washi-deep);
+  background: rgba(0, 212, 255, 0.08);
 }
 
 .switcher__option[aria-selected="true"] {
-  background: var(--shu);
+  background: var(--ai);
   color: #fff;
 }
 
 .switcher__optionSeal {
-  font-family: var(--font-display);
   font-size: 15px;
   font-weight: 700;
   min-width: 24px;
@@ -314,7 +292,7 @@ button {
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--sumi-soft);
+  color: var(--ai);
   padding: 8px 0 6px;
 }
 
@@ -338,16 +316,17 @@ button {
   border-radius: var(--radius);
   cursor: pointer;
   text-align: left;
+  color: var(--washi);
   transition: background 0.1s ease, border-color 0.1s ease;
 }
 
 .itemList__item:hover {
-  background: var(--washi);
+  background: rgba(0, 212, 255, 0.06);
 }
 
 .itemList__item[aria-current="true"] {
-  border-color: var(--kin);
-  background: var(--washi);
+  border-color: var(--ai);
+  background: rgba(0, 212, 255, 0.1);
 }
 
 .itemList__glyph {
@@ -356,25 +335,30 @@ button {
   justify-content: center;
   width: 32px;
   height: 32px;
-  border-radius: 50%;
-  background: var(--ai);
-  color: #fff;
-  font-family: var(--font-display);
+  border-radius: 2px;
+  background: var(--sumi);
+  border: 1px solid var(--line-strong);
+  color: var(--ai);
   font-size: 14px;
   font-weight: 700;
   flex-shrink: 0;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .itemList__item[aria-current="true"] .itemList__glyph {
-  background: var(--kin);
+  background: var(--ai);
+  color: #fff;
+  border-color: var(--ai);
+  box-shadow: var(--neon-cyan);
 }
 
 .itemList__name {
   font-family: var(--font-display);
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--sumi);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--washi);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 /* --- Detail Screen --- */
@@ -384,13 +368,14 @@ button {
   padding: 48px 48px 48px;
   overflow-y: auto;
   height: 100%;
-  background: var(--washi);
+  background: var(--sumi);
 }
 
 .classesProject__emptyHint {
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   font-size: 15px;
   line-height: 1.7;
+  opacity: 0.5;
 }
 
 .detail__header {
@@ -410,22 +395,23 @@ button {
 
 .detail__frameBar {
   width: 60px;
-  height: 6px;
-  background: var(--shu);
+  height: 3px;
+  background: var(--ai);
+  box-shadow: var(--neon-cyan);
 }
 
 .detail__emblem {
   width: 120px;
   height: 120px;
-  background: var(--ai);
-  border: 2px solid var(--sumi-soft);
+  background: var(--sumi-soft);
+  border: 2px solid var(--ai);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  font-family: var(--font-display);
+  color: var(--ai);
   font-size: 44px;
   font-weight: 700;
+  box-shadow: var(--neon-cyan);
 }
 
 .detail__titleBlock {
@@ -434,35 +420,41 @@ button {
 }
 
 .detail__eyebrow {
+  font-family: var(--font-display);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--shu);
+  color: var(--ai);
   margin-bottom: 6px;
 }
 
 .detail__name {
   font-family: var(--font-display);
   font-size: 34px;
-  font-weight: 800;
-  color: var(--sumi);
+  font-weight: 900;
+  color: var(--washi);
   line-height: 1.15;
   margin: 0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-shadow: var(--neon-cyan);
 }
 
 .detail__fullTitle {
   font-family: var(--font-body);
   font-size: 13px;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   margin-top: 4px;
+  opacity: 0.7;
 }
 
 .detail__tagline {
   font-size: 14px;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   margin-top: 8px;
   font-style: italic;
+  opacity: 0.6;
 }
 
 .detail__body {
@@ -484,25 +476,19 @@ button {
 .detail__tag {
   padding: 6px 12px;
   border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  background: var(--washi-deep);
-  font-size: 12px;
-  color: var(--sumi-soft);
-}
-
-.detail__sectionTitle {
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  border-radius: 0;
+  background: var(--sumi-soft);
+  font-size: 11px;
+  color: var(--ai);
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--sumi-soft);
-  margin: 0 0 10px;
 }
 
 .detail__description {
   font-size: 15px;
   line-height: 1.8;
-  color: var(--sumi);
+  color: var(--washi);
   max-width: 72ch;
 }
 
@@ -515,14 +501,15 @@ button {
   font-family: var(--font-display);
   font-size: 15px;
   font-weight: 700;
-  color: var(--sumi);
+  color: var(--ai);
   margin-bottom: 4px;
+  text-transform: uppercase;
 }
 
 .detail__subSectionText {
   font-size: 14px;
   line-height: 1.7;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
 }
 
 /* --- Bonus chips --- */
@@ -540,7 +527,7 @@ button {
   border: 1px solid var(--line-strong);
   border-left: 3px solid var(--shu);
   border-radius: var(--radius);
-  background: var(--washi-deep);
+  background: var(--sumi-soft);
   min-width: 120px;
 }
 
@@ -549,14 +536,14 @@ button {
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--sumi-soft);
+  color: var(--shu);
 }
 
 .bonusChip__value {
   font-family: var(--font-display);
   font-size: 15px;
   font-weight: 700;
-  color: var(--shu-deep);
+  color: var(--washi);
 }
 
 /* --- School card --- */
@@ -565,7 +552,7 @@ button {
   border: 1px solid var(--line-strong);
   border-top: 3px solid var(--ai);
   border-radius: var(--radius);
-  background: var(--washi-deep);
+  background: var(--sumi-soft);
   padding: 18px 20px;
 }
 
@@ -575,6 +562,7 @@ button {
   font-weight: 700;
   color: var(--ai);
   margin-bottom: 12px;
+  text-transform: uppercase;
 }
 
 .schoolCard__grid {
@@ -588,7 +576,7 @@ button {
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--sumi-soft);
+  color: var(--ai);
   margin-bottom: 6px;
 }
 
@@ -601,7 +589,7 @@ button {
 .schoolCard__list li {
   font-size: 13.5px;
   line-height: 1.65;
-  color: var(--sumi);
+  color: var(--washi);
   padding-left: 12px;
   position: relative;
 }
@@ -613,8 +601,9 @@ button {
   top: 8px;
   width: 5px;
   height: 5px;
-  border-radius: 50%;
+  border-radius: 0;
   background: var(--ai);
+  transform: rotate(45deg);
 }
 
 /* --- Upkeep card --- */
@@ -624,10 +613,10 @@ button {
   border: 1px solid var(--line-strong);
   border-left: 3px solid var(--shu);
   border-radius: var(--radius);
-  background: var(--washi-deep);
+  background: var(--sumi-soft);
   font-size: 14px;
   line-height: 1.7;
-  color: var(--sumi);
+  color: var(--washi);
 }
 
 /* --- Resource card --- */
@@ -636,7 +625,7 @@ button {
   border: 1px solid var(--line-strong);
   border-top: 3px solid var(--ai);
   border-radius: var(--radius);
-  background: var(--washi-deep);
+  background: var(--sumi-soft);
   padding: 18px 20px;
   overflow-x: auto;
 }
@@ -647,12 +636,13 @@ button {
   font-weight: 700;
   color: var(--ai);
   margin-bottom: 8px;
+  text-transform: uppercase;
 }
 
 .resourceCard__desc {
   font-size: 14px;
   line-height: 1.7;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   margin-bottom: 12px;
 }
 
@@ -672,7 +662,7 @@ button {
 
 .resourceCard__table th {
   background: var(--ai);
-  color: var(--washi);
+  color: #fff;
   font-weight: 500;
   font-size: 11px;
   letter-spacing: 0.06em;
@@ -683,7 +673,7 @@ button {
   margin-top: 8px;
   padding: 10px 14px;
   border-left: 2px solid var(--kin);
-  background: rgba(180, 146, 46, 0.08);
+  background: rgba(255, 214, 0, 0.05);
 }
 
 .resourceCard__methodType {
@@ -691,20 +681,20 @@ button {
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #8B6914;
+  color: var(--kin);
 }
 
 .resourceCard__methodName {
   font-family: var(--font-display);
   font-size: 14px;
   font-weight: 700;
-  color: var(--sumi);
+  color: var(--washi);
 }
 
 .resourceCard__methodText {
   font-size: 13px;
   line-height: 1.6;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   margin-top: 2px;
 }
 
@@ -713,7 +703,7 @@ button {
 .difficultyCard {
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
-  background: var(--washi-deep);
+  background: var(--sumi-soft);
   padding: 16px 20px;
   overflow-x: auto;
 }
@@ -722,13 +712,13 @@ button {
   font-family: var(--font-display);
   font-size: 16px;
   font-weight: 700;
-  color: var(--shu-deep);
+  color: var(--shu);
   margin-bottom: 10px;
 }
 
 .difficultyCard__desc {
   font-size: 13px;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   margin-bottom: 10px;
 }
 
@@ -747,7 +737,7 @@ button {
 
 .difficultyCard__table th {
   background: var(--ai);
-  color: var(--washi);
+  color: #fff;
   font-weight: 500;
   font-size: 11px;
   letter-spacing: 0.06em;
@@ -774,7 +764,7 @@ button {
   gap: 10px;
   width: 100%;
   padding: 12px 14px;
-  background: var(--washi-deep);
+  background: var(--sumi-soft);
   border: none;
   cursor: pointer;
   text-align: left;
@@ -782,7 +772,7 @@ button {
 }
 
 .accordion__trigger:hover {
-  background: var(--washi);
+  background: rgba(0, 212, 255, 0.06);
 }
 
 .accordion__seal {
@@ -791,7 +781,7 @@ button {
   justify-content: center;
   width: 28px;
   height: 28px;
-  border-radius: 50%;
+  border-radius: 0;
   background: var(--ai);
   color: #fff;
   font-family: var(--font-display);
@@ -802,6 +792,7 @@ button {
 
 .accordion__trigger[aria-expanded="true"] .accordion__seal {
   background: var(--shu);
+  box-shadow: var(--neon-magenta);
 }
 
 .accordion__label {
@@ -809,13 +800,15 @@ button {
   font-family: var(--font-display);
   font-size: 14px;
   font-weight: 700;
-  color: var(--sumi);
+  color: var(--washi);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .accordion__chevron {
   width: 14px;
   height: 14px;
-  color: var(--sumi-soft);
+  color: var(--ai);
   transition: transform 0.15s ease;
   flex-shrink: 0;
 }
@@ -826,11 +819,11 @@ button {
 
 .accordion__content {
   padding: 14px;
-  background: var(--washi);
+  background: var(--sumi);
   border-top: 1px solid var(--line-strong);
 }
 
-/* --- Orders (sub-classes) --- */
+/* --- Orders --- */
 
 .orders {
   display: flex;
@@ -856,9 +849,10 @@ button {
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  background: var(--ai);
-  color: var(--washi);
+  border-radius: 0;
+  background: var(--sumi-soft);
+  border: 1px solid var(--kin);
+  color: var(--kin);
   font-size: 18px;
   flex-shrink: 0;
 }
@@ -867,19 +861,20 @@ button {
   font-family: var(--font-display);
   font-size: 18px;
   font-weight: 700;
-  color: var(--sumi);
+  color: var(--washi);
   margin: 0;
+  text-transform: uppercase;
 }
 
 .order__desc {
   font-size: 13.5px;
   line-height: 1.65;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   font-style: italic;
   margin: 0 0 12px;
 }
 
-/* --- Technique timeline --- */
+/* --- Techniques --- */
 
 .techniques {
   position: relative;
@@ -893,7 +888,7 @@ button {
   top: 0;
   bottom: 0;
   width: 2px;
-  background: var(--line-strong);
+  background: linear-gradient(180deg, var(--ai), var(--shu));
 }
 
 .techniques__level {
@@ -907,7 +902,7 @@ button {
   top: 0;
   width: 28px;
   height: 28px;
-  border-radius: 50%;
+  border-radius: 0;
   background: var(--ai);
   color: #fff;
   font-family: var(--font-display);
@@ -917,24 +912,27 @@ button {
   align-items: center;
   justify-content: center;
   z-index: 1;
+  box-shadow: var(--neon-cyan);
 }
 
 .techniques__level[aria-expanded="true"] .techniques__marker {
   background: var(--shu);
+  box-shadow: var(--neon-magenta);
 }
 
 .techniques__title {
   font-family: var(--font-display);
   font-size: 15px;
   font-weight: 700;
-  color: var(--sumi);
+  color: var(--washi);
   margin-bottom: 4px;
+  text-transform: uppercase;
 }
 
 .techniques__intro {
   font-size: 13.5px;
   line-height: 1.65;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   font-style: italic;
   margin-bottom: 8px;
 }
@@ -955,14 +953,14 @@ button {
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--sumi-soft);
+  color: var(--kin);
   margin-bottom: 2px;
 }
 
 .techniques__effectText {
   font-size: 13.5px;
   line-height: 1.65;
-  color: var(--sumi);
+  color: var(--washi);
 }
 
 .techniques__subEffects {
@@ -976,15 +974,15 @@ button {
 .techniques__subEffect {
   font-size: 13px;
   line-height: 1.6;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
 }
 
 .techniques__subEffect::before {
   content: "◆ ";
-  color: var(--kin);
+  color: var(--ai);
 }
 
-/* --- Domain accordion --- */
+/* --- Domains --- */
 
 .domains {
   display: flex;
@@ -1000,7 +998,7 @@ button {
 
 .domains__description {
   font-size: 13px;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   font-style: italic;
   margin: 0;
 }
@@ -1015,7 +1013,7 @@ button {
   padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--washi);
+  background: var(--sumi-soft);
 }
 
 .domains__constellationHeader {
@@ -1030,7 +1028,7 @@ button {
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--washi);
+  color: #fff;
   background: var(--ai);
   padding: 2px 6px;
   border-radius: var(--radius);
@@ -1041,20 +1039,20 @@ button {
   font-family: var(--font-display);
   font-size: 14px;
   font-weight: 700;
-  color: var(--sumi);
+  color: var(--washi);
   margin: 0;
 }
 
 .domains__constellationSummary {
   font-size: 13px;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   margin: 0 0 6px;
 }
 
 .domains__constellationEffect {
   font-size: 13.5px;
   line-height: 1.65;
-  color: var(--sumi);
+  color: var(--washi);
   margin: 0 0 6px;
 }
 
@@ -1069,7 +1067,7 @@ button {
 .domains__extra {
   font-size: 12px;
   line-height: 1.5;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
 }
 
 .domains__extraKey {
@@ -1098,23 +1096,24 @@ button {
   padding: 8px 14px;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
-  background: var(--washi-deep);
+  background: var(--sumi-soft);
   cursor: pointer;
   font-family: var(--font-display);
   font-size: 13px;
   font-weight: 700;
-  color: var(--sumi);
+  color: var(--washi);
   transition: background 0.1s ease, color 0.1s ease;
 }
 
 .spellLibrary__tab:hover {
-  background: var(--washi);
+  background: rgba(0, 212, 255, 0.08);
 }
 
 .spellLibrary__tab--active {
   background: var(--ai);
   color: #fff;
   border-color: var(--ai);
+  box-shadow: var(--neon-cyan);
 }
 
 .spellLibrary__tabSeal {
@@ -1130,7 +1129,7 @@ button {
   padding: 10px 14px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--washi);
+  background: var(--sumi-soft);
   margin-bottom: 6px;
 }
 
@@ -1138,7 +1137,7 @@ button {
   font-family: var(--font-display);
   font-size: 14px;
   font-weight: 700;
-  color: var(--sumi);
+  color: var(--washi);
   margin-bottom: 4px;
 }
 
@@ -1147,21 +1146,22 @@ button {
   flex-wrap: wrap;
   gap: 8px;
   font-size: 12px;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   margin-bottom: 6px;
 }
 
 .spellLibrary__spellMeta span {
   padding: 2px 8px;
   border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--washi-deep);
+  border-radius: 0;
+  background: var(--sumi);
+  color: var(--ai);
 }
 
 .spellLibrary__spellEffect {
   font-size: 13.5px;
   line-height: 1.65;
-  color: var(--sumi);
+  color: var(--washi);
 }
 
 .spellLibrary__spellIncrements {
@@ -1183,36 +1183,21 @@ button {
   padding: 14px;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
-  background: var(--washi-deep);
-}
-
-.variantCard__element {
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ai);
-  margin-bottom: 4px;
+  background: var(--sumi-soft);
 }
 
 .variantCard__name {
   font-family: var(--font-display);
   font-size: 14px;
   font-weight: 700;
-  color: var(--sumi);
+  color: var(--washi);
   margin-bottom: 4px;
-}
-
-.variantCard__stats {
-  font-size: 12px;
-  color: var(--sumi-soft);
-  line-height: 1.5;
 }
 
 .variantCard__desc {
   font-size: 13px;
   line-height: 1.6;
-  color: var(--sumi);
+  color: var(--washi);
   margin-top: 6px;
 }
 
@@ -1226,48 +1211,11 @@ button {
 .variantCard__benefit {
   font-size: 13px;
   line-height: 1.6;
-  color: var(--sumi);
+  color: var(--washi);
 }
 
 .variantCard__benefit strong {
   color: var(--ai);
-}
-
-.variantCard__items {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.variantCard__item {
-  padding: 8px 10px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--washi);
-}
-
-.variantCard__tier {
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid var(--line-strong);
-}
-
-.variantCard__tierName {
-  font-family: var(--font-display);
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--sumi);
-  margin: 0 0 6px;
-}
-
-.variantCard__wallVariant {
-  padding: 6px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.variantCard__wallVariant:last-child {
-  border-bottom: none;
 }
 
 .variantCard__itemDetail {
@@ -1281,13 +1229,13 @@ button {
   flex-wrap: wrap;
   gap: 12px;
   font-size: 13px;
-  color: var(--sumi);
+  color: var(--washi);
 }
 
 .variantCard__itemSpecial {
   font-size: 12px;
   line-height: 1.5;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   font-style: italic;
   margin: 0;
 }
@@ -1301,13 +1249,22 @@ button {
 .variantCard__tierStats {
   font-size: 13px;
   line-height: 1.6;
-  color: var(--sumi);
+  color: var(--washi);
 }
 
 .variantCard__tierVariants {
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+.variantCard__wallVariant {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.variantCard__wallVariant:last-child {
+  border-bottom: none;
 }
 
 .variantCard__wallElement {
@@ -1323,18 +1280,18 @@ button {
   font-family: var(--font-display);
   font-size: 13px;
   font-weight: 700;
-  color: var(--sumi);
+  color: var(--washi);
 }
 
 .variantCard__wallDesc {
   font-size: 12px;
   line-height: 1.5;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   margin: 4px 0 0;
 }
 
 .variantsAccordion .accordion__content {
-  background: var(--washi);
+  background: var(--sumi);
 }
 
 /* --- Tattoos --- */
@@ -1347,14 +1304,15 @@ button {
   font-family: var(--font-display);
   font-size: 18px;
   font-weight: 700;
-  color: var(--sumi);
+  color: var(--washi);
   margin: 0 0 6px;
+  text-transform: uppercase;
 }
 
 .tattoos__subtitle {
   font-size: 12px;
   line-height: 1.5;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   margin: 0 0 14px;
   font-style: italic;
 }
@@ -1369,98 +1327,109 @@ button {
   padding: 12px 14px;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
-  background: var(--washi-deep);
+  background: var(--sumi-soft);
 }
 
 .tattooCard__name {
   font-family: var(--font-display);
   font-size: 14px;
   font-weight: 700;
-  color: var(--sumi);
+  color: var(--ai);
   display: block;
   margin-bottom: 4px;
+  text-transform: uppercase;
 }
 
 .tattooCard__desc {
   font-size: 12px;
   line-height: 1.5;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   margin: 0;
 }
 
-/* --- Rule Sections --- */
+/* --- Rule Sections (main content for Seis Harmonias) --- */
 
 .ruleSections {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .ruleSection {
-  border-left: 2px solid var(--kin);
-  padding-left: 14px;
+  border-left: 2px solid var(--ai);
+  padding-left: 16px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 .ruleSection__title {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
-  color: var(--sumi);
-  margin: 0 0 6px;
+  color: var(--ai);
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-shadow: var(--neon-cyan);
 }
 
 .ruleSection__text {
-  font-size: 13.5px;
-  line-height: 1.65;
-  color: var(--sumi-soft);
-  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--washi);
+  margin: 0 0 10px;
 }
 
 .ruleSection__list {
   margin: 0;
   padding-left: 18px;
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--sumi);
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--washi);
 }
 
 .ruleSection__list li {
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .ruleSection__list li::marker {
-  color: var(--kin);
+  color: var(--ai);
 }
 
 .ruleSection__table {
   width: 100%;
   border-collapse: collapse;
   font-size: 13px;
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
 .ruleSection__table th,
 .ruleSection__table td {
-  padding: 6px 10px;
+  padding: 8px 12px;
   border: 1px solid var(--line-strong);
   text-align: left;
 }
 
 .ruleSection__table th {
   background: var(--ai);
-  color: var(--washi);
-  font-weight: 500;
+  color: #fff;
+  font-weight: 600;
   font-size: 11px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  font-family: var(--font-display);
 }
 
 .ruleSection__table td {
-  background: var(--washi);
-  color: var(--sumi);
+  background: var(--sumi-soft);
+  color: var(--washi);
 }
 
-/* --- Large screens: multi-column descriptions --- */
+.ruleSection__table tr:hover td {
+  background: rgba(0, 212, 255, 0.04);
+}
+
+/* --- Multi-column on large screens --- */
 
 @media (min-width: 1100px) {
   .detail__description {
@@ -1469,27 +1438,23 @@ button {
   }
 }
 
-/* --- Mobile (860px) --- */
+/* --- Mobile --- */
 
 @media (max-width: 860px) {
-  /* Sidebar: overlay drawer, starts hidden */
   .classesProject__sidebar {
     width: min(84vw, 320px);
-    box-shadow: 4px 0 30px rgba(0, 0, 0, 0.35);
+    box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5);
     transform: translateX(-100%);
   }
 
-  /* When open, slide in */
   .classesProject--sidebarOpen .classesProject__sidebar {
     transform: translateX(0);
   }
 
-  /* Main: always full width on mobile */
   .classesProject__main {
     left: 0;
   }
 
-  /* Backdrop: shown when sidebar is open */
   .classesProject__backdrop {
     display: block;
   }
@@ -1502,4 +1467,25 @@ button {
   .detail {
     padding: 72px 20px 32px;
   }
+
+  .detail__name {
+    font-size: 24px;
+  }
+}
+
+/* --- Scanline overlay effect --- */
+
+.classesProject::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 212, 255, 0.008) 2px,
+    rgba(0, 212, 255, 0.008) 4px
+  );
 }

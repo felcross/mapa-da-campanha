@@ -1,34 +1,29 @@
 /* ============================================
-   Design Tokens — Palette orientoantiga
+   Design Tokens — Cyberpunk Noir
    ============================================ */
 
 :root {
   /* === Core palette === */
-  --sumi: #1C1A16;
-  --sumi-soft: #4A4238;
-  --washi: #E8E0CC;
-  --washi-deep: #DDD3B8;
-  --shu: #A6352B;
-  --shu-deep: #7E2620;
-  --ai: #223B4C;
-  --ai-deep: #162834;
-  --kin: #B4922E;
-  --line: rgba(28, 26, 22, 0.14);
-  --line-strong: rgba(28, 26, 22, 0.28);
+  --sumi: #0a0a0f;
+  --sumi-soft: #1a1a2e;
+  --washi: #e0e0e8;
+  --washi-deep: #c8c8d4;
+  --shu: #ff2d55;
+  --shu-deep: #cc1a3d;
+  --ai: #00d4ff;
+  --ai-deep: #0099bb;
+  --kin: #ffd600;
+  --line: rgba(0, 212, 255, 0.12);
+  --line-strong: rgba(0, 212, 255, 0.25);
 
-  /* === Legacy map tokens (backward compat) === */
-  --ink: var(--sumi);
-  --leather: #3A2A18;
-  --leather-light: #5A4128;
-  --parchment: var(--washi);
-  --parchment-dim: var(--washi-deep);
-  --gold: var(--kin);
-  --seal-red: var(--shu);
-  --seal-red-bright: #C94D3C;
+  /* === Neon glows === */
+  --neon-cyan: 0 0 10px rgba(0, 212, 255, 0.4), 0 0 20px rgba(0, 212, 255, 0.2);
+  --neon-magenta: 0 0 10px rgba(255, 45, 85, 0.4), 0 0 20px rgba(255, 45, 85, 0.2);
+  --neon-gold: 0 0 10px rgba(255, 214, 0, 0.4), 0 0 20px rgba(255, 214, 0, 0.2);
 
   /* === Typography === */
-  --font-display: "Shippori Mincho", "Hiragino Mincho ProN", serif;
-  --font-body: "Noto Sans JP", "Source Sans 3", "Hiragino Sans", system-ui, sans-serif;
+  --font-display: "Orbitron", "Rajdhani", "Exo 2", sans-serif;
+  --font-body: "Rajdhani", "Exo 2", "Source Sans 3", system-ui, sans-serif;
 
   /* === Layout === */
   --sidebar-w: 336px;

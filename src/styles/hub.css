@@ -1,5 +1,5 @@
 /* ============================================
-   Hub Screen — Landing page
+   Hub Screen — Cyberpunk Noir Landing
    ============================================ */
 
 * {
@@ -22,9 +22,11 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--shu);
+  outline: 2px solid var(--ai);
   outline-offset: 2px;
 }
+
+/* --- Hub container --- */
 
 .hub {
   display: flex;
@@ -34,7 +36,7 @@ button {
   min-height: 100vh;
   padding: 24px 16px;
   text-align: center;
-  background: url("/quadro.jpg") center center / cover no-repeat;
+  background: url("/capadefundo.jpg") center center / cover no-repeat;
   position: relative;
 }
 
@@ -42,7 +44,12 @@ button {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(28, 26, 22, 0.65);
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 15, 0.7) 0%,
+    rgba(10, 10, 15, 0.5) 50%,
+    rgba(10, 10, 15, 0.85) 100%
+  );
   z-index: 0;
 }
 
@@ -51,24 +58,31 @@ button {
   z-index: 1;
 }
 
+/* --- Title --- */
+
 .hub__title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  font-weight: 800;
-  color: var(--washi);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  color: var(--ai);
   margin: 0 0 8px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-shadow: var(--neon-cyan);
 }
 
 .hub__subtitle {
   font-family: var(--font-body);
   font-size: clamp(0.85rem, 2vw, 1.05rem);
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   margin: 0 0 48px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   font-weight: 500;
+  opacity: 0.7;
 }
+
+/* --- Cards --- */
 
 .hub__cards {
   display: flex;
@@ -78,51 +92,76 @@ button {
 }
 
 .hub__card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  width: 160px;
+  width: 260px;
+  height: 180px;
   padding: 24px 16px;
   border: 1.5px solid var(--line-strong);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(10, 10, 15, 0.8);
   cursor: pointer;
+  overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   text-decoration: none;
   color: inherit;
 }
 
 .hub__card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  transform: translateY(-4px);
+  border-color: var(--ai);
+  box-shadow: var(--neon-cyan);
 }
 
-.hub__card--map {
+/* --- Video layer --- */
+
+.hub__cardVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.hub__card:hover .hub__cardVideo {
+  opacity: 0.45;
+}
+
+.hub__cardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(10, 10, 15, 0.85) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* --- Card content (above video + overlay) --- */
+
+.hub__card > *:not(.hub__cardVideo):not(.hub__cardOverlay) {
+  position: relative;
+  z-index: 2;
+}
+
+/* --- Compendium card --- */
+
+.hub__card--compendium {
   border-color: var(--ai);
 }
 
-.hub__card--map:hover {
+.hub__card--compendium:hover {
   border-color: var(--ai);
-  background: rgba(34, 59, 76, 0.12);
-}
-
-.hub__card--classes {
-  border-color: var(--shu);
-}
-
-.hub__card--classes:hover {
-  border-color: var(--shu);
-  background: rgba(166, 53, 43, 0.12);
-}
-
-.hub__card--ficha {
-  border-color: var(--kin);
-}
-
-.hub__card--ficha:hover {
-  border-color: var(--kin);
-  background: rgba(180, 146, 46, 0.12);
+  background: rgba(0, 212, 255, 0.08);
 }
 
 .hub__cardIcon {
@@ -133,76 +172,44 @@ button {
   justify-content: center;
   border-radius: 50%;
   font-size: 20px;
-}
-
-.hub__card--map .hub__cardIcon {
   background: var(--ai);
   color: #fff;
+  box-shadow: var(--neon-cyan);
+  transition: box-shadow 0.2s ease;
 }
 
-.hub__card--classes .hub__cardIcon {
-  background: var(--shu);
-  color: #fff;
-}
-
-.hub__card--ficha .hub__cardIcon {
-  background: var(--kin);
-  color: #fff;
-}
-
-.hub__card--pericias {
-  border-color: var(--ai-deep);
-}
-
-.hub__card--pericias:hover {
-  border-color: var(--ai-deep);
-  background: rgba(22, 40, 52, 0.12);
-}
-
-.hub__card--pericias .hub__cardIcon {
-  background: var(--ai-deep);
-  color: #fff;
-}
-
-.hub__card--armas {
-  border-color: var(--shu-deep);
-}
-
-.hub__card--armas:hover {
-  border-color: var(--shu-deep);
-  background: rgba(97, 24, 24, 0.12);
-}
-
-.hub__card--armas .hub__cardIcon {
-  background: var(--shu-deep);
-  color: #fff;
+.hub__card:hover .hub__cardIcon {
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.6), 0 0 30px rgba(0, 212, 255, 0.3);
 }
 
 .hub__cardTitle {
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--washi);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .hub__cardDesc {
   font-size: 0.85rem;
-  color: var(--sumi-soft);
+  color: var(--washi-deep);
   line-height: 1.5;
   margin: 0;
+  opacity: 0.7;
 }
+
+/* --- Responsive --- */
 
 @media (max-width: 640px) {
   .hub__cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
     width: 100%;
     max-width: 360px;
   }
 
   .hub__card {
     width: 100%;
+    height: 140px;
     padding: 16px 12px;
   }
 
@@ -219,14 +226,5 @@ button {
 @media (min-width: 641px) {
   .hub {
     padding: 40px 24px;
-  }
-
-  .hub__cards {
-    gap: 20px;
-  }
-
-  .hub__card {
-    width: 170px;
-    padding: 28px 18px;
   }
 }
