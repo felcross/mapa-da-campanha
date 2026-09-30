@@ -7,6 +7,7 @@ export interface RuleTable {
 
 export interface RuleSection {
   title?: string;
+  titleImage?: string;
   text?: string;
   items?: string[];
   table?: RuleTable;
@@ -240,15 +241,18 @@ export const DATA: Record<string, Category> = {
         tags: ["Chi", "Prana", "Vida", "CPP", "Chakra"],
         ruleSections: [
           {
-            title: "Chi (🔵 Lâmina Preta — Chakra da Mente)",
+            title: "Chi (Lâmina Preta — Chakra da Mente)",
+            titleImage: "/Gakyil.jpeg",
             text: "Energia consciente para Sincronia, Posturas, Manobras, Fa Jin e habilidades.",
           },
           {
-            title: "Prana (🟡 Lâmina Vermelha — Chakra do Coração)",
+            title: "Prana (Lâmina Vermelha — Chakra do Coração)",
+            titleImage: "/Gakyil.jpeg",
             text: "Usado para recuperar o corpo do estresse provocado pelo plasma.",
           },
           {
-            title: "Vida (🔴 Lâmina Branca — Chakra do Corpo)",
+            title: "Vida (Lâmina Branca — Chakra do Corpo)",
+            titleImage: "/Gakyil.jpeg",
             text: "Integridade física do receptáculo.",
           },
           {
@@ -340,10 +344,10 @@ export const DATA: Record<string, Category> = {
           {
             title: "Como Gastar CPP",
             items: [
-              "2 CPP — Potencializar um Dado: Eleva 1 dado da jogada em 1 degrau na escala (respeitando a regra de prioridade).",
-              "2 CPP — Negativar um Dado: Reduz 1 dado do alvo/jogada em 1 degrau na escala (respeitando a regra de prioridade).",
-              "3 CPP — Manobra: Permite ativar uma Manobra Especial ou Manobra de Estilo.",
-              "3 CPP — Atributo: Permite adicionar um Atributo à jogada.",
+              "3 CPP — Potencializar um Dado: Eleva 1 dado da jogada em 1 degrau na escala (respeitando a regra de prioridade).",
+              "3 CPP — Negativar um Dado: Reduz 1 dado do alvo/jogada em 1 degrau na escala (respeitando a regra de prioridade).",
+              "4 CPP — Manobra: Permite ativar uma Manobra Especial ou Manobra de Estilo.",
+              "4 CPP — Atributo: Permite adicionar um Atributo à jogada.",
             ],
           },
         ],
@@ -411,7 +415,7 @@ export const DATA: Record<string, Category> = {
               "Escolha Única: Na criação do personagem, escolhe-se apenas 1 Manobra de Estilo: Pular, Rasteira ou Fintar. As outras duas não podem ser compradas nem usadas.",
               "Dado de Manobra: Possui um dado próprio que começa em 1d4 e pode ser elevado com CPP até o limite máximo de 1d12.",
               "Atenção: O Dado de Manobra é independente dos atributos e não concede +1 Elevação aos atributos.",
-              "Custo de Ativação: 1 CPP, 2 Chi ou 3 CPP.",
+              "Custo de Ativação: 2 CPP, 3 Chi.",
             ],
           },
           {
@@ -446,7 +450,7 @@ export const DATA: Record<string, Category> = {
           {
             title: "Custo de Ativação",
             items: [
-              "3 CPP, 4 Chi ou 3 CPP.",
+              "4 CPP, 5 Chi.",
               "Dado de Manobra Especial: Começa em 1d4 e pode ser elevado via CPP até 1d12.",
             ],
           },
@@ -515,15 +519,15 @@ export const DATA: Record<string, Category> = {
         ],
       },
 
-      // ── 9. FA JIN & FUSÃO PRIMORDIAL ─────────────────────────────
+      // ── 9. FA JIN & KYŪRYŪKEN ──────────────────────────────────────
       {
         id: "fa-jin",
-        name: "Fa Jin & Fusão Primordial",
+        name: "Fa Jin & Kyūryūken",
         glyph: "🐉",
-        tagline: "Liberação de plasma térmico e Kyūryū Shōtenken",
+        tagline: "Liberação de plasma térmico e Punho dos Nove Dragões",
         description:
           "O Fa Jin é a liberação de plasma térmico através do atrito celular.",
-        tags: ["Fa Jin", "Plasma", "Fusão Primordial", "Kyūryū Shōtenken"],
+        tags: ["Fa Jin", "Plasma", "Fusão Primordial", "Kyūryūken"],
         ruleSections: [
           {
             title: "Escala do Fa Jin",
@@ -542,7 +546,7 @@ export const DATA: Record<string, Category> = {
             text: "Quebra a limitação do Fa Jin, permitindo combinar Fa Jin + Sincronia na mesma ação (Rolagem: Dado de Fa Jin + Yin 1d6 + Yang 1d6).",
           },
           {
-            title: "🐉 Kyūryū Shōtenken (A Arte dos Nove Dragões)",
+            title: "🐉 Kyūryūken Punho dos Nove Dragões",
             text: "Quando o personagem utiliza Fa Jin com Sincronia e obtém um Shin-Gi-Tai, desencadeia acertos múltiplos de plasma:",
             items: [
               "1 + 1: 1 golpe extra (+1 dado de Fa Jin)",
@@ -557,38 +561,90 @@ export const DATA: Record<string, Category> = {
         ],
       },
 
-      // ── 10. TABELA DE REFERÊNCIA RÁPIDA ───────────────────────────
+      // ── 10. FLUXO BÁSICO DO COMBATE ──────────────────────────────
+      {
+        id: "fluxo-combate",
+        name: "Fluxo Básico do Combate",
+        glyph: "⚔",
+        tagline: "Sequência completa de resolução de combate",
+        description:
+          "A sequência completa de resolução de combate, da Postura ao Kyūryūken.",
+        tags: ["Fluxo", "Combate", "Sequência"],
+        ruleSections: [
+          {
+            title: "1. POSTURA",
+            text: "Define o atributo físico concentrado.",
+          },
+          {
+            title: "2. ESTILO",
+            text: "Define os dois atributos especializados.",
+          },
+          {
+            title: "3. MANOBRA",
+            text: "Utiliza seu próprio Dado de Manobra.",
+            items: [
+              "1d4 → 1d6 → 1d8 → 1d10 → 1d12",
+            ],
+          },
+          {
+            title: "4. YIN / YANG",
+            items: [
+              "Yin: Ataque / Defesa",
+              "Yang: Dano / Resistência",
+            ],
+          },
+          {
+            title: "5. SINCRONIA",
+            text: "Gaste 3 Chi para combinar Yin + Yang.",
+          },
+          {
+            title: "6. RESULTADO",
+            items: [
+              "1 + 6 → Desarmonia",
+              "Diferentes → Harmonia",
+              "Iguais → Shin-Gi-Tai",
+            ],
+          },
+          {
+            title: "7. FA JIN",
+            text: "Quando permitido, ignora Resistência e causa dano direto à Vida.",
+          },
+          {
+            title: "8. FUSÃO PRIMORDIAL",
+            text: "Permite: Fa Jin + Sincronia.",
+          },
+          {
+            title: "9. Kyūryūken Punho dos Nove Dragões",
+            text: "Shin-Gi-Tai durante Fa Jin produz a sequência dos Dragões.",
+          },
+        ],
+      },
+
+      // ── 11. TABELA DE REFERÊNCIA RÁPIDA ──────────────────────────
       {
         id: "tabela-referencia",
         name: "Tabela de Referência Rápida",
         glyph: "📋",
-        tagline: "Resumo de custos e efeitos",
+        tagline: "Resumo de custos",
         description:
-          "Tabela de referência rápida para consultas durante o combate.",
+          "Tabela de custos para consultas durante o combate.",
         tags: ["Referência", "Custos", "Tabela"],
         ruleSections: [
           {
-            title: "Tabela de Custos",
+            title: "Custos",
             table: {
-              headers: ["Ação", "Custo em CPP", "Custo em Chi", "Custo em CPP"],
+              headers: ["Ação", "CPP", "Chi"],
               rows: [
-                ["Trocar Postura (Seu Turno)", "1 CPP", "2 Chi", "—"],
-                ["Trocar Postura (Reação)", "2 CPP", "3 Chi", "—"],
-                ["Manobra de Estilo", "1 CPP", "2 Chi", "3 CPP"],
-                ["Manobra Especial", "3 CPP", "4 Chi", "3 CPP"],
-                ["Sincronia", "—", "3 Chi", "—"],
-                ["Potencializar Dado", "—", "—", "2 CPP"],
-                ["Negativar Dado", "—", "—", "2 CPP"],
-                ["Adicionar Atributo", "—", "—", "3 CPP"],
+                ["Trocar Postura — próprio Turno", "1", "2"],
+                ["Trocar Postura — Reação", "2", "3"],
+                ["Manobra de Estilo", "1", "2"],
+                ["Manobra Especial", "3", "4"],
+                ["Sincronia", "—", "3"],
+                ["Potencializar Dado", "2", "—"],
+                ["Negativar Dado", "2", "—"],
+                ["Adicionar Atributo", "3", "—"],
               ],
             },
-          },
-          {
-            title: "Resumo de Efeitos de Manobras Especiais",
-            items: [
-              "Corrida Cinética: Requer 4m de avanço → +1d4 Dano → Aplica Negativação no alvo.",
-              "Arremessar Vertical: Empurra 1d4 metros → 1d4 Dano Bruto → Aplica Desarmonia no ar.",
-            ],
           },
         ],
       },

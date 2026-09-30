@@ -442,7 +442,12 @@ export default function DetailScreen({ categoryLabel, item }: DetailScreenProps)
             {item.ruleSections.map((section, i) => (
               <div key={i} className="ruleSection">
                 {section.title && (
-                  <h4 className="ruleSection__title">{section.title}</h4>
+                  <h4 className="ruleSection__title">
+                    {section.titleImage && (
+                      <img src={section.titleImage} alt="" className="ruleSection__titleImage" />
+                    )}
+                    {section.title}
+                  </h4>
                 )}
                 {section.text && (
                   <p className="ruleSection__text">{section.text}</p>
