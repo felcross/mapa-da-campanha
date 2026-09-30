@@ -1,11 +1,13 @@
 import { useState } from "react";
 import HubScreen from "./components/hub/HubScreen";
+import NoirIntro from "./components/classes/NoirIntro";
 import ClassesView from "./components/classes/ClassesView";
 import "./styles/tokens.css";
+import "./styles/noir.css";
 import "./styles/hub.css";
 import "./styles/classes.css";
 
-type AppView = "hub" | "compendium";
+type AppView = "hub" | "compendiumIntro" | "compendium";
 
 export default function App() {
   const [view, setView] = useState<AppView>("hub");
@@ -13,7 +15,13 @@ export default function App() {
   return (
     <>
       {view === "hub" && (
-        <HubScreen onSelectClasses={() => setView("compendium")} />
+        <HubScreen onSelectClasses={() => setView("compendiumIntro")} />
+      )}
+      {view === "compendiumIntro" && (
+        <NoirIntro
+          onEnter={() => setView("compendium")}
+          onBack={() => setView("hub")}
+        />
       )}
       {view === "compendium" && (
         <ClassesView onBack={() => setView("hub")} />

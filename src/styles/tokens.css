@@ -1,31 +1,52 @@
 /* ============================================
-   Design Tokens — Cyberpunk Noir
+   Design Tokens — Cyberpunk Noir (Tech-Noir)
+   Spec: dark 90%, neon 10%
    ============================================ */
 
 :root {
-  /* === Core palette === */
-  --sumi: #0a0a0f;
-  --sumi-soft: #1a1a2e;
-  --washi: #e0e0e8;
-  --washi-deep: #c8c8d4;
-  --shu: #ff2d55;
-  --shu-deep: #cc1a3d;
-  --ai: #00d4ff;
-  --ai-deep: #0099bb;
-  --kin: #ffd600;
-  --line: rgba(0, 212, 255, 0.12);
-  --line-strong: rgba(0, 212, 255, 0.25);
+  color-scheme: dark;
+
+  /* === Core palette (spec) === */
+  --bg: #05060a;
+  --bg2: #0b0e17;
+  --ink: #c9d4e6;
+  --dim: #5d6b85;
+  --cyan: #00f0ff;
+  --magenta: #ff2a8a;
+  --amber: #ffb400;
+
+  /* Derived secondary body (readable, de-emphasized) */
+  --ink-soft: #8a9bb4;
+
+  /* Aliases legados (classes.css / hub.css) */
+  --sumi: var(--bg);
+  --sumi-soft: var(--bg2);
+  --washi: var(--ink);
+  --washi-deep: var(--ink-soft);
+  --shu: var(--magenta);
+  --shu-deep: #cc1a6b;
+  --ai: var(--cyan);
+  --ai-deep: #00b8cc;
+  --kin: var(--amber);
+  --line: rgba(0, 240, 255, 0.12);
+  --line-strong: rgba(0, 240, 255, 0.25);
 
   /* === Neon glows === */
-  --neon-cyan: 0 0 10px rgba(0, 212, 255, 0.4), 0 0 20px rgba(0, 212, 255, 0.2);
-  --neon-magenta: 0 0 10px rgba(255, 45, 85, 0.4), 0 0 20px rgba(255, 45, 85, 0.2);
-  --neon-gold: 0 0 10px rgba(255, 214, 0, 0.4), 0 0 20px rgba(255, 214, 0, 0.2);
+  --neon-cyan: 0 0 10px rgba(0, 240, 255, 0.4), 0 0 20px rgba(0, 240, 255, 0.2);
+  --neon-magenta: 0 0 10px rgba(255, 42, 138, 0.4), 0 0 20px rgba(255, 42, 138, 0.2);
+  --neon-gold: 0 0 10px rgba(255, 180, 0, 0.4), 0 0 20px rgba(255, 180, 0, 0.2);
+  --glow-cyan: 0 0 12px #00f0ff88;
+  --glow-magenta: 0 0 14px #ff2a8a99;
 
   /* === Typography === */
-  --font-display: "Orbitron", "Rajdhani", "Exo 2", sans-serif;
-  --font-body: "Rajdhani", "Exo 2", "Source Sans 3", system-ui, sans-serif;
+  --font-display: "Orbitron", "Segoe UI", sans-serif;
+  --font-body: "Share Tech Mono", ui-monospace, Menlo, Consolas, monospace;
 
   /* === Layout === */
   --sidebar-w: 336px;
-  --radius: 2px;
+  --radius: 0px;
+  --cut: 28px;
+  --panel-border: #00f0ff44;
+  --panel-bg: linear-gradient(160deg, #0e1220ee, #070911f2);
+  --panel-glow: 0 0 0 1px #000, 0 0 40px #00f0ff22, inset 0 0 60px #00000099;
 }

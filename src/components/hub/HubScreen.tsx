@@ -40,7 +40,20 @@ export default function HubScreen({ onSelectClasses }: HubScreenProps) {
             preload="metadata"
           />
           <span className="hub__cardOverlay" />
-          <span className="hub__cardIcon">☯</span>
+          <svg
+            className="hub__cardIcon"
+            viewBox="0 0 64 64"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <circle cx="32" cy="32" r="30" fill="currentColor" />
+            <path
+              d="M32,2 A30,30 0 0,1 32,62 A15,15 0 0,1 32,32 A15,15 0 0,0 32,2"
+              fill="#05060a"
+            />
+            <circle cx="32" cy="17" r="5" fill="currentColor" />
+            <circle cx="32" cy="47" r="5" fill="#05060a" />
+          </svg>
           <span className="hub__cardTitle">Compêndio</span>
         </button>
       </div>

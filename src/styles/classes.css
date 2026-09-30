@@ -6,6 +6,7 @@
 
 .classesProject {
   position: relative;
+  z-index: 1;
   height: 100vh;
   overflow: hidden;
   background: var(--sumi);
@@ -21,12 +22,25 @@
   width: var(--sidebar-w);
   display: flex;
   flex-direction: column;
-  background: var(--sumi-soft);
-  border-right: 1px solid var(--line-strong);
+  background: linear-gradient(180deg, #0b0e17f2, #070911f8);
+  border-right: 1px solid var(--panel-border);
+  box-shadow: 8px 0 32px rgba(0, 0, 0, 0.45);
   overflow: hidden;
   z-index: 30;
   transform: translateX(0);
   transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.classesProject__sidebar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--magenta), var(--cyan), transparent);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .classesProject__sidebar::before {
@@ -38,8 +52,8 @@
       0deg,
       transparent,
       transparent 2px,
-      rgba(0, 212, 255, 0.015) 2px,
-      rgba(0, 212, 255, 0.015) 4px
+      rgba(0, 240, 255, 0.015) 2px,
+      rgba(0, 240, 255, 0.015) 4px
     );
   pointer-events: none;
   z-index: 0;
@@ -67,13 +81,13 @@
   font-size: 0.8rem;
   cursor: pointer;
   transition: color 0.15s ease, background 0.15s ease;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.04em;
 }
 
 .classesProject__hubBtn:hover {
   color: #fff;
-  background: rgba(0, 212, 255, 0.1);
+  background: rgba(0, 240, 255, 0.1);
 }
 
 .classesProject__closeBtn {
@@ -92,7 +106,7 @@
 
 .classesProject__closeBtn:hover {
   color: var(--shu);
-  background: rgba(255, 45, 85, 0.1);
+  background: rgba(255, 42, 138, 0.1);
 }
 
 /* --- Main area --- */
@@ -114,7 +128,7 @@
   position: absolute;
   inset: 0;
   z-index: 25;
-  background: rgba(10, 10, 15, 0.7);
+  background: rgba(5, 6, 10, 0.7);
   backdrop-filter: blur(2px);
   opacity: 0;
   pointer-events: none;
@@ -147,7 +161,7 @@
 .classesProject__toggle:hover {
   border-color: #fff;
   color: #fff;
-  box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
 }
 
 .classesProject__toggle:active {
@@ -188,7 +202,7 @@
   background: var(--ai);
   color: #fff;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 800;
   border-radius: 2px;
   box-shadow: var(--neon-cyan);
   flex-shrink: 0;
@@ -198,6 +212,9 @@
   flex: 1;
   min-width: 0;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .switcher__eyebrow {
@@ -211,7 +228,7 @@
 .switcher__label {
   font-family: var(--font-display);
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--washi);
   letter-spacing: 0.04em;
 }
@@ -262,7 +279,7 @@
 }
 
 .switcher__option:hover {
-  background: rgba(0, 212, 255, 0.08);
+  background: rgba(0, 240, 255, 0.08);
 }
 
 .switcher__option[aria-selected="true"] {
@@ -272,7 +289,7 @@
 
 .switcher__optionSeal {
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 800;
   min-width: 24px;
   text-align: center;
 }
@@ -321,12 +338,12 @@
 }
 
 .itemList__item:hover {
-  background: rgba(0, 212, 255, 0.06);
+  background: rgba(0, 240, 255, 0.06);
 }
 
 .itemList__item[aria-current="true"] {
   border-color: var(--ai);
-  background: rgba(0, 212, 255, 0.1);
+  background: rgba(0, 240, 255, 0.1);
 }
 
 .itemList__glyph {
@@ -340,7 +357,7 @@
   border: 1px solid var(--line-strong);
   color: var(--ai);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   flex-shrink: 0;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
@@ -355,7 +372,7 @@
 .itemList__name {
   font-family: var(--font-display);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--washi);
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -368,7 +385,10 @@
   padding: 48px 48px 48px;
   overflow-y: auto;
   height: 100%;
-  background: var(--sumi);
+  background:
+    radial-gradient(ellipse at 20% 0%, #1a0b2e33, transparent 55%),
+    radial-gradient(ellipse at 90% 100%, #00f0ff10, transparent 50%),
+    var(--sumi);
 }
 
 .classesProject__emptyHint {
@@ -410,7 +430,7 @@
   justify-content: center;
   color: var(--ai);
   font-size: 44px;
-  font-weight: 700;
+  font-weight: 800;
   box-shadow: var(--neon-cyan);
 }
 
@@ -432,7 +452,7 @@
 .detail__name {
   font-family: var(--font-display);
   font-size: 34px;
-  font-weight: 900;
+  font-weight: 800;
   color: var(--washi);
   line-height: 1.15;
   margin: 0;
@@ -450,11 +470,12 @@
 }
 
 .detail__tagline {
-  font-size: 14px;
-  color: var(--washi-deep);
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--dim);
   margin-top: 8px;
-  font-style: italic;
-  opacity: 0.6;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .detail__body {
@@ -480,7 +501,7 @@
   background: var(--sumi-soft);
   font-size: 11px;
   color: var(--ai);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -500,7 +521,7 @@
 .detail__subSectionName {
   font-family: var(--font-display);
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--ai);
   margin-bottom: 4px;
   text-transform: uppercase;
@@ -542,24 +563,25 @@
 .bonusChip__value {
   font-family: var(--font-display);
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--washi);
 }
 
 /* --- School card --- */
 
 .schoolCard {
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--panel-border);
   border-top: 3px solid var(--ai);
   border-radius: var(--radius);
-  background: var(--sumi-soft);
+  background: linear-gradient(160deg, #0e1220cc, #070911e6);
   padding: 18px 20px;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
 }
 
 .schoolCard__name {
   font-family: var(--font-display);
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--ai);
   margin-bottom: 12px;
   text-transform: uppercase;
@@ -633,7 +655,7 @@
 .resourceCard__name {
   font-family: var(--font-display);
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--ai);
   margin-bottom: 8px;
   text-transform: uppercase;
@@ -673,7 +695,7 @@
   margin-top: 8px;
   padding: 10px 14px;
   border-left: 2px solid var(--kin);
-  background: rgba(255, 214, 0, 0.05);
+  background: rgba(255, 180, 0, 0.05);
 }
 
 .resourceCard__methodType {
@@ -687,7 +709,7 @@
 .resourceCard__methodName {
   font-family: var(--font-display);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--washi);
 }
 
@@ -711,7 +733,7 @@
 .difficultyCard__formula {
   font-family: var(--font-display);
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--shu);
   margin-bottom: 10px;
 }
@@ -772,7 +794,7 @@
 }
 
 .accordion__trigger:hover {
-  background: rgba(0, 212, 255, 0.06);
+  background: rgba(0, 240, 255, 0.06);
 }
 
 .accordion__seal {
@@ -786,7 +808,7 @@
   color: #fff;
   font-family: var(--font-display);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800;
   flex-shrink: 0;
 }
 
@@ -799,7 +821,7 @@
   flex: 1;
   font-family: var(--font-display);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--washi);
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -860,7 +882,7 @@
 .order__name {
   font-family: var(--font-display);
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--washi);
   margin: 0;
   text-transform: uppercase;
@@ -907,7 +929,7 @@
   color: #fff;
   font-family: var(--font-display);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -923,7 +945,7 @@
 .techniques__title {
   font-family: var(--font-display);
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--washi);
   margin-bottom: 4px;
   text-transform: uppercase;
@@ -1038,7 +1060,7 @@
 .domains__constellationName {
   font-family: var(--font-display);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--washi);
   margin: 0;
 }
@@ -1100,13 +1122,13 @@
   cursor: pointer;
   font-family: var(--font-display);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--washi);
   transition: background 0.1s ease, color 0.1s ease;
 }
 
 .spellLibrary__tab:hover {
-  background: rgba(0, 212, 255, 0.08);
+  background: rgba(0, 240, 255, 0.08);
 }
 
 .spellLibrary__tab--active {
@@ -1136,7 +1158,7 @@
 .spellLibrary__spellName {
   font-family: var(--font-display);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--washi);
   margin-bottom: 4px;
 }
@@ -1189,7 +1211,7 @@
 .variantCard__name {
   font-family: var(--font-display);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--washi);
   margin-bottom: 4px;
 }
@@ -1279,7 +1301,7 @@
 .variantCard__wallName {
   font-family: var(--font-display);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--washi);
 }
 
@@ -1303,7 +1325,7 @@
 .tattoos__title {
   font-family: var(--font-display);
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--washi);
   margin: 0 0 6px;
   text-transform: uppercase;
@@ -1333,7 +1355,7 @@
 .tattooCard__name {
   font-family: var(--font-display);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--ai);
   display: block;
   margin-bottom: 4px;
@@ -1365,7 +1387,7 @@
 .ruleSection__title {
   font-family: var(--font-display);
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--ai);
   margin: 0 0 8px;
   text-transform: uppercase;
@@ -1422,7 +1444,7 @@
 .ruleSection__table th {
   background: var(--ai);
   color: #fff;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1435,16 +1457,7 @@
 }
 
 .ruleSection__table tr:hover td {
-  background: rgba(0, 212, 255, 0.04);
-}
-
-/* --- Multi-column on large screens --- */
-
-@media (min-width: 1100px) {
-  .detail__description {
-    column-count: 2;
-    column-gap: 32px;
-  }
+  background: rgba(0, 240, 255, 0.04);
 }
 
 /* --- Mobile --- */
@@ -1494,7 +1507,7 @@
     0deg,
     transparent,
     transparent 2px,
-    rgba(0, 212, 255, 0.008) 2px,
-    rgba(0, 212, 255, 0.008) 4px
+    rgba(0, 240, 255, 0.008) 2px,
+    rgba(0, 240, 255, 0.008) 4px
   );
 }

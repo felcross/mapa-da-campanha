@@ -1,0 +1,300 @@
+/* ============================================
+   Frase-Chave do Sistema — painel de abertura
+   Port fiel do HTML de referência (Cyberpunk Noir)
+   ============================================ */
+
+/* --- Atmosfera global (chuva neon + scanlines) --- */
+
+body {
+  background:
+    radial-gradient(ellipse at 20% 0%, #1a0b2e55, transparent 55%),
+    radial-gradient(ellipse at 90% 100%, #00f0ff18, transparent 50%),
+    var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: repeating-linear-gradient(105deg, transparent 0 46px, #00f0ff12 47px, transparent 49px);
+  animation: rain 1.2s linear infinite;
+  opacity: 0.7;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(0deg, #0000 0 2px, #00000055 3px);
+  mix-blend-mode: multiply;
+}
+
+@keyframes rain {
+  to {
+    background-position: -30px 120px;
+  }
+}
+
+/* --- Tela de abertura --- */
+
+.noirIntro {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.noirIntro__panel {
+  position: relative;
+  z-index: 1;
+  width: min(720px, 100%);
+  background: linear-gradient(160deg, #0e1220ee, #070911f2);
+  border: 1px solid #00f0ff44;
+  padding: 40px 36px 36px;
+  box-shadow: 0 0 0 1px #000, 0 0 40px #00f0ff22, inset 0 0 60px #00000099;
+  clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 28px 100%, 0 calc(100% - 28px));
+}
+
+.noirIntro__panel::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--magenta), var(--cyan), transparent);
+}
+
+.noirIntro__tag {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: var(--dim);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.noirIntro__tag b {
+  color: var(--amber);
+  font-weight: 400;
+}
+
+.noirIntro__back {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--dim);
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.noirIntro__back:hover {
+  color: var(--cyan);
+}
+
+.noirIntro__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.15rem, 3.6vw, 1.6rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  text-shadow: 0 0 12px #00f0ff88;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 32px;
+  position: relative;
+}
+
+.noirIntro__sym {
+  width: 1.9em;
+  height: 1.9em;
+  display: inline-block;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 8px var(--magenta));
+  animation: noirSpin 14s linear infinite;
+}
+
+@keyframes noirSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.noirIntro__title::after {
+  content: attr(data-t);
+  position: absolute;
+  left: calc(1.9em + 14px);
+  color: var(--magenta);
+  clip-path: inset(0 0 60% 0);
+  animation: noirGlitch 4s steps(1) infinite;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes noirGlitch {
+  0%, 92%, 100% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  93% {
+    opacity: 0.8;
+    transform: translateX(-3px);
+  }
+  95% {
+    opacity: 0.8;
+    transform: translateX(3px);
+  }
+  97% {
+    opacity: 0;
+  }
+}
+
+.noirIntro__lines p {
+  font-size: clamp(1.02rem, 2.8vw, 1.3rem);
+  line-height: 1.5;
+  padding: 12px 0 12px 18px;
+  border-left: 2px solid #ffffff14;
+  margin: 0 0 6px;
+  transition: 0.25s;
+  opacity: 0;
+  animation: noirIn 0.7s forwards;
+}
+
+.noirIntro__lines p:nth-child(1) { animation-delay: 0.2s; }
+.noirIntro__lines p:nth-child(2) { animation-delay: 0.6s; }
+.noirIntro__lines p:nth-child(3) { animation-delay: 1s; }
+.noirIntro__lines p:nth-child(4) { animation-delay: 1.5s; }
+.noirIntro__lines p:nth-child(5) { animation-delay: 1.9s; }
+.noirIntro__lines p:nth-child(6) { animation-delay: 2.4s; }
+.noirIntro__lines p:nth-child(7) { animation-delay: 2.9s; }
+
+@keyframes noirIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.noirIntro__lines p:hover {
+  border-left-color: var(--cyan);
+  background: #00f0ff0a;
+  padding-left: 26px;
+}
+
+.noirIntro__lines em {
+  font-style: normal;
+  color: var(--cyan);
+  text-shadow: 0 0 8px #00f0ff66;
+}
+
+.noirIntro__lines .y {
+  color: var(--magenta);
+  text-shadow: 0 0 8px #ff2a8a66;
+}
+
+.noirIntro__lines .c {
+  color: var(--amber);
+}
+
+.noirIntro__lines p.final {
+  margin-top: 20px;
+  border-left: 3px solid var(--magenta);
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: #fff;
+  text-shadow: 0 0 14px #ff2a8a99;
+  background: linear-gradient(90deg, #ff2a8a18, transparent);
+}
+
+.noirIntro__enter {
+  display: block;
+  width: 100%;
+  margin-top: 28px;
+  padding: 14px 18px;
+  background: linear-gradient(90deg, #00f0ff14, transparent 70%);
+  border: 1px solid #00f0ff55;
+  border-left: 3px solid var(--cyan);
+  color: var(--cyan);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.25s ease, border-color 0.25s ease, padding-left 0.25s ease, box-shadow 0.25s ease;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+}
+
+.noirIntro__enter:hover {
+  background: linear-gradient(90deg, #00f0ff22, transparent 80%);
+  border-color: var(--cyan);
+  padding-left: 26px;
+  box-shadow: 0 0 24px #00f0ff22;
+}
+
+.noirIntro__foot {
+  margin-top: 30px;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+
+.noirIntro__foot span {
+  color: var(--cyan);
+  animation: noirBlink 1s steps(1) infinite;
+}
+
+@keyframes noirBlink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .noirIntro__panel {
+    padding: 30px 20px;
+  }
+
+  .noirIntro__title::after {
+    left: calc(1.9em + 10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+  }
+
+  .noirIntro__lines p {
+    opacity: 1;
+    transform: none;
+  }
+}

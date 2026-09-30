@@ -7,14 +7,13 @@
 }
 
 html, body, #root {
-  height: 100%;
+  min-height: 100%;
   margin: 0;
 }
 
 body {
-  background: var(--sumi);
   font-family: var(--font-body);
-  color: var(--washi);
+  color: var(--ink);
 }
 
 button {
@@ -22,7 +21,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--ai);
+  outline: 2px solid var(--cyan);
   outline-offset: 2px;
 }
 
@@ -38,6 +37,7 @@ button {
   text-align: center;
   background: url("/capadefundo.jpg") center center / cover no-repeat;
   position: relative;
+  z-index: 1;
 }
 
 .hub::before {
@@ -46,9 +46,9 @@ button {
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(10, 10, 15, 0.7) 0%,
-    rgba(10, 10, 15, 0.5) 50%,
-    rgba(10, 10, 15, 0.85) 100%
+    rgba(5, 6, 10, 0.82) 0%,
+    rgba(5, 6, 10, 0.62) 45%,
+    rgba(5, 6, 10, 0.92) 100%
   );
   z-index: 0;
 }
@@ -63,23 +63,22 @@ button {
 .hub__title {
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 5vw, 3.5rem);
-  font-weight: 900;
-  color: var(--ai);
+  font-weight: 800;
+  color: var(--cyan);
   margin: 0 0 8px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  text-shadow: var(--neon-cyan);
+  text-shadow: 0 0 12px #00f0ff88, 0 0 28px #00f0ff33;
 }
 
 .hub__subtitle {
   font-family: var(--font-body);
   font-size: clamp(0.85rem, 2vw, 1.05rem);
-  color: var(--washi-deep);
+  color: var(--dim);
   margin: 0 0 48px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  font-weight: 500;
-  opacity: 0.7;
+  opacity: 0.9;
 }
 
 /* --- Cards --- */
@@ -98,23 +97,37 @@ button {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  width: 260px;
-  height: 180px;
+  width: 280px;
+  height: 200px;
   padding: 24px 16px;
-  border: 1.5px solid var(--line-strong);
-  border-radius: var(--radius);
-  background: rgba(10, 10, 15, 0.8);
+  border: 1px solid var(--panel-border);
+  border-radius: 0;
+  background: linear-gradient(160deg, #0e1220ee, #070911f2);
+  box-shadow: 0 0 0 1px #000, 0 0 40px #00f0ff18, inset 0 0 60px #00000099;
   cursor: pointer;
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   text-decoration: none;
   color: inherit;
+  clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+}
+
+.hub__card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--magenta), var(--cyan), transparent);
+  z-index: 3;
+  pointer-events: none;
 }
 
 .hub__card:hover {
   transform: translateY(-4px);
-  border-color: var(--ai);
-  box-shadow: var(--neon-cyan);
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 1px #000, 0 0 48px #00f0ff33, inset 0 0 60px #00000099;
 }
 
 /* --- Video layer --- */
@@ -140,7 +153,7 @@ button {
   background: linear-gradient(
     180deg,
     transparent 0%,
-    rgba(10, 10, 15, 0.85) 100%
+    rgba(5, 6, 10, 0.88) 100%
   );
   z-index: 1;
   pointer-events: none;
@@ -156,47 +169,50 @@ button {
 /* --- Compendium card --- */
 
 .hub__card--compendium {
-  border-color: var(--ai);
+  border-color: var(--panel-border);
 }
 
 .hub__card--compendium:hover {
-  border-color: var(--ai);
-  background: rgba(0, 212, 255, 0.08);
+  border-color: var(--cyan);
+  background: linear-gradient(160deg, #0e1220fa, #070911fa);
 }
 
 .hub__cardIcon {
-  width: 44px;
-  height: 44px;
+  width: 52px;
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  font-size: 20px;
-  background: var(--ai);
-  color: #fff;
-  box-shadow: var(--neon-cyan);
-  transition: box-shadow 0.2s ease;
+  font-size: 28px;
+  background: transparent;
+  color: var(--magenta);
+  filter: drop-shadow(0 0 8px var(--magenta));
+  transition: filter 0.2s ease, color 0.2s ease;
 }
 
 .hub__card:hover .hub__cardIcon {
-  box-shadow: 0 0 15px rgba(0, 212, 255, 0.6), 0 0 30px rgba(0, 212, 255, 0.3);
+  color: var(--cyan);
+  filter: drop-shadow(0 0 10px var(--cyan));
 }
 
 .hub__cardTitle {
   font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--washi);
-  letter-spacing: 0.06em;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  text-shadow: 0 0 12px #00f0ff88;
 }
 
 .hub__cardDesc {
-  font-size: 0.85rem;
-  color: var(--washi-deep);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--dim);
   line-height: 1.5;
   margin: 0;
-  opacity: 0.7;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 /* --- Responsive --- */
@@ -209,22 +225,31 @@ button {
 
   .hub__card {
     width: 100%;
-    height: 140px;
+    height: 160px;
     padding: 16px 12px;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
   }
 
   .hub__title {
     font-size: 1.8rem;
+    letter-spacing: 0.08em;
   }
 
   .hub__subtitle {
-    font-size: 0.8rem;
+    font-size: 0.72rem;
     margin-bottom: 32px;
+    letter-spacing: 0.16em;
   }
 }
 
 @media (min-width: 641px) {
   .hub {
     padding: 40px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hub__card {
+    transition: none;
   }
 }
