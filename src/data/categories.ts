@@ -229,234 +229,365 @@ export const DATA: Record<string, Category> = {
     label: "As Seis Harmonias",
     listLabel: "Capítulos",
     items: [
-      // ── 1. YIN & YANG ─────────────────────────────────────────────
+      // ── 1. COSMOLOGIA E RECURSOS ───────────────────────────────────
+      {
+        id: "cosmologia-recursos",
+        name: "Cosmologia e Recursos",
+        glyph: "☯️",
+        tagline: "Os três Chakras e os Pontos de Potência de Combate",
+        description:
+          "O corpo do lutador canaliza sua energia através dos três Chakras principais e dos Pontos de Potência de Combate.",
+        tags: ["Chi", "Prana", "Vida", "CPP", "Chakra"],
+        ruleSections: [
+          {
+            title: "Chi (🔵 Lâmina Preta — Chakra da Mente)",
+            text: "Energia consciente para Sincronia, Posturas, Manobras, Fa Jin e habilidades.",
+          },
+          {
+            title: "Prana (🟡 Lâmina Vermelha — Chakra do Coração)",
+            text: "Usado para recuperar o corpo do estresse provocado pelo plasma.",
+          },
+          {
+            title: "Vida (🔴 Lâmina Branca — Chakra do Corpo)",
+            text: "Integridade física do receptáculo.",
+          },
+          {
+            title: "CPP (Combat Power Points)",
+            text: "Recurso tático dinâmico de combate.",
+          },
+        ],
+      },
+
+      // ── 2. O MOTOR DE COMBATE (YIN & YANG) ───────────────────────
       {
         id: "yin-yang",
         name: "Yin & Yang",
         glyph: "☯",
         tagline: "As duas forças fundamentais do combate",
         description:
-          "O combate é a arte de controlar o OR, a potência vital, através do Wuji, o vazio de possibilidades. Tudo gira em torno de duas forças: YIN (mente, técnica e percepção) e YANG ( corpo, força e impacto).",
-        tags: ["Fundamentos", "YIN", "YANG", "OR"],
+          "O combate é dividido em duas forças fundamentais.",
+        tags: ["YIN", "YANG", "Harmonias Internas", "Harmonias Externas"],
         ruleSections: [
           {
-            title: "YIN — Mente",
-            text: "Representa as 3 Harmonias Internas: Coração, Intenção e Energia Vital. O YIN determina sua capacidade de perceber, controlar e direcionar o combate.",
+            title: "🔵 YIN — As Harmonias Internas (Dado Base: 1d6)",
+            text: "Representa: Coração, Intenção e Energia.",
             items: [
-              "Usado para Ataque",
-              "Usado para Defesa",
+              "Usado para: Ataque, Defesa, Precisão, Esquiva e Bloqueio.",
+              "Regra: Testes de Ataque e Defesa utilizam Yin contra Yin.",
             ],
           },
           {
-            title: "Teste de YIN",
-            text: "Role seu YIN contra o YIN do alvo. Quem obtiver o maior resultado vence a disputa.",
-          },
-          {
-            title: "YANG — Corpo",
-            text: "Representa as 3 Harmonias Externas: Ombros + Quadris, Cotovelos + Joelhos, Mãos + Pés. O YANG representa sua estrutura física e sua capacidade de produzir e suportar impacto.",
+            title: "🔴 YANG — As Harmonias Externas (Dado Base: 1d6)",
+            text: "Representa: Articulações, Membros e Força Física.",
             items: [
-              "Usado para Dano",
-              "Usado para Resistência",
+              "Usado para: Dano, Resistência e Aplicação de Força.",
+              "Regra: Testes de Dano e Resistência utilizam Yang contra Yang.",
             ],
-          },
-          {
-            title: "Teste de YANG",
-            text: "Quando um ataque acerta, role seu YANG contra o YANG do alvo. O resultado determina o impacto causado ou absorvido.",
           },
         ],
       },
 
-      // ── 2. SINCRONIA ──────────────────────────────────────────────
+      // ── 3. ESCALA DE DADOS E PRIORIDADE DE MODIFICAÇÃO ──────────
+      {
+        id: "escala-dados",
+        name: "Escala de Dados",
+        glyph: "🎲",
+        tagline: "Progressão e prioridade de modificação de dados",
+        description:
+          "A progressão de dados do sistema segue a ordem: 1d4 → 1d6 → 1d8 → 1d10 → 1d12 → 1d12+2 → 1d12+4... Cada avanço representa 1 Elevação.",
+        tags: ["Escala", "Elevação", "Potencializar", "Negativar"],
+        ruleSections: [
+          {
+            title: "Regra de Prioridade para Potencializar ou Negativar Dados",
+            text: "Quando um efeito ou gasto de recurso permite Potencializar (+1 Elevação) ou Negativar (-1 Elevação) um dado da jogada, a aplicação DEVE obrigatoriamente seguir esta ordem:",
+            items: [
+              "1º — Dados de Atributo (se houver na jogada).",
+              "2º — Dado de Manobra (se houver na jogada).",
+              "3º — Dados de Yin / Yang (últimos a serem afetados).",
+            ],
+          },
+          {
+            title: "Exceção",
+            text: "Se a ação for realizada utilizando apenas Yin e Yang (sem atributos ou manobras envolvidos), os dados de Yin e Yang tornam-se os primeiros e únicos afetados.",
+          },
+        ],
+      },
+
+      // ── 4. COMBAT POWER POINTS (CPP) ─────────────────────────────
+      {
+        id: "cpp",
+        name: "Combat Power Points",
+        glyph: "⚡",
+        tagline: "Recurso tático dinâmico de combate",
+        description:
+          "O CPP é um recurso exclusivo de combate acumulado durante a luta.",
+        tags: ["CPP", "Recurso", "Combate"],
+        ruleSections: [
+          {
+            title: "Regras Gerais do CPP",
+            items: [
+              "Todo combate começa obrigatoriamente com 0 CPP.",
+              "Existe apenas durante o combate. Ao término do confronto, todos os CPPs são zerados.",
+            ],
+          },
+          {
+            title: "Como Ganhar CPP",
+            items: [
+              "Receber dano de qualquer origem.",
+              "Acertar um ataque no alvo.",
+            ],
+          },
+          {
+            title: "Como Gastar CPP",
+            items: [
+              "2 CPP — Potencializar um Dado: Eleva 1 dado da jogada em 1 degrau na escala (respeitando a regra de prioridade).",
+              "2 CPP — Negativar um Dado: Reduz 1 dado do alvo/jogada em 1 degrau na escala (respeitando a regra de prioridade).",
+              "3 CPP — Manobra: Permite ativar uma Manobra Especial ou Manobra de Estilo.",
+              "3 CPP — Atributo: Permite adicionar um Atributo à jogada.",
+            ],
+          },
+        ],
+      },
+
+      // ── 5. POSTURAS E ESTILOS ─────────────────────────────────────
+      {
+        id: "posturas-estilos",
+        name: "Posturas e Estilos",
+        glyph: "🛡",
+        tagline: "Posturas básicas, transição e os seis estilos",
+        description:
+          "As posturas definem a base do combate e os estilos determinam a especialização do personagem.",
+        tags: ["Posturas", "Estilos", "VEL", "FOR", "RES", "REF"],
+        ruleSections: [
+          {
+            title: "Posturas Básicas",
+            items: [
+              "🦅 Postura do Falcão: Velocidade (VEL)",
+              "🐯 Postura do Tigre: Força (FOR)",
+              "🐢 Postura da Tartaruga: Resistência (RES)",
+              "🐍 Postura da Serpente: Reflexo (REF)",
+            ],
+          },
+          {
+            title: "Transição de Postura",
+            items: [
+              "No próprio Turno: 1 CPP (ou 2 Chi).",
+              "No Turno do Alvo (Reação): 2 CPP (ou 3 Chi).",
+              "Conversão Geral: Custo em Chi = CPP + 1.",
+            ],
+          },
+          {
+            title: "Os Seis Estilos",
+            text: "Cada personagem escolhe 1 Estilo que define seus dois atributos especializados:",
+            items: [
+              "⚡ Tempestade Súbita: VEL + FOR",
+              "🌊 Fluxo Inversivo: VEL + REF",
+              "🌋 Montanha Esmagadora: FOR + RES",
+              "🦂 Garra Perfurante: FOR + REF",
+              "🌀 Vórtice de Vento: RES + VEL",
+              "⛰️ Muralha de Ferro: RES + REF",
+            ],
+          },
+          {
+            title: "Especialização",
+            text: "Quando o personagem assume a Postura correspondente a um dos atributos de seu Estilo, aquele atributo recebe +1 Elevação (ex: 1d10 → 1d12).",
+          },
+        ],
+      },
+
+      // ── 6. MANOBRAS DE ESTILO ─────────────────────────────────────
+      {
+        id: "manobras-estilo",
+        name: "Manobras de Estilo",
+        glyph: "⚔",
+        tagline: "Técnicas táticas exclusivas de combate",
+        description:
+          "As Manobras de Estilo são técnicas táticas exclusivas de combate.",
+        tags: ["Manobras", "Pular", "Rasteira", "Fintar", "Triângulo"],
+        ruleSections: [
+          {
+            title: "Regras das Manobras de Estilo",
+            items: [
+              "Escolha Única: Na criação do personagem, escolhe-se apenas 1 Manobra de Estilo: Pular, Rasteira ou Fintar. As outras duas não podem ser compradas nem usadas.",
+              "Dado de Manobra: Possui um dado próprio que começa em 1d4 e pode ser elevado com CPP até o limite máximo de 1d12.",
+              "Atenção: O Dado de Manobra é independente dos atributos e não concede +1 Elevação aos atributos.",
+              "Custo de Ativação: 1 CPP, 2 Chi ou 3 CPP.",
+            ],
+          },
+          {
+            title: "Triângulo de Defesa",
+            items: [
+              "🦘 PULAR defende contra 🧹 RASTEIRA",
+              "🧹 RASTEIRA defende contra ↪️ FINTA",
+              "↪️ FINTA defende contra 🦘 PULAR",
+            ],
+          },
+          {
+            title: "Defesa Incorreta",
+            text: "Se o adversário usar uma Manobra e você não possuir a resposta correta no Triângulo, não poderá usar sua Manobra para defender. A defesa deverá ser feita com Yin puro (1d6).",
+          },
+          {
+            title: "Efeito de Negativação",
+            text: "Um personagem atingido por um ataque com Manobra de Estilo sofre Negativação em seu próximo turno (todas as rolagens descem 1 degrau na escala de dados).",
+          },
+        ],
+      },
+
+      // ── 7. MANOBRAS ESPECIAIS ─────────────────────────────────────
+      {
+        id: "manobras-especiais",
+        name: "Manobras Especiais",
+        glyph: "💥",
+        tagline: "Acessíveis a todos os personagens",
+        description:
+          "Manobras Especiais são acessíveis a todos os personagens (sem exclusividade).",
+        tags: ["Manobras Especiais", "Corrida Cinética", "Arremessar"],
+        ruleSections: [
+          {
+            title: "Custo de Ativação",
+            items: [
+              "3 CPP, 4 Chi ou 3 CPP.",
+              "Dado de Manobra Especial: Começa em 1d4 e pode ser elevado via CPP até 1d12.",
+            ],
+          },
+          {
+            title: "🏃 Corrida Cinética",
+            items: [
+              "Requisito: Avanço mínimo de 4 metros / 4 quadrados até o alvo. Rola o atributo MOV (Movimento).",
+              "Efeito: Se o ataque conectar, concede +1d4 de Dano automático e aplica Negativação no próximo golpe/ação do alvo.",
+            ],
+          },
+          {
+            title: "💥 Arremessar (Empuxo)",
+            items: [
+              "Efeito: Se o ataque conectar, role 1d4. O resultado indica a distância em metros que o alvo é empurrado e causa esse valor como Dano Bruto.",
+              "Arremesso Vertical: Lança o alvo para cima.",
+              "Regra de Desarmonia no Ar: Alvos lançados verticalmente entram automaticamente em Desarmonia durante o tempo no ar / em seu próximo turno, ficando impedidos de gastar Chi para Sincronia.",
+            ],
+          },
+        ],
+      },
+
+      // ── 8. SINCRONIA E ALINHAMENTO ────────────────────────────────
       {
         id: "sincronia",
         name: "Sincronia",
         glyph: "⚡",
-        tagline: "O equilíbrio perfeito entre mente e corpo",
+        tagline: "A união consciente do Yin e Yang",
         description:
-          "Normalmente, um teste utiliza apenas 1 dado. Você pode gastar 2 Aura para ativar a Sincronia — ao fazer isso, adiciona +1d6 ao teste e passa a rolar YIN + YANG juntos.",
-        tags: ["Sincronia", "Aura", "Shin-Gi-Tai", "Desarmonia"],
+          "A Sincronia é a união consciente do Yin e Yang.",
+        tags: ["Sincronia", "Chi", "Shin-Gi-Tai", "Desarmonia", "Harmonia"],
         ruleSections: [
           {
-            title: "Desarmonia",
-            text: "Se os dados mostrarem 1 e 6, em qualquer ordem (1 + 6 = Desarmonia), o fluxo entra em curto. O bônus da Sincronia é perdido e os dados da Sincronia não são somados ao resultado.",
+            title: "Custo e Rolagem",
+            items: [
+              "Custo: 3 Chi (Declaração: \"Vou gastar Chi para Alinhar\").",
+              "Rolagem: Yin (1d6) + Yang (1d6) = 2d6.",
+            ],
           },
           {
-            title: "Harmonia",
-            text: "Se os dados forem diferentes e não formarem 1+6 (ex: 2+5, 3+4, 4+5), o fluxo funciona normalmente. Some os dois dados ao resultado.",
+            title: "⚠️ Desarmonia (Resultados 1 + 6 ou 6 + 1)",
+            items: [
+              "Os dados de Yin e Yang são descartados (não somam na jogada).",
+              "Qualquer bônus de Sincronia é perdido.",
+              "O personagem fica impedido de gastar Chi em seu próximo ataque (mas pode atacar normalmente sem Chi).",
+            ],
           },
           {
-            title: "Shin-Gi-Tai — Harmonia Perfeita",
-            text: "Se os dois dados forem iguais, ocorre uma Harmonia Perfeita. O número repetido determina a potência da ressonância.",
+            title: "🟢 Harmonia (Dados diferentes, exceto 1 + 6 / 6 + 1)",
+            text: "Soma-se o resultado dos dois dados normalmente à jogada.",
+          },
+          {
+            title: "🔥 Shin-Gi-Tai (Dados iguais)",
+            text: "Soma-se os dois dados iguais e adiciona-se 1 dado extra conforme a tabela:",
             table: {
-              headers: ["Dupla", "Ressonância"],
+              headers: ["Par", "Resultado Fixo", "Dado Extra de Shin-Gi-Tai"],
               rows: [
-                ["1+1", "+3d4"],
-                ["2+2", "+3d6"],
-                ["3+3", "+3d8"],
-                ["4+4", "+3d10"],
-                ["5+5", "+3d12"],
-                ["6+6", "+3d16 + DAN"],
+                ["1 + 1", "2", "+1d4"],
+                ["2 + 2", "4", "+1d6"],
+                ["3 + 3", "6", "+1d8"],
+                ["4 + 4", "8", "+1d10"],
+                ["5 + 5", "10", "+1d12"],
+                ["6 + 6", "12", "+1d12 + DAN (máx +10)"],
               ],
             },
           },
-          {
-            title: "Ressonância Máxima",
-            text: "6+6 é a Ressonância Máxima. O personagem adiciona seu nível atual de DAN ao resultado final.",
-          },
         ],
       },
 
-      // ── 3. POSTURAS ───────────────────────────────────────────────
-      {
-        id: "posturas",
-        name: "Posturas",
-        glyph: "🛡",
-        tagline: "18 posturas, 3 escolhidas, 1 estilo",
-        description:
-          "Todo artista marcial conhece as 18 Posturas. Porém, cada personagem escolhe apenas 3 para formar seu estilo pessoal. Cada Postura possui 2 focos — um pode ser um Atributo, outro uma Manobra (ex: Pular, Fintar, Correr).",
-        tags: ["Posturas", "Foco", "Atributo", "Manobra"],
-        ruleSections: [
-          {
-            title: "Entrando em uma Postura",
-            text: "Ao entrar em uma Postura, você recebe os benefícios dos seus dois focos.",
-            items: [
-              "Foco: Atributo — Você pode adicionar o dado daquele atributo aos testes permitidos pela Postura.",
-              "Foco: Manobra — Você pode utilizar aquela Manobra sem pagar CP.",
-            ],
-          },
-          {
-            title: "Troca de Postura",
-            text: "Durante o combate, você pode alternar entre suas 3 Posturas. A troca permite adaptar seu estilo à situação atual.",
-            items: [
-              "Custo: 2 Aura, ou 1 CPP",
-            ],
-          },
-          {
-            title: "Sem Postura",
-            text: "Você também pode lutar sem uma Postura ativa. Nesse caso, para utilizar atributos ou manobras fora do foco atual, você deve gastar CPP normalmente.",
-          },
-        ],
-      },
-
-      // ── 4. FA JIN ─────────────────────────────────────────────────
+      // ── 9. FA JIN & FUSÃO PRIMORDIAL ─────────────────────────────
       {
         id: "fa-jin",
-        name: "Fa Jin",
-        glyph: "💥",
-        tagline: "Liberação concentrada de plasma",
+        name: "Fa Jin & Fusão Primordial",
+        glyph: "🐉",
+        tagline: "Liberação de plasma térmico e Kyūryū Shōtenken",
         description:
-          "O Fa Jin é a liberação concentrada do OR através do corpo. O lutador força suas células a descarregarem sua energia em um único instante. Fa Jin transforma o próprio ataque em dano.",
-        tags: ["Fa Jin", "Plasma", "Aura", "Dano Direto"],
+          "O Fa Jin é a liberação de plasma térmico através do atrito celular.",
+        tags: ["Fa Jin", "Plasma", "Fusão Primordial", "Kyūryū Shōtenken"],
         ruleSections: [
           {
-            title: "Ativação",
-            text: "Ao declarar um Fa Jin, gaste Aura para liberar a técnica. O ataque utiliza: 1d6 de YIN + dados de Fa Jin.",
+            title: "Escala do Fa Jin",
+            text: "1d4 → 1d6 → 1d8 → 1d10 (Limite máximo: 1d10).",
           },
           {
-            title: "Defesa contra Fa Jin",
-            text: "O alvo não pode usar Resistência para reduzir o dano. A defesa é resolvida através de: YIN do atacante × YIN do defensor. O defensor também pode gastar Aura para ativar um Fa Jin defensivo e adicionar seus dados de Fa Jin à defesa.",
+            title: "Propriedade Especial",
+            text: "O dano do Fa Jin ignora a Resistência (RES) e é aplicado diretamente na Vida do alvo.",
           },
           {
-            title: "Resolução",
-            text: "O Fa Jin não possui uma rolagem de dano separada. O resultado final do ataque é o próprio dano.",
+            title: "Restrição Padrão",
+            text: "É proibido utilizar Fa Jin e Sincronia na mesma ação.",
+          },
+          {
+            title: "🐉 Fusão Primordial (Nível 10 da Arbor Long Mai)",
+            text: "Quebra a limitação do Fa Jin, permitindo combinar Fa Jin + Sincronia na mesma ação (Rolagem: Dado de Fa Jin + Yin 1d6 + Yang 1d6).",
+          },
+          {
+            title: "🐉 Kyūryū Shōtenken (A Arte dos Nove Dragões)",
+            text: "Quando o personagem utiliza Fa Jin com Sincronia e obtém um Shin-Gi-Tai, desencadeia acertos múltiplos de plasma:",
             items: [
-              "Se o ataque superar a defesa: Dano = resultado total do Fa Jin",
-              "O dano é aplicado diretamente à Vida",
-              "A Resistência não reduz esse valor",
+              "1 + 1: 1 golpe extra (+1 dado de Fa Jin)",
+              "2 + 2: 2 golpes extras (+2 dados de Fa Jin)",
+              "3 + 3: 3 golpes extras (+3 dados de Fa Jin)",
+              "4 + 4: 6 golpes extras (+6 dados de Fa Jin)",
+              "5 + 5: 7 golpes extras (+7 dados de Fa Jin)",
+              "💥 6 + 6 (Kyūryūken Supremo): Executa 9 golpes inevitáveis e adiciona +9 dados de Fa Jin.",
+              "Com Fa Jin no máximo (1d10): 1d10 + 9d10 = 10d10 de Plasma Puro aplicados diretamente na Vida (sem redução por RES).",
             ],
-          },
-          {
-            title: "Exemplo",
-            text: "Fa Jin do atacante: 15. Defesa do alvo: 6. O ataque supera a defesa. Dano sofrido: 15. A Resistência não reduz esse valor.",
           },
         ],
       },
 
-      // ── 5. FA JIN + SHIN-GI-TAI ───────────────────────────────────
+      // ── 10. TABELA DE REFERÊNCIA RÁPIDA ───────────────────────────
       {
-        id: "fa-jin-shin-gi-tai",
-        name: "Fa Jin + Shin-Gi-Tai",
-        glyph: "🔥",
-        tagline: "A explosão máxima de OR",
+        id: "tabela-referencia",
+        name: "Tabela de Referência Rápida",
+        glyph: "📋",
+        tagline: "Resumo de custos e efeitos",
         description:
-          "Você pode gastar Aura adicional ao declarar o Fa Jin para buscar uma Ressonância Shin-Gi-Tai. Quanto maior a dupla, maior a explosão de OR.",
-        tags: ["Fa Jin", "Shin-Gi-Tai", "Ressonância", "Explosão"],
+          "Tabela de referência rápida para consultas durante o combate.",
+        tags: ["Referência", "Custos", "Tabela"],
         ruleSections: [
           {
-            title: "Ressonância com Fa Jin",
-            text: "Se os dados de YIN e YANG formarem uma dupla, os dados de ressonância são adicionados ao resultado do Fa Jin.",
+            title: "Tabela de Custos",
             table: {
-              headers: ["Dupla", "Ressonância"],
+              headers: ["Ação", "Custo em CPP", "Custo em Chi", "Custo em CPP"],
               rows: [
-                ["1+1", "+3d4"],
-                ["2+2", "+3d6"],
-                ["3+3", "+3d8"],
-                ["4+4", "+3d10"],
-                ["5+5", "+3d12"],
-                ["6+6", "+3d16 + DAN"],
+                ["Trocar Postura (Seu Turno)", "1 CPP", "2 Chi", "—"],
+                ["Trocar Postura (Reação)", "2 CPP", "3 Chi", "—"],
+                ["Manobra de Estilo", "1 CPP", "2 Chi", "3 CPP"],
+                ["Manobra Especial", "3 CPP", "4 Chi", "3 CPP"],
+                ["Sincronia", "—", "3 Chi", "—"],
+                ["Potencializar Dado", "—", "—", "2 CPP"],
+                ["Negativar Dado", "—", "—", "2 CPP"],
+                ["Adicionar Atributo", "—", "—", "3 CPP"],
               ],
             },
           },
-        ],
-      },
-
-      // ── 6. FLUXO DO COMBATE ───────────────────────────────────────
-      {
-        id: "fluxo-combate",
-        name: "Fluxo do Combate",
-        glyph: "⚔",
-        tagline: "Sequências de resolução de combate",
-        description:
-          "Os três fluxos principais do combate: ataque normal, ataque com Sincronia e Fa Jin. Cada fluxo define a ordem exata de rolagens e resoluções.",
-        tags: ["Fluxo", "Ataque", "Sincronia", "Fa Jin"],
-        ruleSections: [
           {
-            title: "Ataque Normal",
+            title: "Resumo de Efeitos de Manobras Especiais",
             items: [
-              "1. Declare o ataque",
-              "2. Role YIN contra YIN",
-              "3. Se acertar, role YANG contra YANG",
-              "4. Determine o Dano",
-            ],
-          },
-          {
-            title: "Ataque com Sincronia",
-            items: [
-              "1. Gaste 2 Aura",
-              "2. Adicione +1d6",
-              "3. Compare os dois dados",
-              "4. Desarmonia, Harmonia ou Shin-Gi-Tai",
-              "5. Resolva o teste",
-            ],
-          },
-          {
-            title: "Fa Jin",
-            items: [
-              "1. Gaste Aura",
-              "2. Role YIN + dados de Fa Jin",
-              "3. O alvo defende com YIN",
-              "4. Se o ataque superar a defesa: Dano = resultado total do ataque",
-            ],
-          },
-        ],
-      },
-
-      // ── 7. O ESTILO DO PERSONAGEM ─────────────────────────────────
-      {
-        id: "estilo-personagem",
-        name: "O Estilo do Personagem",
-        glyph: "🎭",
-        tagline: "18 posturas disponíveis → 3 escolhidas → 1 estilo pessoal",
-        description:
-          "Seu estilo é definido pelas 3 Posturas escolhidas. As Posturas determinam quais atributos e manobras estão naturalmente integrados ao seu estilo de combate.",
-        tags: ["Estilo", "Posturas", "Personalização"],
-        ruleSections: [
-          {
-            title: "Construção do Estilo",
-            text: "Cada personagem possui 18 posturas disponíveis, escolhe 3, e forma 1 estilo pessoal único.",
-            items: [
-              "As Posturas determinam quais atributos e manobras estão naturalmente integrados ao seu estilo de combate",
-              "Escolha suas Posturas. Domine suas Harmonias. Controle seu OR.",
+              "Corrida Cinética: Requer 4m de avanço → +1d4 Dano → Aplica Negativação no alvo.",
+              "Arremessar Vertical: Empurra 1d4 metros → 1d4 Dano Bruto → Aplica Desarmonia no ar.",
             ],
           },
         ],
