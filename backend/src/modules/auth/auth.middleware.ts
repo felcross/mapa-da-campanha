@@ -46,7 +46,7 @@ export function clearCsrfCookie(reply: FastifyReply): void {
   reply.clearCookie(CSRF_COOKIE_NAME, { path: "/" });
 }
 
-export const requireAuth: preHandlerHookHandler = async (request, _reply) => {
+export const requireAuth: preHandlerHookHandler = async (request) => {
   const raw = request.cookies?.[SESSION_COOKIE_NAME];
   if (typeof raw !== "string" || raw.length === 0) {
     throw new AppError("UNAUTHENTICATED", "Sessão ausente");
@@ -70,7 +70,7 @@ function safeEqual(a: string, b: string): boolean {
  * Double-submit cookie: o header X-CSRF-Token precisa bater com o cookie
  * legível csrf_token. Aplicado em métodos não seguros.
  */
-export const csrfProtection: preHandlerHookHandler = async (request, _reply) => {
+export const csrfProtection: preHandlerHookHandler = async (request) => {
   const method = request.method.toUpperCase();
   if (method === "GET" || method === "HEAD" || method === "OPTIONS") return;
 
