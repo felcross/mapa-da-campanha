@@ -112,6 +112,18 @@ function toCharacterData(state: FormState): CharacterData {
   };
 }
 
+function ptIssueMessage(issue: {
+  code: string;
+  message: string;
+  maximum?: number | bigint;
+}): string {
+  if (issue.code === "too_small") return "Preencha este campo.";
+  if (issue.code === "too_big") return `Máximo de ${String(issue.maximum ?? "")} caracteres.`;
+  if (issue.code === "invalid_enum_value") return "Selecione uma opção válida.";
+  if (issue.code === "invalid_type") return "Valor inválido.";
+  return issue.message;
+}
+
 interface CharacterFormProps {
   initial?: CharacterData;
   submitLabel: string;
@@ -153,7 +165,7 @@ export default function CharacterForm({
     if (!parsed.success) {
       const errors: Record<string, string> = {};
       for (const issue of parsed.error.issues) {
-        errors[issue.path.join(".")] = issue.message;
+        errors[issue.path.join(".")] = ptIssueMessage(issue);
       }
       setFieldErrors(errors);
       return;
