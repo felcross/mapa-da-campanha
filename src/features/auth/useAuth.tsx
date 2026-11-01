@@ -25,6 +25,8 @@ export function AuthProvider({
   async function logout(): Promise<void> {
     try {
       await apiSend("/auth/logout", "POST");
+    } catch {
+      // logout local continua mesmo se a requisição falhar
     } finally {
       clearAuth();
     }
@@ -42,4 +44,10 @@ export function useAuth(): AuthContextValue {
   const value = useContext(AuthContext);
   if (!value) throw new Error("useAuth precisa estar dentro de AuthProvider");
   return value;
+}
+
+/** Versão tolerante: null quando fora do SessionGate (flag off). */
+// eslint-disable-next-line react-refresh/only-export-components -- hook acoplado ao provider
+export function useOptionalAuth(): AuthContextValue | null {
+  return useContext(AuthContext);
 }

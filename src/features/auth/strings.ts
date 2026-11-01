@@ -20,6 +20,7 @@ export const strings = {
     verifyMissingTokenMessage: "Link de acesso ausente. Solicite um novo link.",
     requestNewLink: "Solicitar novo link",
     loading: "Carregando…",
+    logout: "Sair",
   },
   errors: {
     networkMessage: "Falha de conexão. Verifique sua internet e tente novamente.",
