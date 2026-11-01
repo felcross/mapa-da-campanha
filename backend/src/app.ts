@@ -2,14 +2,23 @@ import Fastify, { type FastifyBaseLogger, type FastifyInstance } from "fastify";
 import helmet from "@fastify/helmet";
 import cors from "@fastify/cors";
 import cookie from "@fastify/cookie";
+import rateLimit from "@fastify/rate-limit";
 import { ZodError } from "zod";
 import { Prisma } from "@prisma/client";
 import { env } from "./config/env";
 import { AppError } from "./shared/errors";
 import { logger } from "./shared/logger";
 import { healthRoutes } from "./modules/health/health.routes";
+import { authRoutes } from "./modules/auth/auth.routes";
+import { NodemailerEmailService, type EmailService } from "./modules/auth/email.service";
 
-export function buildApp(): FastifyInstance {
+export interface AppDeps {
+  emailService?: EmailService;
+}
+
+export function buildApp(deps: AppDeps = {}): FastifyInstance {
+  const emailService = deps.emailService ?? new NodemailerEmailService();
+
   const app = Fastify({
     loggerInstance: logger as unknown as FastifyBaseLogger,
     bodyLimit: 256 * 1024,
@@ -30,6 +39,12 @@ export function buildApp(): FastifyInstance {
   app.register(helmet);
   app.register(cors, { origin: env.WEB_URL, credentials: true });
   app.register(cookie);
+  app.register(rateLimit, {
+    global: false,
+    // o plugin lança o retorno como erro — precisa ser uma instância de Error
+    errorResponseBuilder: () =>
+      new AppError("RATE_LIMITED", "Muitas tentativas, tente novamente em instantes"),
+  });
 
   app.setErrorHandler((error, request, reply) => {
     const requestId = request.id;
@@ -86,6 +101,9 @@ export function buildApp(): FastifyInstance {
   });
 
   app.register(healthRoutes);
+  app.register(async (scope) => authRoutes(scope, { emailService }), {
+    prefix: "/api/v1/auth",
+  });
 
   return app;
 }
