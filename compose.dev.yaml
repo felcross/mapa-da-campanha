@@ -1,0 +1,41 @@
+# Infra APENAS para desenvolvimento local — não é usado pelo deploy de produção.
+# Subir: docker compose -f compose.dev.yaml up -d
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: rpg-map-pg-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: rpgmap
+      POSTGRES_PASSWORD: rpgmap_dev
+      POSTGRES_DB: rpgmap
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata_dev:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rpgmap -d rpgmap"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  mailpit:
+    image: axllent/mailpit:v1.20
+    container_name: rpg-map-mailpit-dev
+    restart: unless-stopped
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # UI web (caixa de entrada dev)
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  pgdata_dev:

@@ -8,5 +8,7 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./src/test-setup.ts'],
     css: true,
+    // backend/ tem seu próprio vitest (backend/vitest.config.ts)
+    exclude: ['**/node_modules/**', '**/dist/**', 'backend/**'],
   },
 })
