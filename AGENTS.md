@@ -108,3 +108,49 @@ Cada item segue a interface `Item` com campos opcionais:
 - `categories.ts` é enorme (~3400+ linhas). Editar é lento para autocomplete/linting. Saiba o que procura antes de abrir.
 - O `dist/` pode existir no disco mas está no `.gitignore`.
 - Deploy: `SSH_HOST` deve ser IPv4 (bug conhecido com IPv6 nesse secret).
+
+---
+
+## Feature: Ficha de Personagem (branch `feature/character-sheet`)
+
+> As seções acima descrevem uma versão anterior do projeto (mapa interativo, categorias
+> Samurai/Sacerdotes/etc.) e estão **desatualizadas** — mantidas como histórico. Estado
+> real hoje: hub → compêndio "As Seis Harmonias" + esta feature.
+
+### O que entrou
+
+- **`backend/`** — Fastify + Prisma + PostgreSQL (package.json isolado; a raiz não é workspace).
+  Módulos `auth` (magic link + sessões + CSRF + rate limit), `characters` (CRUD com ownership),
+  `health`. Testes com Vitest em `backend/vitest.config.ts` (banco `rpgmap_test`, arquivos em série).
+- **`shared/`** — schemas Zod compartilhados (CharacterSchema com **autoridades** — nomenclatura
+  oficial da feature; nunca usar "atributo"), `summarizeCharacter`, envelope de erros.
+- **`compose.dev.yaml`** — Postgres (:5433) + Mailpit (:1025/:8025), **somente dev**.
+  `docker-compose.yml` de produção é intocável.
+- **Frontend** — `src/features/auth/` (login estilo blog como entrada do site; cópia do `/home/fcross/blog`),
+  `src/features/sheet/` (home/cards/criador/detalhe), `src/api/client.ts`, flag
+  `VITE_ENABLE_SHEET_CREATOR` (default off ⇒ site atual intacto; on ⇒ login gateia hub e compêndio).
+- **Docs**: `docs/character-sheet-setup.md` e `spec-sdd.md` (spec no padrão SDD).
+
+### Comandos novos
+
+```bash
+docker compose -f compose.dev.yaml up -d   # infra dev
+cd backend && npm run dev                  # API :3001
+cd backend && npm test                     # testes de backend
+npm test                                   # shared + frontend (backend excluído)
+```
+
+### Onde mexer
+
+- Regras/limites da ficha → `shared/schemas/` (e opções espelham `src/data/categories.ts`)
+- Endpoints → `backend/src/modules/*/routes.ts` (regras nos `services`)
+- Telas → `src/features/sheet/`, textos em `strings.ts` (proibido literal em JSX)
+- Contrato visual do login → `src/styles/auth.css` (portal claro, igual ao blog)
+
+### Pendências reportadas (não tocadas)
+
+- Seções antigas deste AGENTS.md (mapa, categories "3400+ linhas", AppView antigo)
+- `react-zoom-pan-pinch` sem uso; assets legados em `public/`; `backup/` e `kowloonproject/`
+- Palavra "Atributo" nos textos de `categories.ts` (renomear é task separada)
+- Custos de CPP divergentes entre `cpp` e `tabela-referencia` (decisão do usuário pendente)
+- Vitest da raiz roda os testes de `backup/` (comportamento antigo, verde)

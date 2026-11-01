@@ -1,11 +1,8 @@
-import { useState, type ReactNode } from "react";
+import { lazy, Suspense, useState, type ReactNode } from "react";
 import HubScreen from "./components/hub/HubScreen";
 import NoirIntro from "./components/classes/NoirIntro";
 import ClassesView from "./components/classes/ClassesView";
 import SessionGate from "./features/auth/SessionGate";
-import SheetHome from "./features/sheet/SheetHome";
-import SheetCreator from "./features/sheet/SheetCreator";
-import SheetDetail from "./features/sheet/SheetDetail";
 import { sheetEnabled } from "./featureFlag";
 import "./styles/tokens.css";
 import "./styles/noir.css";
@@ -13,6 +10,11 @@ import "./styles/hub.css";
 import "./styles/classes.css";
 import "./styles/auth.css";
 import "./styles/sheet.css";
+
+// Feature lazy-gated: com a flag off estes chunks nunca são carregados.
+const SheetHome = lazy(() => import("./features/sheet/SheetHome"));
+const SheetCreator = lazy(() => import("./features/sheet/SheetCreator"));
+const SheetDetail = lazy(() => import("./features/sheet/SheetDetail"));
 
 type AppView =
   | "hub"
@@ -49,26 +51,32 @@ function AppContent({
       )}
       {view === "compendium" && <ClassesView onBack={() => setView("hub")} />}
       {view === "sheetHome" && (
-        <SheetHome
-          onCreate={() => setView("sheetCreator")}
-          onOpen={(id) => {
-            setSelectedId(id);
-            setView("sheetDetail");
-          }}
-        />
+        <Suspense fallback={null}>
+          <SheetHome
+            onCreate={() => setView("sheetCreator")}
+            onOpen={(id) => {
+              setSelectedId(id);
+              setView("sheetDetail");
+            }}
+          />
+        </Suspense>
       )}
       {view === "sheetCreator" && (
-        <SheetCreator
-          onDone={() => setView("sheetHome")}
-          onCancel={() => setView("sheetHome")}
-        />
+        <Suspense fallback={null}>
+          <SheetCreator
+            onDone={() => setView("sheetHome")}
+            onCancel={() => setView("sheetHome")}
+          />
+        </Suspense>
       )}
       {view === "sheetDetail" && selectedId && (
-        <SheetDetail
-          characterId={selectedId}
-          onBack={() => setView("sheetHome")}
-          onDeleted={() => setView("sheetHome")}
-        />
+        <Suspense fallback={null}>
+          <SheetDetail
+            characterId={selectedId}
+            onBack={() => setView("sheetHome")}
+            onDeleted={() => setView("sheetHome")}
+          />
+        </Suspense>
       )}
     </>
   );
