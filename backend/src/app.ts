@@ -3,13 +3,13 @@ import helmet from "@fastify/helmet";
 import cors from "@fastify/cors";
 import cookie from "@fastify/cookie";
 import rateLimit from "@fastify/rate-limit";
-import { ZodError } from "zod";
 import { Prisma } from "@prisma/client";
 import { env } from "./config/env";
-import { AppError } from "./shared/errors";
+import { AppError, isZodError } from "./shared/errors";
 import { logger } from "./shared/logger";
 import { healthRoutes } from "./modules/health/health.routes";
 import { authRoutes } from "./modules/auth/auth.routes";
+import { charactersRoutes } from "./modules/characters/characters.routes";
 import { NodemailerEmailService, type EmailService } from "./modules/auth/email.service";
 
 export interface AppDeps {
@@ -49,7 +49,7 @@ export function buildApp(deps: AppDeps = {}): FastifyInstance {
   app.setErrorHandler((error, request, reply) => {
     const requestId = request.id;
 
-    if (error instanceof ZodError) {
+    if (isZodError(error)) {
       reply.status(400).send({
         error: {
           code: "VALIDATION_ERROR",
@@ -104,6 +104,7 @@ export function buildApp(deps: AppDeps = {}): FastifyInstance {
   app.register(async (scope) => authRoutes(scope, { emailService }), {
     prefix: "/api/v1/auth",
   });
+  app.register(charactersRoutes, { prefix: "/api/v1/characters" });
 
   return app;
 }

@@ -3,6 +3,8 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   test: {
     environment: "node",
+    // arquivos compartilham o banco de testes — rodar em série
+    fileParallelism: false,
     env: {
       NODE_ENV: "test",
       LOG_LEVEL: "silent",

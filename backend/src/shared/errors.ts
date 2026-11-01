@@ -14,3 +14,16 @@ export class AppError extends Error {
     this.details = details;
   }
 }
+
+/**
+ * Detecção estrutural de ZodError: shared/ e backend/ têm cópias
+ * distintas do zod, então instanceof não cruza instâncias.
+ */
+export function isZodError(error: unknown): error is { issues: unknown[] } {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    (error as { name?: unknown }).name === "ZodError" &&
+    Array.isArray((error as { issues?: unknown }).issues)
+  );
+}
