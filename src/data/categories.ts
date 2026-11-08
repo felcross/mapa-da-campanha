@@ -407,37 +407,6 @@ export const DATA: Record<string, Category> = {
           },
         ],
       },
-      {
-        id: "von-vontade",
-        name: "Atributos Especiais: VON (Vontade)",
-        glyph: "✧",
-        tagline: "Firmeza mental e resistência a influências",
-        description:
-          "VON — Vontade representa a firmeza mental e emocional do personagem, sua capacidade de resistir a influências externas e manter o controle sobre suas próprias decisões. Vontade pertence ao grupo de Atributos Especiais.",
-        tags: ["Atributo Especial"],
-        ruleSections: [
-          {
-            title: "Progressão",
-            dice: { label: "Vontade", values: ["1d4", "1d6", "1d8", "1d10"] },
-          },
-          {
-            title: "Aplicações de Vontade",
-            text: "Vontade é utilizada em testes de resistência contra Competências e efeitos que tentem se impor sobre o personagem. Quando um personagem é alvo de uma dessas tentativas, sua Vontade pode ser utilizada para resistir à influência.",
-            items: [
-              "Resistir à intimidação",
-              "Resistir à sedução",
-              "Resistir à persuasão",
-              "Resistir à manipulação",
-              "Resistir ao medo",
-              "Suportar pressão psicológica",
-              "Manter uma decisão",
-              "Resistir à compulsão",
-              "Permanecer firme",
-              "Suportar uma imposição",
-            ],
-          },
-        ],
-      },
     ],
   },
   construcao: {
@@ -578,7 +547,7 @@ export const DATA: Record<string, Category> = {
         id: "atributos-especiais",
         name: "Atributos Especiais",
         glyph: "✦",
-        tagline: "VEL, MEN e ESP",
+        tagline: "VEL, MEN, ESP e VON",
         description:
           "Os atributos especiais representam capacidades que vão além das disputas físicas convencionais.",
         tags: [],
@@ -597,6 +566,23 @@ export const DATA: Record<string, Category> = {
             title: "ESP — Espírito",
             text: "Utilizado para defesa contra ataques espirituais.",
             dice: { label: "Potência", values: ["1d4", "1d6", "1d8", "1d10"] },
+          },
+          {
+            title: "VON — Vontade",
+            text: "VON — Vontade representa a firmeza mental e emocional do personagem, sua capacidade de resistir a influências externas e manter o controle sobre suas próprias decisões. Vontade é utilizada em testes de resistência contra Competências e efeitos que tentem se impor sobre o personagem. Quando um personagem é alvo de uma dessas tentativas, sua Vontade pode ser utilizada para resistir à influência.",
+            dice: { label: "Vontade", values: ["1d4", "1d6", "1d8", "1d10"] },
+            items: [
+              "Resistir à intimidação",
+              "Resistir à sedução",
+              "Resistir à persuasão",
+              "Resistir à manipulação",
+              "Resistir ao medo",
+              "Suportar pressão psicológica",
+              "Manter uma decisão",
+              "Resistir à compulsão",
+              "Permanecer firme",
+              "Suportar uma imposição",
+            ],
           },
         ],
       },
@@ -635,11 +621,119 @@ export const DATA: Record<string, Category> = {
           },
           {
             title: "Regra para os Kowloon Fighters",
-            text: "Os personagens da classe Kowloon Fighters possuem duas opções de Arquétipo Especial. O jogador deve escolher apenas um desses dois arquétipos durante a criação do personagem. A escolha determina a qual estilo marcial exclusivo o personagem terá acesso.",
+            text: "Os personagens da classe Kowloon Fighters possuem três opções de Arquétipo Especial. O jogador deve escolher apenas um desses três arquétipos durante a criação do personagem. A escolha determina a qual estilo marcial exclusivo o personagem terá acesso.",
             items: [
-              "1. Artista Marcial Kyūryū Shōtenken",
-              "2. Artista Marcial Tai Chi Kyūryū",
+              "1. Artista Marcial — Kyūryū Hyakusōken",
+              "2. Tai Chi",
+              "3. Shōtenken",
             ],
+          },
+        ],
+      },
+      {
+        id: "competencias",
+        name: "Competências",
+        glyph: "◆",
+        tagline: "Lista oficial de Competências",
+        description:
+          "Lista oficial de Competências disponíveis durante a criação do personagem e a escolha dos Arquétipos. Cada Competência possui um bônus próprio, somado aos testes sempre que o personagem utiliza uma Competência na qual é treinado.",
+        tags: ["24 Competências"],
+        ruleSections: [
+          {
+            title: "Atletismo",
+            text: "Executar atividades físicas como correr, saltar, escalar, nadar e superar obstáculos.",
+          },
+          {
+            title: "Comunicação",
+            text: "Transmitir informações com clareza, adaptar a linguagem e garantir a compreensão da mensagem.",
+          },
+          {
+            title: "Conhecimento",
+            text: "Recordar, compreender e aplicar informações de uma área de especialização.",
+          },
+          {
+            title: "Decifração",
+            text: "Interpretar códigos, cifras, símbolos e mensagens ocultas.",
+          },
+          {
+            title: "Debate",
+            text: "Defender ideias e confrontar argumentos em uma discussão.",
+          },
+          {
+            title: "Discrição",
+            text: "Controlar a própria presença e comportamento para evitar chamar atenção.",
+          },
+          {
+            title: "Estratégia",
+            text: "Antecipar decisões, elaborar planos e superar as ações de um adversário.",
+          },
+          {
+            title: "Identificação",
+            text: "Reconhecer pessoas, criaturas, objetos, substâncias ou fenômenos por suas características.",
+          },
+          {
+            title: "Interrogatório",
+            text: "Conduzir perguntas, pressionar alguém e identificar contradições em seu relato.",
+          },
+          {
+            title: "Intimidação",
+            text: "Provocar medo, insegurança ou submissão por meio de ameaças, postura ou autoridade.",
+          },
+          {
+            title: "Investigação",
+            text: "Relacionar pistas, informações e evidências para reconstruir acontecimentos.",
+          },
+          {
+            title: "Leitura Emocional",
+            text: "Interpretar emoções, intenções e mudanças no comportamento de outras pessoas.",
+          },
+          {
+            title: "Liderança",
+            text: "Inspirar, coordenar e conduzir pessoas em direção a um objetivo.",
+          },
+          {
+            title: "Luta",
+            text: "Utilizar técnicas de combate corporal, defesa pessoal e confronto físico.",
+          },
+          {
+            title: "Ocultação",
+            text: "Esconder objetos, rastros, informações ou evidências.",
+          },
+          {
+            title: "Ofício",
+            text: "Executar trabalhos manuais especializados, fabricar, reparar e manipular ferramentas e materiais.",
+          },
+          {
+            title: "Orientação",
+            text: "Determinar localização, direção e caminhos utilizando referências ambientais.",
+          },
+          {
+            title: "Percepção",
+            text: "Identificar detalhes, alterações, sons, movimentos e elementos difíceis de notar no ambiente.",
+          },
+          {
+            title: "Performance",
+            text: "Causar impacto por meio da expressão corporal, aparência, atuação ou demonstração artística.",
+          },
+          {
+            title: "Persuasão",
+            text: "Influenciar alguém a aceitar uma ideia, proposta ou decisão.",
+          },
+          {
+            title: "Rastreamento",
+            text: "Localizar e seguir pessoas, animais ou objetos por meio de vestígios e sinais.",
+          },
+          {
+            title: "Sedução",
+            text: "Despertar atração, interesse ou envolvimento por meio do comportamento e da expressão pessoal.",
+          },
+          {
+            title: "Sobrevivência",
+            text: "Encontrar recursos, improvisar soluções e permanecer vivo em ambientes hostis.",
+          },
+          {
+            title: "Tradução",
+            text: "Compreender e converter idiomas, textos e sistemas de comunicação conhecidos.",
           },
         ],
       },
@@ -693,11 +787,12 @@ export const DATA: Record<string, Category> = {
           },
           {
             title: "6. Agarrar",
-            text: "Realiza um teste contestado de Yin contra Yang. Se o alvo perder, fica imobilizado, dando ao atacante duas opções subsequentes:",
+            text: "Realiza um teste contestado de Dado de Dao contra Dado de Dao. Se o alvo perder, fica imobilizado, dando ao atacante duas opções subsequentes:",
             items: [
               "Manter a imobilização — vencendo um novo teste contestado, o valor que ultrapassar a defesa do alvo é convertido em dano direto",
               "Arremessar o alvo — causa 1d4 de dano, sendo que o valor numérico obtido nesse dado também define a quantidade de metros que o alvo é lançado",
             ],
+            note: "Correção mecânica obrigatória: a disputa de Agarrar deve utilizar os Dados de Dao dos dois participantes. Não utilizar Yin contra Yang como testes separados.",
           },
         ],
       },
@@ -1001,23 +1096,49 @@ export const DATA: Record<string, Category> = {
         glyph: "❖",
         tagline: "1 Especial de Classe + 2 Livres",
         description:
-          "Cada personagem começa o jogo escolhindo 3 Arquétipos no total: 1 Arquétipo Especial de Classe e 2 Arquétipos Livres. Os Arquétipos Especiais são opções alternativas — o personagem Kowloon Fighters escolhe somente um deles.",
+          "Cada personagem começa o jogo escolhindo 3 Arquétipos no total: 1 Arquétipo Especial de Classe e 2 Arquétipos Livres. Os Arquétipos Especiais são opções alternativas — o personagem Kowloon Fighters escolhe somente um deles. As regras de acesso às técnicas variam conforme o Arquétipo Especial escolhido.",
         tags: ["1 Especial de Classe + 2 Livres", "A escolha não é um 4º arquétipo"],
         ruleSections: [
           {
-            title: "1. Artista Marcial Kyūryū Shōtenken",
-            text: "Categoria: Classe Kowloon Fighters. Concede acesso aos poderes do estilo Kyūryū Shōtenken.",
+            title: "1. Artista Marcial — Kyūryū Hyakusōken",
+            text: "Categoria: Classe Kowloon Fighters. Descrição: acesso ao estilo Kyūryū Hyakusōken.",
             dice: DADO_ARQUETIPO,
-            items: ["Conhecimento: +3", "2 Competências à sua escolha"],
-            note: "Conhecimentos Relevantes: História da Ordem; mais 2 conhecimentos à sua escolha.\nAcesso ao Estilo: o personagem que escolher este Arquétipo Especial terá acesso ao estilo marcial Kyūryū Shōtenken, incluindo suas especializações elementais e os poderes correspondentes. O acesso ao estilo depende da escolha deste arquétipo. Personagens que não possuam o Arquétipo Artista Marcial Kyūryū Shōtenken não podem utilizar seus poderes.",
+            items: ["Conhecimento: +3", "Duas Competências à escolha"],
+            note: "Conhecimentos Relevantes: História da Ordem e outros dois conhecimentos à escolha.",
           },
           {
-            title: "2. Artista Marcial Tai Chi Kyūryū",
+            title: "Acesso às técnicas — Kyūryū Hyakusōken",
+            items: [
+              "3 técnicas básicas",
+              "2 técnicas intermediárias",
+              "2 técnicas mestras",
+            ],
+          },
+          {
+            title: "2. Tai Chi",
             badge: "Em construção",
-            text: "Categoria: Classe Kowloon Fighters. Concede acesso aos poderes do estilo Tai Chi Kyūryū.",
+            text: "Categoria: Classe Kowloon Fighters. Descrição: acesso ao estilo Tai Chi Kyūryū.",
             dice: DADO_ARQUETIPO,
-            items: ["Conhecimento: +3", "2 Competências à sua escolha"],
-            note: "Conhecimentos Relevantes: História da Ordem; mais 2 conhecimentos à sua escolha.\nAcesso ao Estilo: o personagem que escolher este Arquétipo Especial terá acesso ao estilo marcial Tai Chi Kyūryū.\nAs regras, técnicas e poderes do estilo Tai Chi Kyūryū serão desenvolvidos posteriormente. Não criar ou atribuir poderes provisórios a esse estilo.",
+            items: ["Conhecimento: +3", "Duas Competências à escolha"],
+            note: "Conhecimentos Relevantes: História da Ordem e outros dois conhecimentos à escolha.",
+          },
+          {
+            title: "Acesso às técnicas — Tai Chi",
+            items: [
+              "1 técnica intermediária exclusiva",
+              "1 técnica mestra exclusiva",
+            ],
+            text: "Também possui poderes próprios, que ainda estão em desenvolvimento.",
+          },
+          {
+            title: "3. Shōtenken",
+            text: "Possui acesso aos poderes dos Dragões, podendo utilizar seus respectivos dados.",
+            items: [
+              "1 técnica básica",
+              "1 técnica intermediária",
+              "1 técnica mestra",
+            ],
+            note: "As técnicas escolhidas não podem ter seus bônus acumulados entre si.",
           },
         ],
       },
@@ -1098,6 +1219,112 @@ export const DATA: Record<string, Category> = {
             title: "Projeção Fa Jin",
             text: "A Projeção determina a distância em que o personagem consegue projetar a força do Fa Jin. Cada nível de Projeção acrescenta 1 metro de alcance, até o limite máximo de 10 metros.",
             pips: { count: 10, label: "Projeção" },
+          },
+        ],
+      },
+      {
+        id: "tecnicas-de-nivel",
+        name: "Técnicas de Combate",
+        glyph: "✧",
+        tagline: "17 técnicas em três níveis de progressão",
+        description:
+          "As Técnicas de Combate são habilidades especiais utilizadas pelos Kowloon Fighters para ampliar suas capacidades durante o combate. As técnicas possuem categorias de progressão: Iniciante, Intermediária e Mestra. Cada técnica possui um custo de ativação e um efeito específico.",
+        tags: ["Custos: 3 Taiji · 6 Taiji · 8 Qi"],
+        ruleSections: [
+          {
+            title: "Funcionamento geral",
+            text: "As Técnicas de Combate são habilidades especiais utilizadas pelos Kowloon Fighters para ampliar suas capacidades durante o combate. As técnicas possuem categorias de progressão: Iniciante, Intermediária e Mestra. Cada técnica possui um custo de ativação e um efeito específico.",
+          },
+          {
+            title: "2.1. Acúmulo de bônus",
+            items: [
+              "Os bônus concedidos por diferentes técnicas podem ser somados, desde que seus efeitos sejam compatíveis com a ação realizada",
+              "Uma técnica não pode ser somada a outra quando seus efeitos não fizerem sentido em conjunto",
+              "O limite de técnicas acumuláveis em uma mesma ação será equivalente à metade do nível de Dan do personagem",
+            ],
+            note: "Observação: o limite baseado no nível de Dan será implementado futuramente.",
+          },
+          {
+            title: "2.2. Técnicas de nível iniciante",
+            text: "Custo: 3 Taiji.",
+          },
+          {
+            title: "Golpe Relâmpago",
+            text: "Efeito: Ao realizar um ataque desarmado, você ganha 1 Elevação no dado de Potência do AGIL.",
+          },
+          {
+            title: "Dobre-se como o Junco",
+            text: "Efeito: Ao realizar um teste de Defesa, caso seja bem-sucedido, adicione 1 Elevação no dado de Potência do AGIL ao seu próximo ataque.",
+          },
+          {
+            title: "Força do Rikishi",
+            text: "Efeito: Durante um Agarrão ou Imobilização ativa, seu dado de Dao ganha 1 Elevação enquanto mantiver o oponente sob controle.",
+          },
+          {
+            title: "Manto Ciclôni",
+            text: "Efeito: Se usar a manobra Ataque Veloz no mapa de batalha naquele turno, seu dado de Potência do FOR ganha 1 Elevação devido à inércia do giro.",
+          },
+          {
+            title: "Postura de Aço",
+            text: "Efeito: Adiciona 1 Elevação ao dado de Potência RES ao calcular a redução de dano em qualquer ataque sofrido de frente.",
+          },
+          {
+            title: "2.3. Técnicas de nível intermediário",
+            text: "Custo: 6 Taiji.",
+          },
+          {
+            title: "Impacto Trovejante",
+            text: "Efeito: Quando o ataque acerta, você ganha 1 Elevação gratuita no dado de Potência FOR.",
+          },
+          {
+            title: "Redirecionamento do Fluxo",
+            badge: "Exclusivo Tai Chi",
+            text: "Efeito: Ao esquivar com sucesso de um ataque corpo a corpo, você redireciona o oponente. O atacante é empurrado [Resultado do seu dado de REF] metros e cai no chão (Derrubado).",
+          },
+          {
+            title: "Golpe no Ponto Vital",
+            text: "Efeito: Se o seu teste de ataque superar a Defesa do alvo por uma margem de 5+, seu dado de Dao ganha 1 Elevação na ação de dano.",
+          },
+          {
+            title: "Precisão Divina",
+            text: "Efeito: Com um golpe preciso nos centros nervosos, o alvo sofre dano e recebe uma penalidade de -1d4 em todos os testes físicos na próxima rodada devido ao travamento muscular.",
+          },
+          {
+            title: "Giro de Redirecionamento",
+            text: "Efeito: Quando um inimigo erra um ataque corpo a corpo contra você e você se movimentou até o alvo naquele turno, o giro do movimento permite que você realize um Golpe Poderoso que ganha 1 Elevação no dado de Potência FOR.",
+          },
+          {
+            title: "Rebate de Ferro",
+            text: "Efeito: Se a sua redução de dano anular completamente o dano de um ataque recebido, o oponente sofre uma reflexão de dano puro igual à metade do valor obtido anulado.",
+          },
+          {
+            title: "2.4. Técnicas de nível mestre",
+            text: "Custo: 8 Qi.",
+          },
+          {
+            title: "Fúria da Tempestade",
+            text: "Efeito: Você desfere uma saraivada rápida. Realiza um ataque aplicando 1 Elevação no dado do Dao no ataque e 1 Elevação no dado do Dao no dano da rolagem.",
+          },
+          {
+            title: "Suplex Tectônico",
+            text: "Efeito: Ao usar a manobra Agarrar, você arremessa o oponente contra o chão com impacto avassalador. O alvo sofre os efeitos de Derrubar ao final do golpe e seu dado de Potência FOR ganha 2 Elevações gratuitas.",
+          },
+          {
+            title: "Toque Cortante",
+            text: "Efeito: Ao declarar um ataque desarmado, você pode aplicar 1 Elevação no dado de Dao e seu ataque tem efeito Letal (não tem efeito em Sincronismo).",
+          },
+          {
+            title: "Olho do Furacão",
+            text: "Efeito: Você cria uma zona de pressão ao seu redor. Todos os inimigos adjacentes que tentarem atacar sofrem Desarmonia (-1d4) no teste deles, enquanto seu próximo ataque ganha 1 Elevação no dado de Potência AGIL.",
+          },
+          {
+            title: "Impenetrável",
+            text: "Efeito: Durante uma rodada inteira, você se torna uma verdadeira muralha: ganha 1 Elevação gratuita em todas as rolagens de Potência em REF e RES, além de imunidade contra efeitos de Derrubar ou Arremesso.",
+          },
+          {
+            title: "O Abraço da Névoa",
+            badge: "Exclusivo Tai Chi",
+            text: "Efeito: Você opta por não causar dano ao acertar um ataque desarmado. Em vez disso, o alvo entra em Desarmonia Maior (não pode gastar Taiji, Aura, Mana ou Prana) por 1 rodada.",
           },
         ],
       },
