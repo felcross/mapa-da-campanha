@@ -24,6 +24,7 @@ export interface ContentCard {
   name: string;
   glyph?: string;
   image?: string;
+  imageFit?: "cover" | "contain";
   srcSet?: string;
   dice?: string[];
   text: string;
@@ -1145,33 +1146,31 @@ export const DATA: Record<string, Category> = {
         description:
           "Cada personagem começa o jogo escolhindo 3 Arquétipos no total: 1 Arquétipo Especial de Classe e 2 Arquétipos Livres. Os Arquétipos Especiais são opções alternativas — o personagem Kowloon Fighters escolhe somente um deles. As regras de acesso às técnicas variam conforme o Arquétipo Especial escolhido.",
         tags: ["1 Especial de Classe + 2 Livres", "A escolha não é um 4º arquétipo"],
-        ruleSections: [
+        cards: [
           {
-            title: "1. Artista Marcial — Kyūryū Hyakusōken",
+            name: "1. Artista Marcial — Kyūryū Hyakusōken",
+            image: "/arquetipos/hyakusoken.webp",
+            imageFit: "contain",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Classe Kowloon Fighters. Descrição: acesso ao estilo Kyūryū Hyakusōken.",
-            dice: DADO_ARQUETIPO,
             items: ["Conhecimento: +3", "Duas Competências à escolha"],
-            note: "Conhecimentos Relevantes: História da Ordem e outros dois conhecimentos à escolha.",
+            note: "Conhecimentos Relevantes: História da Ordem e outros dois conhecimentos à escolha.\n\nAcesso às técnicas: 3 técnicas básicas, 2 técnicas intermediárias, 2 técnicas mestras.",
           },
           {
-            title: "Acesso às técnicas — Kyūryū Hyakusōken",
-            items: [
-              "3 técnicas básicas",
-              "2 técnicas intermediárias",
-              "2 técnicas mestras",
-            ],
-          },
-          {
-            title: "2. Artista Marcial — Tai Chi Kyūryū",
+            name: "2. Artista Marcial — Tai Chi Kyūryū",
+            image: "/arquetipos/tai-chi-kyuryu.webp",
+            imageFit: "contain",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Classe Kowloon Fighters. Descrição: acesso à feitiçaria Tai Chi Kyūryū.",
-            dice: DADO_ARQUETIPO,
             items: ["Conhecimento: +3", "Duas Competências à escolha"],
             note: "Conhecimentos Relevantes: História da Ordem e outros dois conhecimentos à escolha.\n\nBônus: os praticantes de Tai Chi Kyūryū ganham 1 técnica intermediária exclusiva e 1 técnica mestra exclusiva.",
           },
           {
-            title: "3. Artista Marcial — Kyūryū Shōtenken",
+            name: "3. Artista Marcial — Kyūryū Shōtenken",
+            image: "/arquetipos/kyuryu-shotenken.webp",
+            imageFit: "contain",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Classe Kowloon Fighters. Descrição: acesso aos poderes do estilo Kyūryū Shōtenken.",
-            dice: DADO_ARQUETIPO,
             items: ["Conhecimento: +3", "Duas Competências à escolha"],
             note: "Conhecimentos Relevantes: História da Ordem e outros dois conhecimentos à escolha.\n\nBônus: o personagem pode escolher 1 técnica básica, 1 técnica intermediária e 1 técnica mestra.\n\nAs técnicas escolhidas não podem ter seus bônus acumulados entre si.",
           },

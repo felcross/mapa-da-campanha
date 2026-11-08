@@ -552,7 +552,11 @@ export default function DetailScreen({ categoryLabel, item }: DetailScreenProps)
                         srcSet={card.srcSet}
                         sizes={card.srcSet ? "(max-width: 700px) 100vw, 40vw" : undefined}
                         alt={card.name}
-                        className="contentCard__image"
+                        className={
+                          card.imageFit === "contain"
+                            ? "contentCard__image contentCard__image--contain"
+                            : "contentCard__image"
+                        }
                         loading="lazy"
                         onError={(e) => {
                           e.currentTarget.style.visibility = "hidden";

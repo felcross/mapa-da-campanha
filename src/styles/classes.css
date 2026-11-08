@@ -1673,6 +1673,14 @@
   border-bottom: 1px solid var(--line-strong);
 }
 
+/* arte retrato (figura inteira) — moldura escura uniforme */
+.contentCard__image--contain {
+  height: 320px;
+  object-fit: contain;
+  background: var(--sumi-soft);
+  padding: 10px 0;
+}
+
 .contentCard__glyph {
   position: absolute;
   top: 8px;

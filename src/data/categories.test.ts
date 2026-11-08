@@ -108,30 +108,38 @@ describe("categories — estrutura do conteúdo", () => {
     }
   });
 
-  it("Arquétipos Especiais KF: 3 opções com bônus e sem badge de em construção", () => {
+  it("Arquétipos Especiais KF: 3 cards com arte e bônus", () => {
     const kf = DATA["kowloon-fighters"].items.find((i) => i.id === "arquetipos-especiais");
-    const secoes = kf?.ruleSections ?? [];
-    const titulos = secoes.map((s) => s.title);
-    expect(titulos).toContain("1. Artista Marcial — Kyūryū Hyakusōken");
-    expect(titulos).toContain("2. Artista Marcial — Tai Chi Kyūryū");
-    expect(titulos).toContain("3. Artista Marcial — Kyūryū Shōtenken");
-    expect(titulos).toContain("Acesso às técnicas — Kyūryū Hyakusōken");
-    expect(titulos).not.toContain("Acesso às técnicas — Tai Chi");
-    expect(secoes.some((s) => s.badge === "Em construção")).toBe(false);
-    const hyakusoken = secoes.find((s) => s.title === "Acesso às técnicas — Kyūryū Hyakusōken");
-    expect(hyakusoken?.items).toEqual([
-      "3 técnicas básicas",
-      "2 técnicas intermediárias",
-      "2 técnicas mestras",
+    const cards = kf?.cards ?? [];
+    expect(cards.map((c) => c.name)).toEqual([
+      "1. Artista Marcial — Kyūryū Hyakusōken",
+      "2. Artista Marcial — Tai Chi Kyūryū",
+      "3. Artista Marcial — Kyūryū Shōtenken",
     ]);
-    const taiChi = secoes.find((s) => s.title === "2. Artista Marcial — Tai Chi Kyūryū");
-    expect(taiChi?.text).toContain("acesso à feitiçaria Tai Chi Kyūryū");
-    expect(taiChi?.note).toContain("Bônus: os praticantes de Tai Chi Kyūryū ganham 1 técnica intermediária exclusiva e 1 técnica mestra exclusiva");
-    const shotenken = secoes.find((s) => s.title === "3. Artista Marcial — Kyūryū Shōtenken");
-    expect(shotenken?.text).toBe("Categoria: Classe Kowloon Fighters. Descrição: acesso aos poderes do estilo Kyūryū Shōtenken.");
-    expect(shotenken?.dice?.values).toEqual(["1d4", "1d6", "1d8", "1d10"]);
-    expect(shotenken?.items).toEqual(["Conhecimento: +3", "Duas Competências à escolha"]);
-    expect(shotenken?.note).toContain("Bônus: o personagem pode escolher 1 técnica básica, 1 técnica intermediária e 1 técnica mestra");
+    expect(cards.map((c) => c.image)).toEqual([
+      "/arquetipos/hyakusoken.webp",
+      "/arquetipos/tai-chi-kyuryu.webp",
+      "/arquetipos/kyuryu-shotenken.webp",
+    ]);
+    for (const card of cards) {
+      expect(card.imageFit).toBe("contain");
+      expect(card.dice).toEqual(["1d4", "1d6", "1d8", "1d10"]);
+      expect(card.items).toEqual(["Conhecimento: +3", "Duas Competências à escolha"]);
+    }
+    expect(cards[0].note).toContain(
+      "Acesso às técnicas: 3 técnicas básicas, 2 técnicas intermediárias, 2 técnicas mestras",
+    );
+    expect(cards[1].text).toContain("acesso à feitiçaria Tai Chi Kyūryū");
+    expect(cards[1].note).toContain(
+      "Bônus: os praticantes de Tai Chi Kyūryū ganham 1 técnica intermediária exclusiva e 1 técnica mestra exclusiva",
+    );
+    expect(cards[2].text).toBe(
+      "Categoria: Classe Kowloon Fighters. Descrição: acesso aos poderes do estilo Kyūryū Shōtenken.",
+    );
+    expect(cards[2].note).toContain(
+      "Bônus: o personagem pode escolher 1 técnica básica, 1 técnica intermediária e 1 técnica mestra",
+    );
+    expect(cards[2].note).toContain("não podem ter seus bônus acumulados entre si");
   });
 
   it("Poderes Exclusivos reúne Sincronia Qi, Radians e Fa Jin numa página", () => {
