@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import type { ComponentProps } from "react";
 import HubScreen from "./HubScreen";
-import { AuthProvider } from "../../features/auth/useAuth";
+// [PAUSADO — Character Sheet] import { AuthProvider } from "../../features/auth/useAuth";
 
 function renderHub(props: Partial<ComponentProps<typeof HubScreen>> = {}) {
   return render(<HubScreen onSelectClasses={() => {}} {...props} />);
@@ -20,13 +20,14 @@ describe("HubScreen (smoke — comportamento existente preservado)", () => {
     expect(screen.queryByText("Criador de Personagem")).not.toBeInTheDocument();
   });
 
-  it("com sheetEntry mostra o card e chama onSelect ao clicar", () => {
-    const onSelect = vi.fn();
-    renderHub({ sheetEntry: { onSelect } });
-    expect(screen.getByText("Criador de Personagem")).toBeInTheDocument();
-    fireEvent.click(screen.getByText("Criador de Personagem"));
-    expect(onSelect).toHaveBeenCalledTimes(1);
-  });
+  // [PAUSADO — Character Sheet]
+  // it("com sheetEntry mostra o card e chama onSelect ao clicar", () => {
+  //   const onSelect = vi.fn();
+  //   renderHub({ sheetEntry: { onSelect } });
+  //   expect(screen.getByText("Criador de Personagem")).toBeInTheDocument();
+  //   fireEvent.click(screen.getByText("Criador de Personagem"));
+  //   expect(onSelect).toHaveBeenCalledTimes(1);
+  // });
 
   it("clique no Compêndio chama onSelectClasses", () => {
     const onSelectClasses = vi.fn();
@@ -40,19 +41,20 @@ describe("HubScreen (smoke — comportamento existente preservado)", () => {
     expect(screen.queryByText("Sair")).not.toBeInTheDocument();
   });
 
-  it("com sessão mostra Sair e desloga mesmo sem rede", async () => {
-    const clearAuth = vi.fn();
-    render(
-      <AuthProvider
-        user={{ id: "u1", email: "kaito@exemplo.com", role: "player" }}
-        setAuth={() => {}}
-        clearAuth={clearAuth}
-      >
-        <HubScreen onSelectClasses={() => {}} />
-      </AuthProvider>,
-    );
-    expect(screen.getByText("Sair")).toBeInTheDocument();
-    fireEvent.click(screen.getByText("Sair"));
-    await vi.waitFor(() => expect(clearAuth).toHaveBeenCalledTimes(1));
-  });
+  // [PAUSADO — Character Sheet]
+  // it("com sessão mostra Sair e desloga mesmo sem rede", async () => {
+  //   const clearAuth = vi.fn();
+  //   render(
+  //     <AuthProvider
+  //       user={{ id: "u1", email: "kaito@exemplo.com", role: "player" }}
+  //       setAuth={() => {}}
+  //       clearAuth={clearAuth}
+  //     >
+  //       <HubScreen onSelectClasses={() => {}} />
+  //     </AuthProvider>,
+  //   );
+  //   expect(screen.getByText("Sair")).toBeInTheDocument();
+  //   fireEvent.click(screen.getByText("Sair"));
+  //   await vi.waitFor(() => expect(clearAuth).toHaveBeenCalledTimes(1));
+  // });
 });

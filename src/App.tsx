@@ -1,28 +1,28 @@
-import { lazy, Suspense, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import HubScreen from "./components/hub/HubScreen";
 // [PAUSADO — NoirIntro] import NoirIntro from "./components/classes/NoirIntro";
 import ClassesView from "./components/classes/ClassesView";
-import SessionGate from "./features/auth/SessionGate";
-import { sheetEnabled } from "./featureFlag";
+// [PAUSADO — Character Sheet] import SessionGate from "./features/auth/SessionGate";
+// [PAUSADO — Character Sheet] import { sheetEnabled } from "./featureFlag";
 import "./styles/tokens.css";
 import "./styles/noir.css";
 import "./styles/hub.css";
 import "./styles/classes.css";
-import "./styles/auth.css";
-import "./styles/sheet.css";
+// [PAUSADO — Character Sheet] import "./styles/auth.css";
+// [PAUSADO — Character Sheet] import "./styles/sheet.css";
 
-// Feature lazy-gated: com a flag off estes chunks nunca são carregados.
-const SheetHome = lazy(() => import("./features/sheet/SheetHome"));
-const SheetCreator = lazy(() => import("./features/sheet/SheetCreator"));
-const SheetDetail = lazy(() => import("./features/sheet/SheetDetail"));
+// [PAUSADO — Character Sheet] Feature lazy-gated: com a flag off estes chunks nunca são carregados.
+// [PAUSADO — Character Sheet] const SheetHome = lazy(() => import("./features/sheet/SheetHome"));
+// [PAUSADO — Character Sheet] const SheetCreator = lazy(() => import("./features/sheet/SheetCreator"));
+// [PAUSADO — Character Sheet] const SheetDetail = lazy(() => import("./features/sheet/SheetDetail"));
 
 type AppView =
   | "hub"
   // [PAUSADO — NoirIntro] | "compendiumIntro"
-  | "compendium"
-  | "sheetHome"
-  | "sheetCreator"
-  | "sheetDetail";
+  | "compendium";
+// [PAUSADO — Character Sheet] | "sheetHome"
+// [PAUSADO — Character Sheet] | "sheetCreator"
+// [PAUSADO — Character Sheet] | "sheetDetail";
 
 function AppContent({
   view,
@@ -31,16 +31,14 @@ function AppContent({
   view: AppView;
   setView: (view: AppView) => void;
 }): ReactNode {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  // [PAUSADO — Character Sheet] const [selectedId, setSelectedId] = useState<string | null>(null);
 
   return (
     <>
       {view === "hub" && (
         <HubScreen
           onSelectClasses={() => setView("compendium")}
-          sheetEntry={
-            sheetEnabled() ? { onSelect: () => setView("sheetHome") } : undefined
-          }
+          /* [PAUSADO — Character Sheet] sheetEntry={sheetEnabled() ? { onSelect: () => setView("sheetHome") } : undefined} */
         />
       )}
       {/* [PAUSADO — NoirIntro]
@@ -52,6 +50,7 @@ function AppContent({
       )}
       */}
       {view === "compendium" && <ClassesView onBack={() => setView("hub")} />}
+      {/* [PAUSADO — Character Sheet]
       {view === "sheetHome" && (
         <Suspense fallback={null}>
           <SheetHome
@@ -80,6 +79,7 @@ function AppContent({
           />
         </Suspense>
       )}
+      */}
     </>
   );
 }
@@ -89,8 +89,8 @@ export default function App() {
 
   const content = <AppContent view={view} setView={setView} />;
 
-  // Flag off: site atual, sem rede, sem gate.
-  if (!sheetEnabled()) return content;
-
-  return <SessionGate>{content}</SessionGate>;
+  // [PAUSADO — Character Sheet] Flag off: site atual, sem rede, sem gate.
+  // [PAUSADO — Character Sheet] if (!sheetEnabled()) return content;
+  // [PAUSADO — Character Sheet] return <SessionGate>{content}</SessionGate>;
+  return content;
 }

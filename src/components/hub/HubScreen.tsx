@@ -1,17 +1,17 @@
 import { useRef, useCallback } from "react";
-import { useOptionalAuth } from "../../features/auth/useAuth";
-import { strings } from "../../features/auth/strings";
-import { sheetStrings } from "../../features/sheet/strings";
+// [PAUSADO — Character Sheet] import { useOptionalAuth } from "../../features/auth/useAuth";
+// [PAUSADO — Character Sheet] import { strings } from "../../features/auth/strings";
+// [PAUSADO — Character Sheet] import { sheetStrings } from "../../features/sheet/strings";
 
 interface HubScreenProps {
   onSelectClasses: () => void;
-  /** Presente quando a feature de ficha está ativa — renderiza o segundo card. */
-  sheetEntry?: { onSelect: () => void };
+  // [PAUSADO — Character Sheet] Presente quando a feature de ficha está ativa — renderiza o segundo card.
+  // [PAUSADO — Character Sheet] sheetEntry?: { onSelect: () => void };
 }
 
-export default function HubScreen({ onSelectClasses, sheetEntry }: HubScreenProps) {
+export default function HubScreen({ onSelectClasses }: HubScreenProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const auth = useOptionalAuth();
+  // [PAUSADO — Character Sheet] const auth = useOptionalAuth();
 
   const handleMouseEnter = useCallback(() => {
     videoRef.current?.play().catch(() => {});
@@ -26,11 +26,13 @@ export default function HubScreen({ onSelectClasses, sheetEntry }: HubScreenProp
 
   return (
     <div className="hub">
+      {/* [PAUSADO — Character Sheet]
       {auth ? (
         <button className="hub__logout" onClick={() => void auth.logout()}>
           {strings.auth.logout}
         </button>
       ) : null}
+      */}
       <h1 className="hub__title">AS SEIS HARMONIAS</h1>
       <p className="hub__subtitle">Livro do Jogador — Regras de Combate</p>
 
@@ -68,6 +70,7 @@ export default function HubScreen({ onSelectClasses, sheetEntry }: HubScreenProp
           <span className="hub__cardTitle">Compêndio</span>
         </button>
 
+        {/* [PAUSADO — Character Sheet]
         {sheetEntry ? (
           <button
             className="hub__card hub__card--sheet"
@@ -89,6 +92,7 @@ export default function HubScreen({ onSelectClasses, sheetEntry }: HubScreenProp
             <span className="hub__cardTitle">{sheetStrings.cardTitle}</span>
           </button>
         ) : null}
+        */}
       </div>
     </div>
   );
