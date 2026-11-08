@@ -241,6 +241,11 @@ export interface Category {
 
 // ── Data ────────────────────────────────────────────────────────────
 
+const DADO_ARQUETIPO: { label: string; values: string[] } = {
+  label: "Dado do Arquétipo",
+  values: ["1d4", "1d6", "1d8", "1d10"],
+};
+
 export const DATA: Record<string, Category> = {
   fundamentos: {
     id: "fundamentos",
@@ -322,6 +327,114 @@ export const DATA: Record<string, Category> = {
               ],
             },
             text: "Cada participante realiza sua rolagem e soma o atributo utilizado na ação. O resultado final determina o vencedor da disputa.",
+          },
+        ],
+      },
+      {
+        id: "comeco-do-jogo",
+        name: "Começo do Jogo",
+        glyph: "◇",
+        tagline: "Arquétipos e Competências na criação",
+        description:
+          "No início do jogo, cada personagem escolhe seus Arquétipos e desenvolve suas Competências para interagir com o mundo.",
+        tags: ["3 Arquétipos"],
+        ruleSections: [
+          {
+            title: "Escolha de Arquétipos",
+            text: "No início do jogo, cada personagem escolhe 3 Arquétipos:",
+            items: [
+              "1 Arquétipo relacionado à sua classe",
+              "2 Arquétipos livres, escolhidos pelo jogador",
+            ],
+          },
+          {
+            title: "Os Arquétipos",
+            text: "Os Arquétipos representam as áreas em que o personagem possui experiência, conhecimento e habilidade para interagir com o mundo. Cada Arquétipo concede ao personagem um conjunto de Competências, utilizadas para realizar feitos mundanos, superar desafios e interagir com outros personagens.",
+          },
+          {
+            title: "Competências e Bônus",
+            text: "Cada Competência possui um bônus próprio, que começa em um valor definido na criação do personagem, como +1, +2, +3 e assim por diante. Esses bônus são somados aos testes sempre que o personagem utiliza uma Competência na qual é treinado. Por meio de XP, o jogador pode aumentar o bônus de uma Competência em +1 por melhoria, até o limite máximo de +10.",
+            formulas: ["+1 por melhoria · limite máximo: +10"],
+          },
+        ],
+      },
+      {
+        id: "regras-gerais-testes",
+        name: "Regras Gerais de Testes",
+        glyph: "⚖",
+        tagline: "Dificuldades, Competências e disputas diretas",
+        description:
+          "As regras gerais de testes cobrem desafios mundanos, testes de Competência e testes contestados.",
+        tags: [],
+        ruleSections: [
+          {
+            title: "2.1. Desafios Mundanos",
+            text: "Fora de combate, os desafios são resolvidos por testes contra uma dificuldade definida pelo Narrador. As dificuldades são divididas em quatro categorias:",
+            table: {
+              headers: ["Dificuldade", "Classificação"],
+              rows: [
+                ["1 a 10", "Mundano"],
+                ["11 a 15", "Heroico — feitos que beiram o sobre-humano"],
+                ["16 a 20", "Sobre-humano"],
+                ["21 a 30", "Bestas e Divindades"],
+              ],
+            },
+          },
+          {
+            title: "2.2. Testes de Competência",
+            text: "Quando um personagem tenta realizar uma ação, o Narrador determina se ela exige uma Competência específica.",
+          },
+          {
+            title: "2.2. Testes de Competência — Com Competência",
+            text: "Quando o personagem possui a Competência necessária, realiza o teste somando: Dado do Dao + Dado do Arquétipo + bônus da Competência. O resultado é comparado à dificuldade definida pelo Narrador.",
+            formulas: ["Dado do Dao + Dado do Arquétipo + bônus da Competência"],
+          },
+          {
+            title: "2.2. Testes de Competência — Sem Competência",
+            text: "Quando o personagem não possui a Competência necessária, realiza o teste apenas com: Dado do Dao. O resultado é comparado à dificuldade definida pelo Narrador.",
+            formulas: ["Dado do Dao"],
+          },
+          {
+            title: "2.3. Testes Contestados",
+            text: "Quando um personagem tenta superar ou se impor sobre outro personagem, o teste pode ser resolvido por uma disputa direta, sem que o Narrador precise estabelecer uma dificuldade. Nesse caso, os dois lados realizam suas rolagens, conforme suas Competências e capacidades.",
+          },
+          {
+            title: "2.3. Testes Contestados — Exemplo: Seduzir",
+            examples: [
+              "Um personagem tenta seduzir outro.\n\n• Personagem que possui a Competência Seduzir: rola Dado do Dao + Dado do Arquétipo + bônus da Competência.\n• Alvo: rola Dado do Dao + Vontade.\n\nO resultado das duas rolagens é comparado para determinar o desfecho da disputa.",
+            ],
+            text: "Caso o personagem não possua a Competência Seduzir, ele rola apenas o Dado do Dao contra a rolagem de resistência do alvo. Se não houver um alvo realizando uma disputa direta, o teste será resolvido contra uma dificuldade definida pelo Narrador.",
+          },
+        ],
+      },
+      {
+        id: "von-vontade",
+        name: "Atributos Especiais: VON (Vontade)",
+        glyph: "✧",
+        tagline: "Firmeza mental e resistência a influências",
+        description:
+          "VON — Vontade representa a firmeza mental e emocional do personagem, sua capacidade de resistir a influências externas e manter o controle sobre suas próprias decisões. Vontade pertence ao grupo de Atributos Especiais.",
+        tags: ["Atributo Especial"],
+        ruleSections: [
+          {
+            title: "Progressão",
+            dice: { label: "Vontade", values: ["1d4", "1d6", "1d8", "1d10"] },
+          },
+          {
+            title: "Aplicações de Vontade",
+            text: "Vontade é utilizada em testes de resistência contra Competências e efeitos que tentem se impor sobre o personagem. Quando um personagem é alvo de uma dessas tentativas, sua Vontade pode ser utilizada para resistir à influência.",
+            items: [
+              "Resistir à intimidação",
+              "Resistir à sedução",
+              "Resistir à persuasão",
+              "Resistir à manipulação",
+              "Resistir ao medo",
+              "Suportar pressão psicológica",
+              "Manter uma decisão",
+              "Resistir à compulsão",
+              "Permanecer firme",
+              "Suportar uma imposição",
+            ],
           },
         ],
       },
@@ -503,6 +616,411 @@ export const DATA: Record<string, Category> = {
           },
         ],
       },
+      {
+        id: "escolha-dos-arquetipos",
+        name: "Escolha dos Arquétipos",
+        glyph: "◇",
+        tagline: "1 Especial de Classe + 2 Livres",
+        description:
+          "Cada personagem começa o jogo escolhindo 3 Arquétipos no total, distribuídos da seguinte maneira.",
+        tags: ["3 Arquétipos no total"],
+        ruleSections: [
+          {
+            title: "Distribuição",
+            items: [
+              "1 Arquétipo Especial de Classe: deve pertencer à classe escolhida pelo personagem",
+              "2 Arquétipos Livres: podem ser escolhidos entre os arquétipos gerais disponíveis no sistema",
+            ],
+            text: "O Arquétipo Especial de Classe representa uma especialização própria da classe do personagem e pode conceder acesso a técnicas, estilos de luta, poderes ou outras características exclusivas.",
+          },
+          {
+            title: "Regra para os Kowloon Fighters",
+            text: "Os personagens da classe Kowloon Fighters possuem duas opções de Arquétipo Especial. O jogador deve escolher apenas um desses dois arquétipos durante a criação do personagem. A escolha determina a qual estilo marcial exclusivo o personagem terá acesso.",
+            items: [
+              "1. Artista Marcial Kyūryū Shōtenken",
+              "2. Artista Marcial Tai Chi Kyūryū",
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  "regras-combate": {
+    id: "regras-combate",
+    seal: "⚑",
+    label: "Regras de Combate",
+    listLabel: "Capítulos",
+    group: "As Seis Harmonias",
+    description:
+      "Manobras de combate e regras especiais utilizadas durante os confrontos.",
+    items: [
+      {
+        id: "manobras-combate",
+        name: "Manobras de Combate e Regras Especiais",
+        glyph: "⚔",
+        tagline: "Custo padrão: 3 pontos de Taiji ou 4 CP",
+        description:
+          "Custo padrão das manobras: 3 pontos de Taiji ou 4 CP.",
+        tags: ["Custo padrão: 3 pontos de Taiji ou 4 CP"],
+        ruleSections: [
+          {
+            title: "1. Golpe Poderoso",
+            text: "Ao declarar um ataque, você acrescenta +1d4 de dano. O valor numérico tirado nesse dado de dano também representa a quantidade de metros que o alvo é arremessado ao receber o golpe.",
+            formulas: ["+1d4 de dano · arremesso: metros = valor do dado"],
+          },
+          {
+            title: "2. Ataque Veloz",
+            text: "Ao se movimentar ao menos 3 hexágonos e desferir um ataque na mesma rodada, você acrescenta +1d4 no valor do seu teste de ataque.",
+            formulas: ["+1d4 no teste de ataque"],
+          },
+          {
+            title: "3. Saltar",
+            text: "Alcance/Altura: calculado com o valor de FOR pela metade. Ao se movimentar ao menos 2 hexágonos e realizar um salto seguido de ataque, você aplica +1d4 no valor de dano do golpe.",
+            formulas: ["+1d4 de dano", "Alcance/Altura = FOR ÷ 2"],
+          },
+          {
+            title: "4. Correr",
+            text: "Você aplica +1d4 no valor de movimento.",
+            formulas: ["+1d4 de movimento"],
+          },
+          {
+            title: "5. Derrubar",
+            text: "O personagem caído precisa gastar uma ação de movimento para se levantar.",
+            items: [
+              "Enquanto estiver caído: não pode atacar",
+              "Enquanto estiver caído: não pode somar atributos às suas rolagens",
+            ],
+          },
+          {
+            title: "6. Agarrar",
+            text: "Realiza um teste contestado de Yin contra Yang. Se o alvo perder, fica imobilizado, dando ao atacante duas opções subsequentes:",
+            items: [
+              "Manter a imobilização — vencendo um novo teste contestado, o valor que ultrapassar a defesa do alvo é convertido em dano direto",
+              "Arremessar o alvo — causa 1d4 de dano, sendo que o valor numérico obtido nesse dado também define a quantidade de metros que o alvo é lançado",
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  glossario: {
+    id: "glossario",
+    seal: "☰",
+    label: "Glossário de Regras",
+    listLabel: "Capítulos",
+    group: "As Seis Harmonias",
+    description:
+      "Definições dos termos técnicos usados pelas regras do sistema.",
+    items: [
+      {
+        id: "termos-efeitos",
+        name: "Termos e Efeitos",
+        glyph: "☰",
+        tagline: "Elevar, Negativar e Fervor",
+        description:
+          "Definições dos termos técnicos usados pelas regras do sistema.",
+        tags: [],
+        ruleSections: [
+          {
+            title: "Elevar",
+            text: "Elevar significa aumentar em um grau a categoria de um dado, avançando para o próximo dado da progressão.",
+            examples: ["1d4 passa para 1d6", "1d8 passa para 1d10", "1d10 passa para 1d12"],
+          },
+          {
+            title: "Negativar",
+            text: "Negativar significa reduzir em um grau a categoria de um dado, retrocedendo na progressão.",
+            examples: ["1d10 passa para 1d8", "1d8 passa para 1d6", "1d6 passa para 1d4"],
+          },
+          {
+            title: "Limite de aplicação",
+            text: "Elevar ou Negativar só pode ser utilizado uma vez por jogada e sua aplicação ocorre sempre sobre o dado de dano.",
+          },
+          {
+            title: "Fervor",
+            text: "Fervor concede +2 de bônus à jogada em que for aplicado.",
+            formulas: ["+2 de bônus"],
+          },
+        ],
+      },
+    ],
+  },
+  arquetipos: {
+    id: "arquetipos",
+    seal: "✦",
+    label: "Arquétipos",
+    listLabel: "Capítulos",
+    group: "As Seis Harmonias",
+    description:
+      "Os Arquétipos representam as áreas em que o personagem possui experiência, conhecimento e habilidade. Cada Arquétipo concede Competências.",
+    items: [
+      {
+        id: "arquetipos-sociais",
+        name: "Arquétipos Sociais",
+        glyph: "✦",
+        tagline: "Sedutor, Manipulador, Diplomata e Líder",
+        description:
+          "Arquétipos voltados à interação, influência e condução de pessoas.",
+        tags: [],
+        ruleSections: [
+          {
+            title: "1. Sedutor",
+            text: "Categoria: Social. Especialista em atração, expressão pessoal e influência interpessoal.",
+            dice: DADO_ARQUETIPO,
+            items: [
+              "Sedução: +3",
+              "Performance: +2 (Especialização em Dança, Moda ou Atuação)",
+              "Leitura Emocional: +2",
+            ],
+            note: "Conhecimentos Relevantes: Psicologia, Etiqueta, Moda.",
+          },
+          {
+            title: "2. Manipulador",
+            text: "Categoria: Social. Especialista em influência psicológica, controle emocional e manipulação comportamental.",
+            dice: DADO_ARQUETIPO,
+            items: [
+              "Persuasão: +3",
+              "Leitura Emocional: +2",
+              "Interrogatório: +2",
+            ],
+            note: "Conhecimentos Relevantes: Criminologia, Psicologia, Política.",
+          },
+          {
+            title: "3. Diplomata",
+            text: "Categoria: Social. Especialista em negociação, argumentação e resolução de conflitos.",
+            dice: DADO_ARQUETIPO,
+            items: [
+              "Debate: +3",
+              "Persuasão: +2",
+              "Comunicação: +2",
+            ],
+            note: "Conhecimentos Relevantes: Política, Direito, História, Filosofia.",
+          },
+          {
+            title: "4. Líder",
+            text: "Categoria: Social. Especialista em conduzir pessoas, estabelecer autoridade e inspirar grupos.",
+            dice: DADO_ARQUETIPO,
+            items: [
+              "Liderança: +3",
+              "Intimidação: +2",
+              "Comunicação: +2",
+            ],
+            note: "Performance Relevante: Oratória.\nConhecimentos Relevantes: Estratégia, Política, História.",
+          },
+        ],
+      },
+      {
+        id: "arquetipos-investigativos",
+        name: "Arquétipos Investigativos e Intelectuais",
+        glyph: "◉",
+        tagline: "Investigador, Estrategista, Erudito e Místico",
+        description:
+          "Arquétipos voltados à investigação, planejamento, estudo e conhecimento oculto.",
+        tags: [],
+        ruleSections: [
+          {
+            title: "5. Investigador",
+            text: "Categoria: Investigativo. Especialista em encontrar pistas, reconstruir acontecimentos e descobrir verdades ocultas.",
+            dice: DADO_ARQUETIPO,
+            items: [
+              "Investigação: +3",
+              "Percepção: +2",
+              "Interrogatório: +2",
+            ],
+            note: "Conhecimentos Relevantes: Criminologia, Direito, Anatomia.",
+          },
+          {
+            title: "6. Estrategista",
+            text: "Categoria: Intelectual. Especialista em planejamento, antecipação e tomada de decisões complexas.",
+            dice: DADO_ARQUETIPO,
+            items: [
+              "Estratégia: +3",
+              "Conhecimento: +2 (Especialização em Guerra, Logística ou Política)",
+              "Debate: +2",
+            ],
+            note: "Conhecimentos Relevantes: História, Política, Arquitetura/Engenharia Militar.",
+          },
+          {
+            title: "7. Erudito",
+            text: "Categoria: Intelectual. Especialista em estudos, idiomas, registros históricos e sistemas complexos.",
+            dice: DADO_ARQUETIPO,
+            items: [
+              "Conhecimento: +3 (Especialização em História, Filosofia ou Ciências)",
+              "Decifração: +2",
+              "Tradução: +2",
+            ],
+            note: "Conhecimentos Relevantes: História, Filosofia, Arquitetura, Astronomia.",
+          },
+          {
+            title: "8. Místico",
+            text: "Categoria: Intelectual. Especialista em tradições espirituais, fenômenos sobrenaturais e conhecimentos ocultos.",
+            dice: DADO_ARQUETIPO,
+            items: [
+              "Conhecimento: +3 (Especialização em Ocultismo)",
+              "Percepção: +2",
+              "Leitura Emocional: +2",
+            ],
+            note: "Conhecimentos Relevantes: Ocultismo, Filosofia, História, Astronomia.",
+          },
+        ],
+      },
+      {
+        id: "arquetipos-infiltracao",
+        name: "Arquétipos de Infiltração e Exploração",
+        glyph: "○",
+        tagline: "Infiltrador, Cowboy, Caçador e Monge",
+        description:
+          "Arquétipos voltados à infiltração, sobrevivência, rastreamento e disciplina.",
+        tags: [],
+        ruleSections: [
+          {
+            title: "9. Infiltrador",
+            text: "Categoria: Exploração. Especialista em passar despercebido, observar ambientes e acessar locais restritos.",
+            dice: DADO_ARQUETIPO,
+            items: [
+              "Discrição: +3",
+              "Percepção: +2",
+              "Ocultação: +2",
+            ],
+            note: "Conhecimentos Relevantes: Arquitetura, Cybersecurity, Mecânica (Trancas/Sistemas).",
+          },
+          {
+            title: "10. Cowboy",
+            text: "Categoria: Exploração. Especialista em sobrevivência, travessias rurais/selvagens e manuseio de animais/recursos no campo.",
+            dice: DADO_ARQUETIPO,
+            items: [
+              "Sobrevivência: +3",
+              "Rastreamento: +2",
+              "Orientação: +2",
+            ],
+            note: "Conhecimentos Relevantes: Zoologia, Geografia, Anatomia.",
+          },
+          {
+            title: "11. Caçador",
+            text: "Categoria: Exploração. Especialista em perseguir alvos/criaturas, identificar seus hábitos e explorar suas vulnerabilidades.",
+            dice: DADO_ARQUETIPO,
+            items: [
+              "Rastreamento: +3",
+              "Identificação: +2",
+              "Sobrevivência: +2 (Ajustado de Percepção para cobrir a lacuna técnica)",
+            ],
+            note: "Conhecimentos Relevantes: Zoologia, Biologia, Anatomia.",
+          },
+          {
+            title: "12. Monge",
+            text: "Categoria: Exploração / Prático. Especialista em disciplina, autocontrole, aperfeiçoamento físico e tradições espirituais.",
+            dice: DADO_ARQUETIPO,
+            items: [
+              "Luta: +3",
+              "Atletismo: +2",
+              "Conhecimento: +2 (Especialização em Filosofia ou Ocultismo)",
+            ],
+            note: "Conhecimentos Relevantes: Filosofia, Anatomia, Medicina tradicional.",
+          },
+        ],
+      },
+      {
+        id: "arquetipos-artisticos",
+        name: "Arquétipos Artísticos e Físicos",
+        glyph: "♪",
+        tagline: "Artista e Atleta",
+        description:
+          "Arquétipos voltados à expressão criativa e ao desempenho físico.",
+        tags: [],
+        ruleSections: [
+          {
+            title: "13. Artista",
+            text: "Categoria: Expressão. Especialista em expressão criativa, manifestações artísticas e impacto estético.",
+            dice: DADO_ARQUETIPO,
+            items: [
+              "Performance: +3 (Especialização à escolha: Música, Pintura, Atuação, etc.)",
+              "Leitura Emocional: +2 (Ajustado no lugar de Estética, integrando com as competências oficiais)",
+              "Comunicação: +2",
+            ],
+            note: "Performances Relevantes: Dança, Canto, Atuação, Música, Escultura, Pintura, Ilusionismo, Escrita Artística.",
+          },
+          {
+            title: "14. Atleta",
+            text: "Categoria: Físico. Especialista em desempenho físico, condicionamento corporal e práticas esportivas.",
+            dice: DADO_ARQUETIPO,
+            items: [
+              "Atletismo: +3",
+              "Luta: +2",
+              "Conhecimento: +2 (Especialização em Esportes ou Anatomia)",
+            ],
+            note: "Conhecimentos Relevantes: Anatomia, Esportes, Medicina/Fisiologia.",
+          },
+        ],
+      },
+      {
+        id: "arquetipos-profissionais",
+        name: "Arquétipos Profissionais e Técnicos",
+        glyph: "⚙",
+        tagline: "Chef e Especialista",
+        description:
+          "Arquétipos voltados às profissões e às áreas técnicas e científicas.",
+        tags: [],
+        ruleSections: [
+          {
+            title: "15. Chef",
+            text: "Categoria: Profissional. Especialista em culinária, gastronomia, ingredientes e preparação de alimentos.",
+            dice: DADO_ARQUETIPO,
+            items: [
+              "Conhecimento: +3 (Especialização em Culinária)",
+              "Ofício: +2",
+              "Percepção: +2",
+            ],
+            note: "Conhecimentos Relevantes: Culinária, Biologia, Química.",
+          },
+          {
+            title: "16. Especialista",
+            text: "Categoria: Profissional. Especialista em uma área técnica, científica ou profissional, aplicando conhecimentos específicos para resolver problemas.",
+            dice: DADO_ARQUETIPO,
+            items: [
+              "Conhecimento: +3 (Especialização escolhida)",
+              "Investigação: +2",
+              "Ofício: +2",
+            ],
+            note: "Variações de Especialização e Conhecimentos Pertinentes:\n• Médico: Conhecimento +3 (Medicina), Anatomia, Química, Biologia.\n• Cientista: Conhecimento +3 (Biologia, Química ou Física), Matemática, Astronomia.\n• Engenheiro: Conhecimento +3 (Engenharia ou Mecânica), Arquitetura, Matemática, Física.\n• Hacker / TI: Conhecimento +3 (Cybersecurity), Matemática, Decifração (+2).\n• Perito: Conhecimento +3 (Criminologia), Anatomia, Química.",
+          },
+        ],
+      },
+    ],
+  },
+  "arquetipos-especiais": {
+    id: "arquetipos-especiais",
+    seal: "❖",
+    label: "Arquétipos Especiais",
+    listLabel: "Capítulos",
+    group: "Kowloon Fighters",
+    description:
+      "Especializações próprias de cada classe. Os Arquétipos Especiais são opções alternativas — o personagem escolhe somente um deles.",
+    items: [
+      {
+        id: "arquetipos-especiais-kf",
+        name: "Arquétipos Especiais dos Kowloon Fighters",
+        glyph: "❖",
+        tagline: "1 Especial de Classe + 2 Livres",
+        description:
+          "Cada personagem começa o jogo escolhindo 3 Arquétipos no total: 1 Arquétipo Especial de Classe e 2 Arquétipos Livres. Os Arquétipos Especiais são opções alternativas — o personagem Kowloon Fighters escolhe somente um deles.",
+        tags: ["1 Especial de Classe + 2 Livres", "A escolha não é um 4º arquétipo"],
+        ruleSections: [
+          {
+            title: "1. Artista Marcial Kyūryū Shōtenken",
+            text: "Categoria: Classe Kowloon Fighters. Concede acesso aos poderes do estilo Kyūryū Shōtenken.",
+            dice: DADO_ARQUETIPO,
+            items: ["Conhecimento: +3", "2 Competências à sua escolha"],
+            note: "Conhecimentos Relevantes: História da Ordem; mais 2 conhecimentos à sua escolha.\nAcesso ao Estilo: o personagem que escolher este Arquétipo Especial terá acesso ao estilo marcial Kyūryū Shōtenken, incluindo suas especializações elementais e os poderes correspondentes. O acesso ao estilo depende da escolha deste arquétipo. Personagens que não possuam o Arquétipo Artista Marcial Kyūryū Shōtenken não podem utilizar seus poderes.",
+          },
+          {
+            title: "2. Artista Marcial Tai Chi Kyūryū",
+            badge: "Em construção",
+            text: "Categoria: Classe Kowloon Fighters. Concede acesso aos poderes do estilo Tai Chi Kyūryū.",
+            dice: DADO_ARQUETIPO,
+            items: ["Conhecimento: +3", "2 Competências à sua escolha"],
+            note: "Conhecimentos Relevantes: História da Ordem; mais 2 conhecimentos à sua escolha.\nAcesso ao Estilo: o personagem que escolher este Arquétipo Especial terá acesso ao estilo marcial Tai Chi Kyūryū.\nAs regras, técnicas e poderes do estilo Tai Chi Kyūryū serão desenvolvidos posteriormente. Não criar ou atribuir poderes provisórios a esse estilo.",
+          },
+        ],
+      },
     ],
   },
   "kf-tecnicas": {
@@ -601,8 +1119,17 @@ export const DATA: Record<string, Category> = {
         tagline: "Nove dragões elementais, três escolhas",
         description:
           "O Kyūryū Shōtenken é um sistema de estilos de luta inspirado nos nove dragões elementais. Cada dragão representa uma força da natureza e concede ao personagem um bônus específico, complementando seus atributos e suas fontes de energia.",
-        tags: ["Até 3 dragões", "3 pts da fonte por uso"],
+        tags: ["Requisito: Arquétipo Artista Marcial Kyūryū Shōtenken", "Até 3 dragões", "3 pts da fonte por uso"],
         ruleSections: [
+          {
+            title: "Requisito de acesso",
+            text: "Requisito de acesso: Arquétipo Especial Artista Marcial Kyūryū Shōtenken. O estilo Kyūryū Shōtenken é exclusivo dos Kowloon Fighters que escolheram o arquétipo correspondente. O personagem precisa possuir esse Arquétipo Especial para ter acesso às técnicas, especializações elementais e poderes dos Nove Dragões.",
+            items: [
+              "Personagem com Artista Marcial Kyūryū Shōtenken: possui acesso ao estilo Kyūryū Shōtenken",
+              "Personagem com Artista Marcial Tai Chi Kyūryū: não possui acesso ao Kyūryū Shōtenken por essa escolha; terá acesso ao estilo Tai Chi Kyūryū, cujas regras ainda serão desenvolvidas",
+              "A escolha de um estilo não concede automaticamente acesso ao outro",
+            ],
+          },
           {
             title: "Seleção dos Dragões",
             text: "O personagem pode escolher até 3 dragões, que representam os estilos incorporados à sua técnica de combate. Cada dragão possui uma progressão própria de dado.",
@@ -697,6 +1224,26 @@ export const DATA: Record<string, Category> = {
             image: "/dragoes/dragao-do-vacuo.jpg",
             dice: ["1d4", "1d6", "1d8", "1d10", "1d12"],
             text: "Altera a interpretação da Desarmonia, fazendo com que ela seja considerada Harmonia. Seu dado é somado ao resultado.",
+          },
+        ],
+      },
+      {
+        id: "tai-chi-kyuryu",
+        name: "Estilo Tai Chi Kyūryū",
+        glyph: "☯",
+        tagline: "Conteúdo em construção",
+        description:
+          "Requisito de acesso: Arquétipo Especial Artista Marcial Tai Chi Kyūryū. Este estilo será desenvolvido posteriormente. Manter o capítulo registrado na estrutura do sistema, sem criar técnicas, poderes, custos ou efeitos até que o conteúdo oficial seja fornecido.",
+        tags: ["Em construção"],
+        ruleSections: [
+          {
+            title: "Requisito de acesso",
+            text: "O acesso ao estilo Tai Chi Kyūryū depende da escolha do Arquétipo Especial Artista Marcial Tai Chi Kyūryū. A escolha de um estilo não concede automaticamente acesso ao outro.",
+          },
+          {
+            title: "Status do conteúdo",
+            badge: "Em construção",
+            note: "Em construção. As regras, técnicas e poderes do estilo Tai Chi Kyūryū serão desenvolvidos posteriormente. Não criar ou atribuir poderes provisórios a esse estilo.",
           },
         ],
       },
