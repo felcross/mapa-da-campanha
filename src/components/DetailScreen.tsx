@@ -533,9 +533,18 @@ export default function DetailScreen({ categoryLabel, item }: DetailScreenProps)
           <div className="contentCards">
             {item.cards.map((card) => (
               <article key={card.name} className="contentCard">
-                {card.image && (
+                {(card.image || card.glyph) && (
                   <div className="contentCard__media">
-                    <img src={card.image} alt={card.name} className="contentCard__image" />
+                    {card.image && (
+                      <img
+                        src={card.image}
+                        alt={card.name}
+                        className="contentCard__image"
+                        onError={(e) => {
+                          e.currentTarget.style.visibility = "hidden";
+                        }}
+                      />
+                    )}
                     {card.glyph && <span className="contentCard__glyph">{card.glyph}</span>}
                   </div>
                 )}
