@@ -8,6 +8,7 @@ export interface RuleTable {
 export interface RuleSection {
   title?: string;
   titleImage?: string;
+  badge?: string;
   text?: string;
   items?: string[];
   table?: RuleTable;
@@ -16,6 +17,7 @@ export interface RuleSection {
   examples?: string[];
   dice?: { label?: string; values: string[] };
   pips?: { count: number; label?: string };
+  note?: string;
 }
 
 export interface ContentCard {

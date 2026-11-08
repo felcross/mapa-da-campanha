@@ -44,7 +44,12 @@ export default function DetailScreen({ categoryLabel, item }: DetailScreenProps)
         {item.tags?.length > 0 && (
           <div className="detail__tags">
             {item.tags.map((tag) => (
-              <span key={tag} className="detail__tag">{tag}</span>
+              <span
+                key={tag}
+                className={`detail__tag${tag === "Em construção" ? " detail__tag--warning" : ""}`}
+              >
+                {tag}
+              </span>
             ))}
           </div>
         )}
@@ -449,6 +454,9 @@ export default function DetailScreen({ categoryLabel, item }: DetailScreenProps)
                     {section.title}
                   </h4>
                 )}
+                {section.badge && (
+                  <span className="ruleSection__badge">{section.badge}</span>
+                )}
                 {section.image && (
                   <img src={section.image} alt="" className="ruleSection__image" />
                 )}
@@ -470,6 +478,30 @@ export default function DetailScreen({ categoryLabel, item }: DetailScreenProps)
                         <p>{example}</p>
                       </div>
                     ))}
+                  </div>
+                )}
+                {section.dice && (
+                  <div className="ruleSection__diceTrack">
+                    {section.dice.label && (
+                      <span className="ruleSection__diceLabel">{section.dice.label}</span>
+                    )}
+                    <div className="ruleSection__dice">
+                      {section.dice.values.map((die) => (
+                        <span key={die} className="ruleSection__die">□ {die}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {section.pips && (
+                  <div className="ruleSection__pips">
+                    {section.pips.label && (
+                      <span className="ruleSection__pipsLabel">{section.pips.label}</span>
+                    )}
+                    <div className="ruleSection__pipsRow">
+                      {Array.from({ length: section.pips.count }, (_, j) => (
+                        <span key={j} className="ruleSection__pip">○</span>
+                      ))}
+                    </div>
                   </div>
                 )}
                 {section.items && section.items.length > 0 && (
@@ -499,29 +531,8 @@ export default function DetailScreen({ categoryLabel, item }: DetailScreenProps)
                     </tbody>
                   </table>
                 )}
-                {section.dice && (
-                  <div className="ruleSection__diceTrack">
-                    {section.dice.label && (
-                      <span className="ruleSection__diceLabel">{section.dice.label}</span>
-                    )}
-                    <div className="ruleSection__dice">
-                      {section.dice.values.map((die) => (
-                        <span key={die} className="ruleSection__die">□ {die}</span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                {section.pips && (
-                  <div className="ruleSection__pips">
-                    {section.pips.label && (
-                      <span className="ruleSection__pipsLabel">{section.pips.label}</span>
-                    )}
-                    <div className="ruleSection__pipsRow">
-                      {Array.from({ length: section.pips.count }, (_, j) => (
-                        <span key={j} className="ruleSection__pip">○</span>
-                      ))}
-                    </div>
-                  </div>
+                {section.note && (
+                  <p className="ruleSection__note">{section.note}</p>
                 )}
               </div>
             ))}
