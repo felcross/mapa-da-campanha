@@ -24,8 +24,11 @@ export interface ContentCard {
   name: string;
   glyph?: string;
   image?: string;
+  srcSet?: string;
   dice?: string[];
   text: string;
+  items?: string[];
+  note?: string;
 }
 
 export interface SubSection {
@@ -327,83 +330,6 @@ export const DATA: Record<string, Category> = {
               ],
             },
             text: "Cada participante realiza sua rolagem e soma o atributo utilizado na ação. O resultado final determina o vencedor da disputa.",
-          },
-        ],
-      },
-      {
-        id: "comeco-do-jogo",
-        name: "Começo do Jogo",
-        glyph: "◇",
-        tagline: "Arquétipos e Competências na criação",
-        description:
-          "No início do jogo, cada personagem escolhe seus Arquétipos e desenvolve suas Competências para interagir com o mundo.",
-        tags: ["3 Arquétipos"],
-        ruleSections: [
-          {
-            title: "Escolha de Arquétipos",
-            text: "No início do jogo, cada personagem escolhe 3 Arquétipos:",
-            items: [
-              "1 Arquétipo relacionado à sua classe",
-              "2 Arquétipos livres, escolhidos pelo jogador",
-            ],
-          },
-          {
-            title: "Os Arquétipos",
-            text: "Os Arquétipos representam as áreas em que o personagem possui experiência, conhecimento e habilidade para interagir com o mundo. Cada Arquétipo concede ao personagem um conjunto de Competências, utilizadas para realizar feitos mundanos, superar desafios e interagir com outros personagens.",
-          },
-          {
-            title: "Competências e Bônus",
-            text: "Cada Competência possui um bônus próprio, que começa em um valor definido na criação do personagem, como +1, +2, +3 e assim por diante. Esses bônus são somados aos testes sempre que o personagem utiliza uma Competência na qual é treinado. Por meio de XP, o jogador pode aumentar o bônus de uma Competência em +1 por melhoria, até o limite máximo de +10.",
-            formulas: ["+1 por melhoria · limite máximo: +10"],
-          },
-        ],
-      },
-      {
-        id: "regras-gerais-testes",
-        name: "Regras Gerais de Testes",
-        glyph: "⚖",
-        tagline: "Dificuldades, Competências e disputas diretas",
-        description:
-          "As regras gerais de testes cobrem desafios mundanos, testes de Competência e testes contestados.",
-        tags: [],
-        ruleSections: [
-          {
-            title: "2.1. Desafios Mundanos",
-            text: "Fora de combate, os desafios são resolvidos por testes contra uma dificuldade definida pelo Narrador. As dificuldades são divididas em quatro categorias:",
-            table: {
-              headers: ["Dificuldade", "Classificação"],
-              rows: [
-                ["1 a 10", "Mundano"],
-                ["11 a 15", "Heroico — feitos que beiram o sobre-humano"],
-                ["16 a 20", "Sobre-humano"],
-                ["21 a 30", "Bestas e Divindades"],
-              ],
-            },
-          },
-          {
-            title: "2.2. Testes de Competência",
-            text: "Quando um personagem tenta realizar uma ação, o Narrador determina se ela exige uma Competência específica.",
-          },
-          {
-            title: "2.2. Testes de Competência — Com Competência",
-            text: "Quando o personagem possui a Competência necessária, realiza o teste somando: Dado do Dao + Dado do Arquétipo + bônus da Competência. O resultado é comparado à dificuldade definida pelo Narrador.",
-            formulas: ["Dado do Dao + Dado do Arquétipo + bônus da Competência"],
-          },
-          {
-            title: "2.2. Testes de Competência — Sem Competência",
-            text: "Quando o personagem não possui a Competência necessária, realiza o teste apenas com: Dado do Dao. O resultado é comparado à dificuldade definida pelo Narrador.",
-            formulas: ["Dado do Dao"],
-          },
-          {
-            title: "2.3. Testes Contestados",
-            text: "Quando um personagem tenta superar ou se impor sobre outro personagem, o teste pode ser resolvido por uma disputa direta, sem que o Narrador precise estabelecer uma dificuldade. Nesse caso, os dois lados realizam suas rolagens, conforme suas Competências e capacidades.",
-          },
-          {
-            title: "2.3. Testes Contestados — Exemplo: Seduzir",
-            examples: [
-              "Um personagem tenta seduzir outro.\n\n• Personagem que possui a Competência Seduzir: rola Dado do Dao + Dado do Arquétipo + bônus da Competência.\n• Alvo: rola Dado do Dao + Vontade.\n\nO resultado das duas rolagens é comparado para determinar o desfecho da disputa.",
-            ],
-            text: "Caso o personagem não possua a Competência Seduzir, ele rola apenas o Dado do Dao contra a rolagem de resistência do alvo. Se não houver um alvo realizando uma disputa direta, o teste será resolvido contra uma dificuldade definida pelo Narrador.",
           },
         ],
       },
@@ -849,6 +775,82 @@ export const DATA: Record<string, Category> = {
       "Os Arquétipos representam as áreas em que o personagem possui experiência, conhecimento e habilidade. Cada Arquétipo concede Competências.",
     items: [
       {
+        id: "introducao",
+        name: "Introdução",
+        glyph: "◎",
+        tagline: "Arquétipos, Competências e testes",
+        description:
+          "Este capítulo apresenta como os personagens desenvolvem suas capacidades por meio dos Arquétipos e Competências, além de estabelecer como funcionam os testes durante o jogo. Aqui você encontrará as regras para realizar ações, superar dificuldades e disputar diretamente com outros personagens, determinando quando e como os bônus são aplicados.",
+        tags: ["3 Arquétipos", "+1 por melhoria · Limite máximo: +10"],
+        ruleSections: [
+          {
+            title: "Arquétipos e Competências",
+            text: "No início do jogo, cada personagem escolhe seus Arquétipos e desenvolve suas Competências para interagir com o mundo.",
+          },
+          {
+            title: "1.1. Escolha de Arquétipos",
+            text: "No início do jogo, cada personagem escolhe 3 Arquétipos:",
+            items: [
+              "1 Arquétipo relacionado à sua classe",
+              "2 Arquétipos livres, escolhidos pelo jogador",
+            ],
+          },
+          {
+            title: "1.2. Os Arquétipos",
+            text: "Os Arquétipos representam as áreas em que o personagem possui experiência, conhecimento e habilidade para interagir com o mundo.\n\nCada Arquétipo concede ao personagem um conjunto de Competências, utilizadas para realizar feitos mundanos, superar desafios e interagir com outros personagens.\n\nAs Competências estão diretamente ligadas aos Arquétipos. Portanto, o personagem só pode utilizar uma Competência quando ela pertence a um dos seus Arquétipos escolhidos.",
+          },
+          {
+            title: "1.3. Competências e Bônus",
+            text: "Cada Competência possui um bônus próprio, que começa em um valor definido na criação do personagem, como +1, +2, +3 e assim por diante.\n\nEsses bônus são somados aos testes sempre que o personagem utiliza uma Competência na qual é treinado por meio de seus Arquétipos.\n\nPor meio de XP, o jogador pode aumentar o bônus de uma Competência em +1 por melhoria, até o limite máximo de +10.",
+            formulas: ["+1 por melhoria · Limite máximo: +10"],
+          },
+          {
+            title: "Regras Gerais de Testes",
+            text: "As regras gerais de testes cobrem desafios mundanos, testes de Competência e testes contestados.",
+          },
+          {
+            title: "2.1. Desafios Mundanos",
+            text: "Fora de combate, os desafios são resolvidos por testes contra uma dificuldade definida pelo Narrador. As dificuldades são divididas em quatro categorias:",
+            table: {
+              headers: ["Dificuldade", "Classificação"],
+              rows: [
+                ["1 a 10", "Mundano"],
+                ["11 a 15", "Heroico — feitos que beiram o sobre-humano"],
+                ["16 a 20", "Sobre-humano"],
+                ["21 a 30", "Bestas e Divindades"],
+              ],
+            },
+          },
+          {
+            title: "2.2. Testes de Competência",
+            text: "Quando um personagem tenta realizar uma ação, o Narrador determina se ela exige uma Competência específica.",
+          },
+          {
+            title: "2.2. Testes de Competência — Com Competência",
+            text: "Quando o personagem possui a Competência necessária por meio de um de seus Arquétipos, realiza o teste somando:\n\nDado do Dao + Dado do Arquétipo + bônus da Competência.\n\nO resultado é comparado à dificuldade definida pelo Narrador.",
+            formulas: ["Dado do Dao + Dado do Arquétipo + bônus da Competência"],
+          },
+          {
+            title: "2.2. Testes de Competência — Sem Competência",
+            text: "Quando o personagem não possui a Competência necessária em seus Arquétipos, realiza o teste apenas com:\n\nDado do Dao.\n\nO resultado é comparado à dificuldade definida pelo Narrador.",
+            formulas: ["Dado do Dao"],
+          },
+          {
+            title: "2.3. Testes Contestados",
+            text: "Quando um personagem tenta superar ou se impor sobre outro personagem, o teste pode ser resolvido por uma disputa direta, sem que o Narrador precise estabelecer uma dificuldade.\n\nNesse caso, os dois lados realizam suas rolagens, conforme suas Competências e capacidades.",
+          },
+          {
+            title: "2.3. Testes Contestados — Exemplo: Seduzir",
+            text: "Um personagem tenta seduzir outro.\n\nCaso o personagem não possua a Competência Seduzir por meio de seus Arquétipos, ele rola apenas o Dado do Dao contra a rolagem de resistência do alvo.\n\nSe não houver um alvo realizando uma disputa direta, o teste será resolvido contra uma dificuldade definida pelo Narrador.",
+            items: [
+              "Personagem que possui a Competência Seduzir: rola Dado do Dao + Dado do Arquétipo + bônus da Competência.",
+              "Alvo: rola Dado do Dao + Vontade.",
+            ],
+            note: "O resultado das duas rolagens é comparado para determinar o desfecho da disputa.",
+          },
+        ],
+      },
+      {
         id: "arquetipos-sociais",
         name: "Arquétipos Sociais",
         glyph: "✦",
@@ -856,11 +858,13 @@ export const DATA: Record<string, Category> = {
         description:
           "Arquétipos voltados à interação, influência e condução de pessoas.",
         tags: [],
-        ruleSections: [
+        cards: [
           {
-            title: "1. Sedutor",
+            name: "1. Sedutor",
+            image: "/arquetipos/01-sedutor-1024.webp",
+            srcSet: "/arquetipos/01-sedutor-640.webp 640w, /arquetipos/01-sedutor-1024.webp 1024w",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Social. Especialista em atração, expressão pessoal e influência interpessoal.",
-            dice: DADO_ARQUETIPO,
             items: [
               "Sedução: +3",
               "Performance: +2 (Especialização em Dança, Moda ou Atuação)",
@@ -869,9 +873,11 @@ export const DATA: Record<string, Category> = {
             note: "Conhecimentos Relevantes: Psicologia, Etiqueta, Moda.",
           },
           {
-            title: "2. Manipulador",
+            name: "2. Manipulador",
+            image: "/arquetipos/02-manipulador-1024.webp",
+            srcSet: "/arquetipos/02-manipulador-640.webp 640w, /arquetipos/02-manipulador-1024.webp 1024w",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Social. Especialista em influência psicológica, controle emocional e manipulação comportamental.",
-            dice: DADO_ARQUETIPO,
             items: [
               "Persuasão: +3",
               "Leitura Emocional: +2",
@@ -880,9 +886,11 @@ export const DATA: Record<string, Category> = {
             note: "Conhecimentos Relevantes: Criminologia, Psicologia, Política.",
           },
           {
-            title: "3. Diplomata",
+            name: "3. Diplomata",
+            image: "/arquetipos/03-diplomata-1024.webp",
+            srcSet: "/arquetipos/03-diplomata-640.webp 640w, /arquetipos/03-diplomata-1024.webp 1024w",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Social. Especialista em negociação, argumentação e resolução de conflitos.",
-            dice: DADO_ARQUETIPO,
             items: [
               "Debate: +3",
               "Persuasão: +2",
@@ -891,9 +899,11 @@ export const DATA: Record<string, Category> = {
             note: "Conhecimentos Relevantes: Política, Direito, História, Filosofia.",
           },
           {
-            title: "4. Líder",
+            name: "4. Líder",
+            image: "/arquetipos/04-lider-1024.webp",
+            srcSet: "/arquetipos/04-lider-640.webp 640w, /arquetipos/04-lider-1024.webp 1024w",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Social. Especialista em conduzir pessoas, estabelecer autoridade e inspirar grupos.",
-            dice: DADO_ARQUETIPO,
             items: [
               "Liderança: +3",
               "Intimidação: +2",
@@ -911,11 +921,13 @@ export const DATA: Record<string, Category> = {
         description:
           "Arquétipos voltados à investigação, planejamento, estudo e conhecimento oculto.",
         tags: [],
-        ruleSections: [
+        cards: [
           {
-            title: "5. Investigador",
+            name: "5. Investigador",
+            image: "/arquetipos/05-investigador-1024.webp",
+            srcSet: "/arquetipos/05-investigador-640.webp 640w, /arquetipos/05-investigador-1024.webp 1024w",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Investigativo. Especialista em encontrar pistas, reconstruir acontecimentos e descobrir verdades ocultas.",
-            dice: DADO_ARQUETIPO,
             items: [
               "Investigação: +3",
               "Percepção: +2",
@@ -924,9 +936,11 @@ export const DATA: Record<string, Category> = {
             note: "Conhecimentos Relevantes: Criminologia, Direito, Anatomia.",
           },
           {
-            title: "6. Estrategista",
+            name: "6. Estrategista",
+            image: "/arquetipos/06-estrategista-1024.webp",
+            srcSet: "/arquetipos/06-estrategista-640.webp 640w, /arquetipos/06-estrategista-1024.webp 1024w",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Intelectual. Especialista em planejamento, antecipação e tomada de decisões complexas.",
-            dice: DADO_ARQUETIPO,
             items: [
               "Estratégia: +3",
               "Conhecimento: +2 (Especialização em Guerra, Logística ou Política)",
@@ -935,9 +949,11 @@ export const DATA: Record<string, Category> = {
             note: "Conhecimentos Relevantes: História, Política, Arquitetura/Engenharia Militar.",
           },
           {
-            title: "7. Erudito",
+            name: "7. Erudito",
+            image: "/arquetipos/07-erudito-1024.webp",
+            srcSet: "/arquetipos/07-erudito-640.webp 640w, /arquetipos/07-erudito-1024.webp 1024w",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Intelectual. Especialista em estudos, idiomas, registros históricos e sistemas complexos.",
-            dice: DADO_ARQUETIPO,
             items: [
               "Conhecimento: +3 (Especialização em História, Filosofia ou Ciências)",
               "Decifração: +2",
@@ -946,9 +962,11 @@ export const DATA: Record<string, Category> = {
             note: "Conhecimentos Relevantes: História, Filosofia, Arquitetura, Astronomia.",
           },
           {
-            title: "8. Místico",
+            name: "8. Místico",
+            image: "/arquetipos/08-mistico-1024.webp",
+            srcSet: "/arquetipos/08-mistico-640.webp 640w, /arquetipos/08-mistico-1024.webp 1024w",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Intelectual. Especialista em tradições espirituais, fenômenos sobrenaturais e conhecimentos ocultos.",
-            dice: DADO_ARQUETIPO,
             items: [
               "Conhecimento: +3 (Especialização em Ocultismo)",
               "Percepção: +2",
@@ -966,11 +984,13 @@ export const DATA: Record<string, Category> = {
         description:
           "Arquétipos voltados à infiltração, sobrevivência, rastreamento e disciplina.",
         tags: [],
-        ruleSections: [
+        cards: [
           {
-            title: "9. Infiltrador",
+            name: "9. Infiltrador",
+            image: "/arquetipos/09-infiltrador-1024.webp",
+            srcSet: "/arquetipos/09-infiltrador-640.webp 640w, /arquetipos/09-infiltrador-1024.webp 1024w",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Exploração. Especialista em passar despercebido, observar ambientes e acessar locais restritos.",
-            dice: DADO_ARQUETIPO,
             items: [
               "Discrição: +3",
               "Percepção: +2",
@@ -979,9 +999,11 @@ export const DATA: Record<string, Category> = {
             note: "Conhecimentos Relevantes: Arquitetura, Cybersecurity, Mecânica (Trancas/Sistemas).",
           },
           {
-            title: "10. Cowboy",
+            name: "10. Cowboy",
+            image: "/arquetipos/10-cowboy-1024.webp",
+            srcSet: "/arquetipos/10-cowboy-640.webp 640w, /arquetipos/10-cowboy-1024.webp 1024w",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Exploração. Especialista em sobrevivência, travessias rurais/selvagens e manuseio de animais/recursos no campo.",
-            dice: DADO_ARQUETIPO,
             items: [
               "Sobrevivência: +3",
               "Rastreamento: +2",
@@ -990,9 +1012,11 @@ export const DATA: Record<string, Category> = {
             note: "Conhecimentos Relevantes: Zoologia, Geografia, Anatomia.",
           },
           {
-            title: "11. Caçador",
+            name: "11. Caçador",
+            image: "/arquetipos/11-cacador-1024.webp",
+            srcSet: "/arquetipos/11-cacador-640.webp 640w, /arquetipos/11-cacador-1024.webp 1024w",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Exploração. Especialista em perseguir alvos/criaturas, identificar seus hábitos e explorar suas vulnerabilidades.",
-            dice: DADO_ARQUETIPO,
             items: [
               "Rastreamento: +3",
               "Identificação: +2",
@@ -1001,9 +1025,11 @@ export const DATA: Record<string, Category> = {
             note: "Conhecimentos Relevantes: Zoologia, Biologia, Anatomia.",
           },
           {
-            title: "12. Monge",
+            name: "12. Monge",
+            image: "/arquetipos/12-monge-1024.webp",
+            srcSet: "/arquetipos/12-monge-640.webp 640w, /arquetipos/12-monge-1024.webp 1024w",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Exploração / Prático. Especialista em disciplina, autocontrole, aperfeiçoamento físico e tradições espirituais.",
-            dice: DADO_ARQUETIPO,
             items: [
               "Luta: +3",
               "Atletismo: +2",
@@ -1021,11 +1047,13 @@ export const DATA: Record<string, Category> = {
         description:
           "Arquétipos voltados à expressão criativa e ao desempenho físico.",
         tags: [],
-        ruleSections: [
+        cards: [
           {
-            title: "13. Artista",
+            name: "13. Artista",
+            image: "/arquetipos/13-artista-1024.webp",
+            srcSet: "/arquetipos/13-artista-640.webp 640w, /arquetipos/13-artista-1024.webp 1024w",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Expressão. Especialista em expressão criativa, manifestações artísticas e impacto estético.",
-            dice: DADO_ARQUETIPO,
             items: [
               "Performance: +3 (Especialização à escolha: Música, Pintura, Atuação, etc.)",
               "Leitura Emocional: +2 (Ajustado no lugar de Estética, integrando com as competências oficiais)",
@@ -1034,9 +1062,11 @@ export const DATA: Record<string, Category> = {
             note: "Performances Relevantes: Dança, Canto, Atuação, Música, Escultura, Pintura, Ilusionismo, Escrita Artística.",
           },
           {
-            title: "14. Atleta",
+            name: "14. Atleta",
+            image: "/arquetipos/14-atleta-1024.webp",
+            srcSet: "/arquetipos/14-atleta-640.webp 640w, /arquetipos/14-atleta-1024.webp 1024w",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Físico. Especialista em desempenho físico, condicionamento corporal e práticas esportivas.",
-            dice: DADO_ARQUETIPO,
             items: [
               "Atletismo: +3",
               "Luta: +2",
@@ -1054,11 +1084,13 @@ export const DATA: Record<string, Category> = {
         description:
           "Arquétipos voltados às profissões e às áreas técnicas e científicas.",
         tags: [],
-        ruleSections: [
+        cards: [
           {
-            title: "15. Chef",
+            name: "15. Chef",
+            image: "/arquetipos/15-chef-1024.webp",
+            srcSet: "/arquetipos/15-chef-640.webp 640w, /arquetipos/15-chef-1024.webp 1024w",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Profissional. Especialista em culinária, gastronomia, ingredientes e preparação de alimentos.",
-            dice: DADO_ARQUETIPO,
             items: [
               "Conhecimento: +3 (Especialização em Culinária)",
               "Ofício: +2",
@@ -1067,9 +1099,11 @@ export const DATA: Record<string, Category> = {
             note: "Conhecimentos Relevantes: Culinária, Biologia, Química.",
           },
           {
-            title: "16. Especialista",
+            name: "16. Especialista",
+            image: "/arquetipos/16-especialista-1024.webp",
+            srcSet: "/arquetipos/16-especialista-640.webp 640w, /arquetipos/16-especialista-1024.webp 1024w",
+            dice: DADO_ARQUETIPO.values,
             text: "Categoria: Profissional. Especialista em uma área técnica, científica ou profissional, aplicando conhecimentos específicos para resolver problemas.",
-            dice: DADO_ARQUETIPO,
             items: [
               "Conhecimento: +3 (Especialização escolhida)",
               "Investigação: +2",
@@ -1081,18 +1115,18 @@ export const DATA: Record<string, Category> = {
       },
     ],
   },
-  "arquetipos-especiais": {
-    id: "arquetipos-especiais",
-    seal: "❖",
-    label: "Arquétipos Especiais",
+  "kowloon-fighters": {
+    id: "kowloon-fighters",
+    seal: "龍",
+    label: "Kowloon Fighters",
     listLabel: "Capítulos",
-    group: "Kowloon Fighters",
+    group: "Classes",
     description:
-      "Especializações próprias de cada classe. Os Arquétipos Especiais são opções alternativas — o personagem escolhe somente um deles.",
+      "Classe dos Kowloon Fighters. Reúne os Arquétipos Especiais, os Poderes Exclusivos, as Técnicas de Combate e os Estilos de Luta.",
     items: [
       {
-        id: "arquetipos-especiais-kf",
-        name: "Arquétipos Especiais dos Kowloon Fighters",
+        id: "arquetipos-especiais",
+        name: "Arquétipos Especiais",
         glyph: "❖",
         tagline: "1 Especial de Classe + 2 Livres",
         description:
@@ -1115,7 +1149,7 @@ export const DATA: Record<string, Category> = {
             ],
           },
           {
-            title: "2. Tai Chi",
+            title: "2. Artista Marcial — Tai Chi Kyūryū",
             badge: "Em construção",
             text: "Categoria: Classe Kowloon Fighters. Descrição: acesso ao estilo Tai Chi Kyūryū.",
             dice: DADO_ARQUETIPO,
@@ -1131,37 +1165,34 @@ export const DATA: Record<string, Category> = {
             text: "Também possui poderes próprios, que ainda estão em desenvolvimento.",
           },
           {
-            title: "3. Shōtenken",
-            text: "Possui acesso aos poderes dos Dragões, podendo utilizar seus respectivos dados.",
+            title: "3. Artista Marcial — Kyūryū Shōtenken",
+            text: "Categoria: Classe Kowloon Fighters. Descrição: acesso ao estilo Kyūryū Shōtenken.\n\nPossui acesso aos poderes dos Dragões, podendo utilizar seus respectivos dados.",
+            dice: DADO_ARQUETIPO,
             items: [
+              "Conhecimento: +3",
+              "Duas Competências à escolha",
               "1 técnica básica",
               "1 técnica intermediária",
               "1 técnica mestra",
             ],
-            note: "As técnicas escolhidas não podem ter seus bônus acumulados entre si.",
+            note: "Conhecimentos Relevantes: História da Ordem e outros dois conhecimentos à escolha.\n\nAs técnicas escolhidas não podem ter seus bônus acumulados entre si.",
           },
         ],
       },
-    ],
-  },
-  "kf-tecnicas": {
-    id: "kf-tecnicas",
-    seal: "⚔",
-    label: "Técnicas de Combate",
-    listLabel: "Capítulos",
-    group: "Kowloon Fighters",
-    description:
-      "Reúne as técnicas que utilizam Qi para ampliar as capacidades ofensivas e defensivas dos Kowloon Fighters.",
-    items: [
       {
-        id: "sincronia-qi",
-        name: "Sincronia Qi: Yin/Yang",
+        id: "poderes-exclusivos",
+        name: "Poderes Exclusivos",
         glyph: "☯",
-        tagline: "Alinhamento Yin/Yang e o estado Shin-Gi-Tai",
+        tagline: "Sincronia Qi: Yin/Yang, Radians e Fa Jin",
         description:
-          "A Sincronia Qi permite que o personagem entre em um estado especial de alinhamento entre Yin e Yang, modificando as regras convencionais do Dao. Dado-base da Sincronia: 2d6.",
-        tags: ["Custo: 5 Qi"],
+          "Reúne as técnicas que utilizam Qi para ampliar as capacidades ofensivas e defensivas dos Kowloon Fighters: Sincronia Qi (Yin/Yang), Radians e Fa Jin.",
+        tags: ["Custo: 5 Qi", "Custo: 3 Qi", "Custo: 3 Qi por nível", "Tipo de dano: Agravado"],
         ruleSections: [
+          {
+            title: "Sincronia Qi: Yin/Yang",
+            text: "Alinhamento Yin/Yang e o estado Shin-Gi-Tai.\n\nA Sincronia Qi permite que o personagem entre em um estado especial de alinhamento entre Yin e Yang, modificando as regras convencionais do Dao. Dado-base da Sincronia: 2d6.",
+            items: ["Custo: 5 Qi"],
+          },
           {
             title: "Duração",
             text: "A Sincronia possui um dado próprio para determinar sua duração:",
@@ -1180,32 +1211,20 @@ export const DATA: Record<string, Category> = {
               values: ["1d4", "1d6", "1d8", "1d10", "1d12", "1d20"],
             },
           },
-        ],
-      },
-      {
-        id: "radians",
-        name: "Radians",
-        glyph: "◉",
-        tagline: "Energia concentrada em dano ou redução",
-        description:
-          "Radians é uma técnica que concentra energia para ampliar o poder ofensivo ou defensivo do personagem. Ao utilizar Radians, o personagem adiciona o resultado do dado-base ao dano causado ou à redução de dano recebida.",
-        tags: ["Custo: 3 Qi", "Tipo de dano: Agravado"],
-        ruleSections: [
+          {
+            title: "Radians",
+            text: "Energia concentrada em dano ou redução.\n\nRadians é uma técnica que concentra energia para ampliar o poder ofensivo ou defensivo do personagem. Ao utilizar Radians, o personagem adiciona o resultado do dado-base ao dano causado ou à redução de dano recebida.",
+            items: ["Custo: 3 Qi", "Tipo de dano: Agravado"],
+          },
           {
             title: "Dado-base",
             dice: { values: ["1d4", "1d6", "1d8", "1d10"] },
           },
-        ],
-      },
-      {
-        id: "fa-jin",
-        name: "Fa Jin",
-        glyph: "拳",
-        tagline: "Liberação de energia com projeção",
-        description:
-          "Fa Jin é uma técnica de liberação concentrada de energia, utilizada para potencializar ataques e projetar força sobre o adversário. Cada nível investido acrescenta um Dado Base ao dano.",
-        tags: ["Custo: 3 Qi por nível", "Tipo de dano: Agravado"],
-        ruleSections: [
+          {
+            title: "Fa Jin",
+            text: "Liberação de energia com projeção.\n\nFa Jin é uma técnica de liberação concentrada de energia, utilizada para potencializar ataques e projetar força sobre o adversário. Cada nível investido acrescenta um Dado Base ao dano.",
+            items: ["Custo: 3 Qi por nível", "Tipo de dano: Agravado"],
+          },
           {
             title: "Dado-base",
             dice: { values: ["1d4", "1d6", "1d8", "1d10"] },
@@ -1328,26 +1347,29 @@ export const DATA: Record<string, Category> = {
           },
         ],
       },
-    ],
-  },
-  "kf-estilos": {
-    id: "kf-estilos",
-    seal: "龍",
-    label: "Estilos de Luta",
-    listLabel: "Capítulos",
-    group: "Kowloon Fighters",
-    description:
-      "Apresenta o estilo marcial exclusivo dos Kowloon Fighters e suas especializações elementais.",
-    items: [
       {
-        id: "kyuryu-shotenken",
-        name: "Estilo Kyūryū Shōtenken",
+        id: "estilos-de-luta",
+        name: "Estilos de Luta",
         glyph: "龍",
-        tagline: "Nove dragões elementais, três escolhas",
+        tagline: "Kyūryū Shōtenken, Os Nove Dragões e Tai Chi Kyūryū",
         description:
-          "O Kyūryū Shōtenken é um sistema de estilos de luta inspirado nos nove dragões elementais. Cada dragão representa uma força da natureza e concede ao personagem um bônus específico, complementando seus atributos e suas fontes de energia.",
-        tags: ["Requisito: Arquétipo Artista Marcial Kyūryū Shōtenken", "Até 3 dragões", "3 pts da fonte por uso"],
+          "Apresenta o estilo marcial exclusivo dos Kowloon Fighters e suas especializações elementais.",
+        tags: [
+          "Requisito: Arquétipo Artista Marcial Kyūryū Shōtenken",
+          "Até 3 dragões",
+          "3 pts da fonte por uso",
+          "Dado do Dragão: 1d4–1d12",
+        ],
         ruleSections: [
+          {
+            title: "Estilo Kyūryū Shōtenken",
+            text: "Nove dragões elementais, três escolhas.\n\nO Kyūryū Shōtenken é um sistema de estilos de luta inspirado nos nove dragões elementais. Cada dragão representa uma força da natureza e concede ao personagem um bônus específico, complementando seus atributos e suas fontes de energia.",
+            items: [
+              "Requisito: Arquétipo Artista Marcial Kyūryū Shōtenken",
+              "Até 3 dragões",
+              "3 pts da fonte por uso",
+            ],
+          },
           {
             title: "Requisito de acesso",
             text: "Requisito de acesso: Arquétipo Especial Artista Marcial Kyūryū Shōtenken. O estilo Kyūryū Shōtenken é exclusivo dos Kowloon Fighters que escolheram o arquétipo correspondente. O personagem precisa possuir esse Arquétipo Especial para ter acesso às técnicas, especializações elementais e poderes dos Nove Dragões.",
@@ -1378,16 +1400,27 @@ export const DATA: Record<string, Category> = {
             title: "Aplicação do Bônus",
             text: "Ao utilizar um dragão, seu dado é somado à rolagem do atributo correspondente, respeitando o efeito específico e a natureza elemental daquele dragão.",
           },
+          {
+            title: "Estilo Tai Chi Kyūryū",
+            badge: "Em construção",
+            text: "Conteúdo em construção.\n\nRequisito de acesso: Arquétipo Especial Artista Marcial Tai Chi Kyūryū. Este estilo será desenvolvido posteriormente. Manter o capítulo registrado na estrutura do sistema, sem criar técnicas, poderes, custos ou efeitos até que o conteúdo oficial seja fornecido.",
+            items: ["Em construção"],
+          },
+          {
+            title: "Tai Chi Kyūryū — Requisito de acesso",
+            text: "O acesso ao estilo Tai Chi Kyūryū depende da escolha do Arquétipo Especial Artista Marcial Tai Chi Kyūryū. A escolha de um estilo não concede automaticamente acesso ao outro.",
+          },
+          {
+            title: "Tai Chi Kyūryū — Status do conteúdo",
+            badge: "Em construção",
+            note: "Em construção. As regras, técnicas e poderes do estilo Tai Chi Kyūryū serão desenvolvidos posteriormente. Não criar ou atribuir poderes provisórios a esse estilo.",
+          },
+          {
+            title: "Os Nove Dragões",
+            text: "Os estilos elementais do Kyūryū Shōtenken.\n\nCada dragão possui uma característica própria, oferecendo diferentes possibilidades de especialização durante o combate.",
+            items: ["Dado do Dragão: 1d4–1d12"],
+          },
         ],
-      },
-      {
-        id: "nove-dragoes",
-        name: "Os Nove Dragões",
-        glyph: "❖",
-        tagline: "Os estilos elementais do Kyūryū Shōtenken",
-        description:
-          "Cada dragão possui uma característica própria, oferecendo diferentes possibilidades de especialização durante o combate.",
-        tags: ["Dado do Dragão: 1d4–1d12"],
         cards: [
           {
             name: "Dragão do Fogo",
@@ -1454,26 +1487,6 @@ export const DATA: Record<string, Category> = {
           },
         ],
       },
-      {
-        id: "tai-chi-kyuryu",
-        name: "Estilo Tai Chi Kyūryū",
-        glyph: "☯",
-        tagline: "Conteúdo em construção",
-        description:
-          "Requisito de acesso: Arquétipo Especial Artista Marcial Tai Chi Kyūryū. Este estilo será desenvolvido posteriormente. Manter o capítulo registrado na estrutura do sistema, sem criar técnicas, poderes, custos ou efeitos até que o conteúdo oficial seja fornecido.",
-        tags: ["Em construção"],
-        ruleSections: [
-          {
-            title: "Requisito de acesso",
-            text: "O acesso ao estilo Tai Chi Kyūryū depende da escolha do Arquétipo Especial Artista Marcial Tai Chi Kyūryū. A escolha de um estilo não concede automaticamente acesso ao outro.",
-          },
-          {
-            title: "Status do conteúdo",
-            badge: "Em construção",
-            note: "Em construção. As regras, técnicas e poderes do estilo Tai Chi Kyūryū serão desenvolvidos posteriormente. Não criar ou atribuir poderes provisórios a esse estilo.",
-          },
-        ],
-      },
     ],
   },
 };
@@ -1482,6 +1495,6 @@ export const ALL_CATEGORIES: Category[] = Object.values(DATA);
 
 /** Descrição de grupo (ex.: visão geral de uma classe) exibida no ItemList. */
 export const GROUP_DESCRIPTIONS: Record<string, string> = {
-  "Kowloon Fighters":
+  "Classes":
     "Lutadores de Kowloon. Fonte de poder: Qi. Os Kowloon Fighters são combatentes que utilizam o Qi como fonte de energia para potencializar suas técnicas marciais, manipular as forças de Yin e Yang e alcançar estados superiores de combate. A classe possui acesso a: Sincronia Qi (Yin/Yang), Radians, Fa Jin e o Estilo Kyūryū Shōtenken.",
 };

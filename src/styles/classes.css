@@ -1600,7 +1600,7 @@
   padding-left: 12px;
   font-size: 12px;
   line-height: 1.6;
-  color: var(--dim);
+  color: var(--washi-deep);
   border-left: 2px solid var(--line-strong);
   white-space: pre-line;
 }
@@ -1627,6 +1627,8 @@
   background: var(--panel-bg);
   border: 1px solid var(--panel-border);
   clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  content-visibility: auto;
+  contain-intrinsic-size: auto 380px;
 }
 
 /* acentos orientais: brackets de canto */
@@ -1726,6 +1728,39 @@
   font-size: 12.5px;
   line-height: 1.6;
   color: var(--washi-deep);
+}
+
+.contentCard__items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contentCard__items li {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--washi);
+  padding-left: 12px;
+  position: relative;
+}
+
+.contentCard__items li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--shu);
+}
+
+.contentCard__note {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--washi-deep);
+  border-top: 1px dashed var(--line-strong);
+  padding-top: 8px;
 }
 
 /* --- Grupos e descrições (categoria/capítulo) --- */

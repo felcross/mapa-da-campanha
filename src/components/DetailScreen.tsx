@@ -549,8 +549,11 @@ export default function DetailScreen({ categoryLabel, item }: DetailScreenProps)
                     {card.image && (
                       <img
                         src={card.image}
+                        srcSet={card.srcSet}
+                        sizes={card.srcSet ? "(max-width: 700px) 100vw, 40vw" : undefined}
                         alt={card.name}
                         className="contentCard__image"
+                        loading="lazy"
                         onError={(e) => {
                           e.currentTarget.style.visibility = "hidden";
                         }}
@@ -569,6 +572,14 @@ export default function DetailScreen({ categoryLabel, item }: DetailScreenProps)
                     </div>
                   )}
                   <p className="contentCard__text">{card.text}</p>
+                  {card.items && card.items.length > 0 && (
+                    <ul className="contentCard__items">
+                      {card.items.map((entry) => (
+                        <li key={entry}>{entry}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {card.note && <p className="contentCard__note">{card.note}</p>}
                 </div>
               </article>
             ))}
