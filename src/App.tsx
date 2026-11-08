@@ -1,6 +1,6 @@
 import { lazy, Suspense, useState, type ReactNode } from "react";
 import HubScreen from "./components/hub/HubScreen";
-import NoirIntro from "./components/classes/NoirIntro";
+// [PAUSADO — NoirIntro] import NoirIntro from "./components/classes/NoirIntro";
 import ClassesView from "./components/classes/ClassesView";
 import SessionGate from "./features/auth/SessionGate";
 import { sheetEnabled } from "./featureFlag";
@@ -18,7 +18,7 @@ const SheetDetail = lazy(() => import("./features/sheet/SheetDetail"));
 
 type AppView =
   | "hub"
-  | "compendiumIntro"
+  // [PAUSADO — NoirIntro] | "compendiumIntro"
   | "compendium"
   | "sheetHome"
   | "sheetCreator"
@@ -37,18 +37,20 @@ function AppContent({
     <>
       {view === "hub" && (
         <HubScreen
-          onSelectClasses={() => setView("compendiumIntro")}
+          onSelectClasses={() => setView("compendium")}
           sheetEntry={
             sheetEnabled() ? { onSelect: () => setView("sheetHome") } : undefined
           }
         />
       )}
+      {/* [PAUSADO — NoirIntro]
       {view === "compendiumIntro" && (
         <NoirIntro
           onEnter={() => setView("compendium")}
           onBack={() => setView("hub")}
         />
       )}
+      */}
       {view === "compendium" && <ClassesView onBack={() => setView("hub")} />}
       {view === "sheetHome" && (
         <Suspense fallback={null}>
