@@ -1460,6 +1460,278 @@
   background: rgba(0, 240, 255, 0.04);
 }
 
+/* --- Blocos de conteúdo (fórmulas, exemplos, dados, pips) --- */
+
+.ruleSection__image {
+  display: block;
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border: 1px solid var(--line-strong);
+  margin: 12px 0;
+}
+
+.ruleSection__formulas {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.ruleSection__formula {
+  margin: 0;
+  padding: 12px 16px;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--shu);
+  text-shadow: 0 0 12px rgba(255, 42, 138, 0.35);
+  background: rgba(255, 42, 138, 0.06);
+  border-left: 3px solid var(--shu);
+  letter-spacing: 0.04em;
+}
+
+.ruleSection__examples {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.ruleSection__example {
+  padding: 12px 16px;
+  background: rgba(255, 180, 0, 0.05);
+  border-left: 2px solid var(--kin);
+}
+
+.ruleSection__exampleLabel {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--kin);
+}
+
+.ruleSection__example p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--washi);
+  white-space: pre-line;
+}
+
+.ruleSection__diceTrack {
+  margin: 12px 0;
+}
+
+.ruleSection__diceLabel {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--ai);
+}
+
+.ruleSection__dice {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ruleSection__die {
+  padding: 4px 10px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--washi);
+  border: 1px solid var(--line-strong);
+  background: var(--sumi-soft);
+}
+
+.ruleSection__pips {
+  margin: 12px 0;
+}
+
+.ruleSection__pipsLabel {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--ai);
+}
+
+.ruleSection__pipsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ruleSection__pip {
+  font-size: 14px;
+  line-height: 1;
+  color: var(--ai);
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.35);
+}
+
+/* --- Cards de conteúdo (dragões etc.) --- */
+
+.contentCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.contentCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+}
+
+/* acentos orientais: brackets de canto */
+.contentCard::before,
+.contentCard::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.contentCard::before {
+  top: 6px;
+  left: 6px;
+  border-top: 2px solid var(--shu);
+  border-left: 2px solid var(--shu);
+}
+
+.contentCard::after {
+  bottom: 6px;
+  right: 6px;
+  border-bottom: 2px solid var(--ai);
+  border-right: 2px solid var(--ai);
+}
+
+.contentCard:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--glow-cyan);
+}
+
+.contentCard__media {
+  position: relative;
+}
+
+.contentCard__image {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.contentCard__glyph {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Shippori Mincho", serif;
+  font-size: 20px;
+  color: var(--washi);
+  background: rgba(5, 6, 10, 0.82);
+  border: 1px solid var(--shu);
+  box-shadow: 0 0 10px rgba(255, 42, 138, 0.4);
+}
+
+.contentCard__body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  color: var(--washi);
+}
+
+.contentCard__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--washi);
+}
+
+.contentCard__dice {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.contentCard__die {
+  padding: 3px 8px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--ai);
+  border: 1px solid var(--line-strong);
+  background: var(--sumi-soft);
+}
+
+.contentCard__text {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--washi-deep);
+}
+
+/* --- Grupos e descrições (categoria/capítulo) --- */
+
+.switcher__groupHeader {
+  margin: 0;
+  padding: 10px 16px 6px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--dim);
+  border-bottom: 1px solid var(--line);
+  pointer-events: none;
+}
+
+.itemList__groupDesc {
+  margin: 0 0 8px;
+  padding: 10px 12px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--washi-deep);
+  background: rgba(0, 240, 255, 0.04);
+  border-left: 2px solid var(--shu);
+}
+
+.itemList__desc {
+  margin: 0 0 8px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--dim);
+  border-left: 2px solid var(--line-strong);
+  padding-left: 10px;
+}
+
 /* --- Mobile --- */
 
 @media (max-width: 860px) {
@@ -1492,6 +1764,10 @@
 
   .detail__name {
     font-size: 24px;
+  }
+
+  .contentCards {
+    grid-template-columns: 1fr;
   }
 }
 

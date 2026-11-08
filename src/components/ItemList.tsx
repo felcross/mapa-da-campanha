@@ -1,4 +1,4 @@
-import { ALL_CATEGORIES } from "../data/categories";
+import { ALL_CATEGORIES, GROUP_DESCRIPTIONS } from "../data/categories";
 
 interface ItemListProps {
   activeCategoryId: string;
@@ -16,6 +16,12 @@ export default function ItemList({ activeCategoryId, activeItemId, onSelectItem 
         {category.listLabel}
         <span style={{ marginLeft: 6, opacity: 0.5 }}>({category.items.length})</span>
       </p>
+      {category.group && GROUP_DESCRIPTIONS[category.group] && (
+        <p className="itemList__groupDesc">{GROUP_DESCRIPTIONS[category.group]}</p>
+      )}
+      {category.description && (
+        <p className="itemList__desc">{category.description}</p>
+      )}
       <ul className="itemList__items">
         {category.items.map(item => (
           <li key={item.id}>

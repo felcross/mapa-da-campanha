@@ -62,20 +62,25 @@ export default function CategorySwitcher({ activeCategoryId, onSelect }: Categor
         </svg>
       </button>
       <ul ref={menuRef} className="switcher__menu" role="listbox" hidden={!open}>
-        {ALL_CATEGORIES.map(cat => (
-          <li key={cat.id}>
-            <button
-              className="switcher__option"
-              type="button"
-              role="option"
-              aria-selected={cat.id === activeCategoryId}
-              onClick={() => handleSelect(cat.id)}
-            >
-              <span className="switcher__optionSeal">{cat.seal}</span>
-              <span>{cat.label}</span>
-            </button>
-          </li>
-        ))}
+        {ALL_CATEGORIES.map((cat, i) => {
+          const prev = i > 0 ? ALL_CATEGORIES[i - 1] : null;
+          const showGroup = Boolean(cat.group) && cat.group !== prev?.group;
+          return (
+            <li key={cat.id}>
+              {showGroup && <p className="switcher__groupHeader">{cat.group}</p>}
+              <button
+                className="switcher__option"
+                type="button"
+                role="option"
+                aria-selected={cat.id === activeCategoryId}
+                onClick={() => handleSelect(cat.id)}
+              >
+                <span className="switcher__optionSeal">{cat.seal}</span>
+                <span>{cat.label}</span>
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

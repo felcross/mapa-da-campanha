@@ -11,6 +11,19 @@ export interface RuleSection {
   text?: string;
   items?: string[];
   table?: RuleTable;
+  image?: string;
+  formulas?: string[];
+  examples?: string[];
+  dice?: { label?: string; values: string[] };
+  pips?: { count: number; label?: string };
+}
+
+export interface ContentCard {
+  name: string;
+  glyph?: string;
+  image?: string;
+  dice?: string[];
+  text: string;
 }
 
 export interface SubSection {
@@ -39,6 +52,7 @@ export interface Item {
   spellLibrary?: SpellLibrary[];
   tattoos?: Tattoo[];
   ruleSections?: RuleSection[];
+  cards?: ContentCard[];
 }
 
 export interface TechniqueEffect {
@@ -218,6 +232,8 @@ export interface Category {
   seal: string;
   label: string;
   listLabel: string;
+  group?: string;
+  description?: string;
   items: Item[];
 }
 
@@ -655,3 +671,6 @@ export const DATA: Record<string, Category> = {
 // ── Derived ─────────────────────────────────────────────────────────
 
 export const ALL_CATEGORIES: Category[] = Object.values(DATA);
+
+/** Descrição de grupo (ex.: visão geral de uma classe) exibida no ItemList. */
+export const GROUP_DESCRIPTIONS: Record<string, string> = {};

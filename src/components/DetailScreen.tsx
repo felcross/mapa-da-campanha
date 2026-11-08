@@ -449,8 +449,28 @@ export default function DetailScreen({ categoryLabel, item }: DetailScreenProps)
                     {section.title}
                   </h4>
                 )}
+                {section.image && (
+                  <img src={section.image} alt="" className="ruleSection__image" />
+                )}
                 {section.text && (
                   <p className="ruleSection__text">{section.text}</p>
+                )}
+                {section.formulas && section.formulas.length > 0 && (
+                  <div className="ruleSection__formulas">
+                    {section.formulas.map((formula, j) => (
+                      <p key={j} className="ruleSection__formula">{formula}</p>
+                    ))}
+                  </div>
+                )}
+                {section.examples && section.examples.length > 0 && (
+                  <div className="ruleSection__examples">
+                    {section.examples.map((example, j) => (
+                      <div key={j} className="ruleSection__example">
+                        <span className="ruleSection__exampleLabel">Exemplo</span>
+                        <p>{example}</p>
+                      </div>
+                    ))}
+                  </div>
                 )}
                 {section.items && section.items.length > 0 && (
                   <ul className="ruleSection__list">
@@ -479,7 +499,58 @@ export default function DetailScreen({ categoryLabel, item }: DetailScreenProps)
                     </tbody>
                   </table>
                 )}
+                {section.dice && (
+                  <div className="ruleSection__diceTrack">
+                    {section.dice.label && (
+                      <span className="ruleSection__diceLabel">{section.dice.label}</span>
+                    )}
+                    <div className="ruleSection__dice">
+                      {section.dice.values.map((die) => (
+                        <span key={die} className="ruleSection__die">□ {die}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {section.pips && (
+                  <div className="ruleSection__pips">
+                    {section.pips.label && (
+                      <span className="ruleSection__pipsLabel">{section.pips.label}</span>
+                    )}
+                    <div className="ruleSection__pipsRow">
+                      {Array.from({ length: section.pips.count }, (_, j) => (
+                        <span key={j} className="ruleSection__pip">○</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
+            ))}
+          </div>
+        )}
+
+        {/* ── Content Cards ── */}
+        {item.cards && item.cards.length > 0 && (
+          <div className="contentCards">
+            {item.cards.map((card) => (
+              <article key={card.name} className="contentCard">
+                {card.image && (
+                  <div className="contentCard__media">
+                    <img src={card.image} alt={card.name} className="contentCard__image" />
+                    {card.glyph && <span className="contentCard__glyph">{card.glyph}</span>}
+                  </div>
+                )}
+                <div className="contentCard__body">
+                  <h4 className="contentCard__name">{card.name}</h4>
+                  {card.dice && card.dice.length > 0 && (
+                    <div className="contentCard__dice">
+                      {card.dice.map((die) => (
+                        <span key={die} className="contentCard__die">□ {die}</span>
+                      ))}
+                    </div>
+                  )}
+                  <p className="contentCard__text">{card.text}</p>
+                </div>
+              </article>
             ))}
           </div>
         )}
