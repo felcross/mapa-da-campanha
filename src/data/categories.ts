@@ -1121,9 +1121,22 @@ export const DATA: Record<string, Category> = {
     label: "Kowloon Fighters",
     listLabel: "Capítulos",
     group: "Classes",
-    description:
-      "Classe dos Kowloon Fighters. Reúne os Arquétipos Especiais, os Poderes Exclusivos, as Técnicas de Combate e os Estilos de Luta.",
     items: [
+      {
+        id: "introducao",
+        name: "Introdução",
+        glyph: "龍",
+        tagline: "Lutadores de Kowloon · Fonte de poder: Qi",
+        description:
+          "Lutadores de Kowloon. Fonte de poder: Qi. Os Kowloon Fighters são combatentes que utilizam o Qi como fonte de energia para potencializar suas técnicas marciais, manipular as forças de Yin e Yang e alcançar estados superiores de combate. A classe possui acesso a: Sincronia Qi (Yin/Yang), Radians, Fa Jin e o Estilo Kyūryū Shōtenken.",
+        tags: ["Fonte de poder: Qi"],
+        ruleSections: [
+          {
+            image: "/kowloon/kowloon-intro-1024.webp",
+            text: "Classe dos Kowloon Fighters. Reúne os Arquétipos Especiais, os Poderes Exclusivos, as Técnicas de Combate, a Feitiçaria Tai Chi Kyūryū e Os Nove Dragões.",
+          },
+        ],
+      },
       {
         id: "arquetipos-especiais",
         name: "Arquétipos Especiais",
@@ -1150,32 +1163,17 @@ export const DATA: Record<string, Category> = {
           },
           {
             title: "2. Artista Marcial — Tai Chi Kyūryū",
-            badge: "Em construção",
-            text: "Categoria: Classe Kowloon Fighters. Descrição: acesso ao estilo Tai Chi Kyūryū.",
+            text: "Categoria: Classe Kowloon Fighters. Descrição: acesso à feitiçaria Tai Chi Kyūryū.",
             dice: DADO_ARQUETIPO,
             items: ["Conhecimento: +3", "Duas Competências à escolha"],
-            note: "Conhecimentos Relevantes: História da Ordem e outros dois conhecimentos à escolha.",
-          },
-          {
-            title: "Acesso às técnicas — Tai Chi",
-            items: [
-              "1 técnica intermediária exclusiva",
-              "1 técnica mestra exclusiva",
-            ],
-            text: "Também possui poderes próprios, que ainda estão em desenvolvimento.",
+            note: "Conhecimentos Relevantes: História da Ordem e outros dois conhecimentos à escolha.\n\nBônus: os praticantes de Tai Chi Kyūryū ganham 1 técnica intermediária exclusiva e 1 técnica mestra exclusiva.",
           },
           {
             title: "3. Artista Marcial — Kyūryū Shōtenken",
-            text: "Categoria: Classe Kowloon Fighters. Descrição: acesso ao estilo Kyūryū Shōtenken.\n\nPossui acesso aos poderes dos Dragões, podendo utilizar seus respectivos dados.",
+            text: "Categoria: Classe Kowloon Fighters. Descrição: acesso aos poderes do estilo Kyūryū Shōtenken.",
             dice: DADO_ARQUETIPO,
-            items: [
-              "Conhecimento: +3",
-              "Duas Competências à escolha",
-              "1 técnica básica",
-              "1 técnica intermediária",
-              "1 técnica mestra",
-            ],
-            note: "Conhecimentos Relevantes: História da Ordem e outros dois conhecimentos à escolha.\n\nAs técnicas escolhidas não podem ter seus bônus acumulados entre si.",
+            items: ["Conhecimento: +3", "Duas Competências à escolha"],
+            note: "Conhecimentos Relevantes: História da Ordem e outros dois conhecimentos à escolha.\n\nBônus: o personagem pode escolher 1 técnica básica, 1 técnica intermediária e 1 técnica mestra.\n\nAs técnicas escolhidas não podem ter seus bônus acumulados entre si.",
           },
         ],
       },
@@ -1348,10 +1346,158 @@ export const DATA: Record<string, Category> = {
         ],
       },
       {
-        id: "estilos-de-luta",
-        name: "Estilos de Luta",
+        id: "feiticeria-tai-chi",
+        name: "Feitiçaria Tai Chi Kyūryū",
+        glyph: "☯",
+        tagline: "Psionismo, Telecinese, Percepção Extrassensorial e Autodomínio Vital",
+        description:
+          "Arquétipo: Tai Chi Kyūryū. Os praticantes de Tai Chi Kyūryū utilizam o Prana por meio do domínio da energia interna, da mente e do equilíbrio entre corpo e ambiente. Suas técnicas permitem manipular percepções, movimentar objetos sem contato físico, ampliar os sentidos e controlar as próprias funções vitais. Fonte de energia: Prana.",
+        tags: ["Fonte de energia: Prana", "Atributo principal: MEN / ESP"],
+        ruleSections: [
+          {
+            title: "1. Psionismo — Domínio Mental",
+            text: "Função: Controlar informações, pensamentos, emoções e percepções de outros personagens.\n\nAtributo principal: MEN.",
+          },
+          {
+            title: "Leitura Mental",
+            text: "Permite captar pensamentos superficiais de um alvo.",
+            items: [
+              "Usuário: teste de Dao + MEN.",
+              "Alvo: teste de Dao + VON.",
+              "Se o usuário vencer, consegue captar pensamentos superficiais.",
+              "Diferenças maiores entre os resultados podem permitir a obtenção de informações mais específicas.",
+            ],
+          },
+          {
+            title: "Comunicação Psíquica",
+            text: "Permite estabelecer comunicação mental com outro personagem.",
+            items: [
+              "Usuário: teste de Dao + MEN.",
+              "Não exige disputa caso o alvo aceite a comunicação.",
+              "Alcance em metros: Dao + MEN.",
+            ],
+          },
+          {
+            title: "Influência Mental",
+            text: "Permite provocar emoções ou impulsos momentâneos em um alvo.",
+            items: [
+              "Usuário: teste de Dao + MEN.",
+              "Alvo: teste de Dao + VON.",
+              "Se o usuário vencer, aplica uma das seguintes influências: medo, calma ou dúvida.",
+              "Não permite controlar diretamente as ações do alvo, apenas influenciar seu estado emocional momentâneo.",
+            ],
+          },
+          {
+            title: "Ilusão Mental",
+            text: "Permite alterar a percepção de um alvo, fazendo-o perceber algo que não existe.",
+            items: [
+              "Usuário: teste de Dao + MEN.",
+              "Alvo: teste de Dao + VON.",
+              "Se o usuário vencer, o alvo passa a perceber a ilusão criada.",
+            ],
+          },
+          {
+            title: "2. Telecinese — Manipulação à Distância",
+            text: "Função: Manipular objetos e criaturas sem contato físico, utilizando força mental e energia interna.\n\nAtributo principal: MEN.",
+          },
+          {
+            title: "Impulso Telecinético",
+            text: "Permite empurrar ou puxar objetos e criaturas à distância.",
+            items: [
+              "Usuário: teste de Dao + MEN.",
+              "Alvo: teste de Dao + FOR, conforme a situação.",
+              "Se o usuário vencer, desloca o alvo.",
+              "A distância do deslocamento é determinada por Dao + MEN, conforme a resolução da técnica.",
+              "O atributo MEN também pode determinar a intensidade da força ou do dano causado.",
+            ],
+          },
+          {
+            title: "Suspensão",
+            text: "Permite manter objetos suspensos no ar por meio da energia mental.",
+            items: [
+              "Teste: Dao + MEN.",
+              "O resultado determina o peso máximo, em quilogramas, que pode ser sustentado.",
+              "Duração: MEN em minutos.",
+            ],
+          },
+          {
+            title: "Compressão",
+            text: "Permite exercer pressão telecinética sobre um alvo, comprimindo seu corpo ou estrutura.",
+            items: [
+              "Usuário: teste de Dao + MEN.",
+              "Alvo: teste de Dao + RES.",
+              "Se o usuário vencer, realiza uma rolagem de MEN puro para determinar o dano letal causado.",
+            ],
+          },
+          {
+            title: "Campo Telecinético",
+            text: "Permite criar uma barreira de força invisível para proteger o usuário contra ataques de projéteis.",
+            items: [
+              "Teste: Dao + MEN.",
+              "O resultado é somado ao REF do usuário como defesa contra projéteis.",
+            ],
+          },
+          {
+            title: "3. Percepção Extrassensorial — Sentidos Ampliados",
+            text: "Função: Perceber presenças, identificar ameaças e obter informações que ultrapassam os sentidos físicos convencionais.\n\nAtributo principal: MEN.",
+          },
+          {
+            title: "Intuição de Perigo",
+            text: "Permite perceber ameaças iminentes e reagir melhor a situações inesperadas.",
+            items: [
+              "Baseado em MEN.",
+              "O resultado é somado a qualquer teste realizado quando o personagem for surpreendido.",
+              "Habilidade passiva, permanece sempre ativa.",
+            ],
+          },
+          {
+            title: "Leitura de Vestígios",
+            text: "Permite captar fragmentos de acontecimentos associados a objetos ou locais.",
+            items: [
+              "Teste: Dao + ESP.",
+              "A dificuldade aumenta conforme a distância temporal ou espacial do acontecimento, além da antiguidade e durabilidade do objeto.",
+              "Pode revelar informações visuais, sons, cheiros e outras percepções relacionadas ao ambiente.",
+              "As informações obtidas podem fornecer vantagens investigativas e táticas para o grupo.",
+            ],
+          },
+          {
+            title: "4. Autodomínio Vital — Controle Interno",
+            text: "Função: Controlar as próprias funções corporais, recuperar vitalidade e resistir a condições físicas, mentais e espirituais.\n\nAtributo principal: ESP.",
+          },
+          {
+            title: "Regeneração Interna",
+            text: "Permite utilizar o Prana para estimular a recuperação do próprio corpo.",
+            items: [
+              "Rolagem: dado de ESP.",
+              "O resultado é somado ao dado de Prana.",
+              "O total determina a quantidade de pontos de vida recuperados.",
+            ],
+          },
+          {
+            title: "Purificação",
+            text: "Permite utilizar a energia interna para neutralizar substâncias e influências nocivas.",
+            items: [
+              "Teste: Dao + ESP.",
+              "O resultado é comparado à dificuldade do efeito nocivo.",
+              "O sucesso pode neutralizar venenos, males mentais e influências espirituais.",
+            ],
+          },
+          {
+            title: "Disciplina Vital",
+            text: "Permite controlar as funções internas do corpo para suportar condições extremas.",
+            items: [
+              "Teste: Dao + ESP.",
+              "O resultado é utilizado como bônus nos testes de resistência correspondentes.",
+              "Permite resistir a condições como frio, calor, cansaço e falta de ar.",
+            ],
+          },
+        ],
+      },
+      {
+        id: "nove-dragoes",
+        name: "Os Nove Dragões",
         glyph: "龍",
-        tagline: "Kyūryū Shōtenken, Os Nove Dragões e Tai Chi Kyūryū",
+        tagline: "Nove dragões elementais, três escolhas",
         description:
           "Apresenta o estilo marcial exclusivo dos Kowloon Fighters e suas especializações elementais.",
         tags: [
@@ -1399,21 +1545,6 @@ export const DATA: Record<string, Category> = {
           {
             title: "Aplicação do Bônus",
             text: "Ao utilizar um dragão, seu dado é somado à rolagem do atributo correspondente, respeitando o efeito específico e a natureza elemental daquele dragão.",
-          },
-          {
-            title: "Estilo Tai Chi Kyūryū",
-            badge: "Em construção",
-            text: "Conteúdo em construção.\n\nRequisito de acesso: Arquétipo Especial Artista Marcial Tai Chi Kyūryū. Este estilo será desenvolvido posteriormente. Manter o capítulo registrado na estrutura do sistema, sem criar técnicas, poderes, custos ou efeitos até que o conteúdo oficial seja fornecido.",
-            items: ["Em construção"],
-          },
-          {
-            title: "Tai Chi Kyūryū — Requisito de acesso",
-            text: "O acesso ao estilo Tai Chi Kyūryū depende da escolha do Arquétipo Especial Artista Marcial Tai Chi Kyūryū. A escolha de um estilo não concede automaticamente acesso ao outro.",
-          },
-          {
-            title: "Tai Chi Kyūryū — Status do conteúdo",
-            badge: "Em construção",
-            note: "Em construção. As regras, técnicas e poderes do estilo Tai Chi Kyūryū serão desenvolvidos posteriormente. Não criar ou atribuir poderes provisórios a esse estilo.",
           },
           {
             title: "Os Nove Dragões",
@@ -1494,7 +1625,4 @@ export const DATA: Record<string, Category> = {
 export const ALL_CATEGORIES: Category[] = Object.values(DATA);
 
 /** Descrição de grupo (ex.: visão geral de uma classe) exibida no ItemList. */
-export const GROUP_DESCRIPTIONS: Record<string, string> = {
-  "Classes":
-    "Lutadores de Kowloon. Fonte de poder: Qi. Os Kowloon Fighters são combatentes que utilizam o Qi como fonte de energia para potencializar suas técnicas marciais, manipular as forças de Yin e Yang e alcançar estados superiores de combate. A classe possui acesso a: Sincronia Qi (Yin/Yang), Radians, Fa Jin e o Estilo Kyūryū Shōtenken.",
-};
+export const GROUP_DESCRIPTIONS: Record<string, string> = {};

@@ -19,7 +19,8 @@ export default function ClassesView({ onBack }: ClassesViewProps) {
 
   const handleCategorySelect = useCallback((categoryId: string) => {
     setActiveCategoryId(categoryId);
-    setActiveItemId(null);
+    const intro = DATA[categoryId]?.items.find((i) => i.id === "introducao");
+    setActiveItemId(intro ? intro.id : null);
     setSidebarOpen(false);
   }, []);
 

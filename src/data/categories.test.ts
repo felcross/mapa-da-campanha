@@ -19,7 +19,14 @@ describe("categories — estrutura do conteúdo", () => {
     expect(DATA["regras-combate"].items).toHaveLength(1);
     expect(DATA.glossario.items).toHaveLength(1);
     expect(DATA.arquetipos.items).toHaveLength(6);
-    expect(DATA["kowloon-fighters"].items).toHaveLength(4);
+    expect(DATA["kowloon-fighters"].items.map((i) => i.id)).toEqual([
+      "introducao",
+      "arquetipos-especiais",
+      "poderes-exclusivos",
+      "tecnicas-de-nivel",
+      "feiticeria-tai-chi",
+      "nove-dragoes",
+    ]);
   });
 
   it("grupos e descrições de categoria presentes", () => {
@@ -27,9 +34,12 @@ describe("categories — estrutura do conteúdo", () => {
     expect(DATA.arquetipos.group).toBe("As Seis Harmonias");
     expect(DATA["kowloon-fighters"].group).toBe("Classes");
     for (const cat of ALL_CATEGORIES) {
-      expect(cat.description).toBeTruthy();
+      if (cat.id !== "kowloon-fighters") {
+        expect(cat.description).toBeTruthy();
+      }
     }
-    expect(GROUP_DESCRIPTIONS["Classes"]).toContain("Qi");
+    expect(DATA["kowloon-fighters"].description).toBeUndefined();
+    expect(GROUP_DESCRIPTIONS["Classes"]).toBeUndefined();
     expect(GROUP_DESCRIPTIONS["Kowloon Fighters"]).toBeUndefined();
   });
 
@@ -77,9 +87,9 @@ describe("categories — estrutura do conteúdo", () => {
   });
 
   it("Os Nove Dragões tem 9 cards, cada um com imagem e kanji", () => {
-    const estilos = DATA["kowloon-fighters"].items.find((i) => i.id === "estilos-de-luta");
-    expect(estilos?.cards).toHaveLength(9);
-    for (const card of estilos?.cards ?? []) {
+    const dragões = DATA["kowloon-fighters"].items.find((i) => i.id === "nove-dragoes");
+    expect(dragões?.cards).toHaveLength(9);
+    for (const card of dragões?.cards ?? []) {
       expect(card.image).toMatch(/^\/dragoes\/dragao-.+\.jpg$/);
       expect(card.glyph).toHaveLength(1);
       expect(card.dice).toHaveLength(5);
@@ -98,7 +108,7 @@ describe("categories — estrutura do conteúdo", () => {
     }
   });
 
-  it("Arquétipos Especiais KF: 3 opções com regras de acesso às técnicas", () => {
+  it("Arquétipos Especiais KF: 3 opções com bônus e sem badge de em construção", () => {
     const kf = DATA["kowloon-fighters"].items.find((i) => i.id === "arquetipos-especiais");
     const secoes = kf?.ruleSections ?? [];
     const titulos = secoes.map((s) => s.title);
@@ -106,18 +116,22 @@ describe("categories — estrutura do conteúdo", () => {
     expect(titulos).toContain("2. Artista Marcial — Tai Chi Kyūryū");
     expect(titulos).toContain("3. Artista Marcial — Kyūryū Shōtenken");
     expect(titulos).toContain("Acesso às técnicas — Kyūryū Hyakusōken");
-    expect(titulos).toContain("Acesso às técnicas — Tai Chi");
+    expect(titulos).not.toContain("Acesso às técnicas — Tai Chi");
+    expect(secoes.some((s) => s.badge === "Em construção")).toBe(false);
     const hyakusoken = secoes.find((s) => s.title === "Acesso às técnicas — Kyūryū Hyakusōken");
     expect(hyakusoken?.items).toEqual([
       "3 técnicas básicas",
       "2 técnicas intermediárias",
       "2 técnicas mestras",
     ]);
+    const taiChi = secoes.find((s) => s.title === "2. Artista Marcial — Tai Chi Kyūryū");
+    expect(taiChi?.text).toContain("acesso à feitiçaria Tai Chi Kyūryū");
+    expect(taiChi?.note).toContain("Bônus: os praticantes de Tai Chi Kyūryū ganham 1 técnica intermediária exclusiva e 1 técnica mestra exclusiva");
     const shotenken = secoes.find((s) => s.title === "3. Artista Marcial — Kyūryū Shōtenken");
+    expect(shotenken?.text).toBe("Categoria: Classe Kowloon Fighters. Descrição: acesso aos poderes do estilo Kyūryū Shōtenken.");
     expect(shotenken?.dice?.values).toEqual(["1d4", "1d6", "1d8", "1d10"]);
-    expect(shotenken?.items).toContain("Conhecimento: +3");
-    expect(shotenken?.items).toContain("Duas Competências à escolha");
-    expect(shotenken?.note).toContain("História da Ordem e outros dois conhecimentos à escolha");
+    expect(shotenken?.items).toEqual(["Conhecimento: +3", "Duas Competências à escolha"]);
+    expect(shotenken?.note).toContain("Bônus: o personagem pode escolher 1 técnica básica, 1 técnica intermediária e 1 técnica mestra");
   });
 
   it("Poderes Exclusivos reúne Sincronia Qi, Radians e Fa Jin numa página", () => {
@@ -163,16 +177,42 @@ describe("categories — estrutura do conteúdo", () => {
     ]);
   });
 
-  it("Kyūryū Shōtenken tem requisito de acesso e Tai Chi registrado como em construção", () => {
-    const estilos = DATA["kowloon-fighters"].items.find((i) => i.id === "estilos-de-luta");
-    expect(estilos?.ruleSections?.[1].title).toBe("Requisito de acesso");
-    expect(estilos?.tags).toContain("Requisito: Arquétipo Artista Marcial Kyūryū Shōtenken");
-    const titulos = (estilos?.ruleSections ?? []).map((s) => s.title);
-    expect(titulos).toContain("Estilo Tai Chi Kyūryū");
-    expect(titulos).toContain("Tai Chi Kyūryū — Status do conteúdo");
-    const taiChi = estilos?.ruleSections?.find((s) => s.title === "Estilo Tai Chi Kyūryū");
-    expect(taiChi?.badge).toBe("Em construção");
-    expect(taiChi?.text).toContain("sem criar técnicas, poderes, custos ou efeitos");
+  it("Kyūryū Shōtenken tem requisito de acesso; Tai Chi saiu dos estilos", () => {
+    const dragões = DATA["kowloon-fighters"].items.find((i) => i.id === "nove-dragoes");
+    expect(dragões?.name).toBe("Os Nove Dragões");
+    expect(dragões?.ruleSections?.[1].title).toBe("Requisito de acesso");
+    expect(dragões?.tags).toContain("Requisito: Arquétipo Artista Marcial Kyūryū Shōtenken");
+    const titulos = (dragões?.ruleSections ?? []).map((s) => s.title);
+    expect(titulos).toContain("Estilo Kyūryū Shōtenken");
+    expect(titulos).toContain("Seleção dos Dragões");
+    expect(titulos).toContain("Os Nove Dragões");
+    expect(titulos).not.toContain("Estilo Tai Chi Kyūryū");
+    expect(titulos).not.toContain("Tai Chi Kyūryū — Status do conteúdo");
+    expect(dragões?.ruleSections?.some((s) => s.badge === "Em construção")).toBe(false);
+  });
+
+  it("Introdução da classe Kowloon Fighters traz os textos e a imagem", () => {
+    const intro = DATA["kowloon-fighters"].items.find((i) => i.id === "introducao");
+    expect(intro?.description).toContain("Lutadores de Kowloon. Fonte de poder: Qi.");
+    expect(intro?.ruleSections?.[0].image).toBe("/kowloon/kowloon-intro-1024.webp");
+    expect(intro?.ruleSections?.[0].text).toContain("Feitiçaria Tai Chi Kyūryū e Os Nove Dragões");
+  });
+
+  it("Feitiçaria Tai Chi Kyūryū: 4 áreas e 13 técnicas", () => {
+    const feit = DATA["kowloon-fighters"].items.find((i) => i.id === "feiticeria-tai-chi");
+    expect(feit?.description).toContain("Fonte de energia: Prana");
+    expect(feit?.ruleSections).toHaveLength(17);
+    const titulos = (feit?.ruleSections ?? []).map((s) => s.title);
+    expect(titulos).toContain("1. Psionismo — Domínio Mental");
+    expect(titulos).toContain("2. Telecinese — Manipulação à Distância");
+    expect(titulos).toContain("3. Percepção Extrassensorial — Sentidos Ampliados");
+    expect(titulos).toContain("4. Autodomínio Vital — Controle Interno");
+    expect(titulos).toContain("Leitura Mental");
+    expect(titulos).toContain("Campo Telecinético");
+    expect(titulos).toContain("Leitura de Vestígios");
+    expect(titulos).toContain("Disciplina Vital");
+    const areas = (feit?.ruleSections ?? []).filter((s) => s.text?.startsWith("Função:"));
+    expect(areas).toHaveLength(4);
   });
 
   it("manobras preservam o custo literal e Agarrar usa Dado de Dao", () => {
